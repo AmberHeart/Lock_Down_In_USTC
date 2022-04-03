@@ -38,7 +38,7 @@ class solid(pygame.sprite.Sprite):
 #设置角色
         
 buyer = solid("../res/player_right.png" , (640-80,480-80))
-buyer_speed = 12
+buyer_speed =  12
 
 #设置障碍物
 

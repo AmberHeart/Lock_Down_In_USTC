@@ -1,10 +1,3 @@
-from source.sound import hello
-
-def rungame():
-    aq = "sdadsadas"
-    hello()
-    print(aq)
+import source.supermarket
 
 
-if __name__ == "__main__":
-    rungame()
