@@ -81,6 +81,8 @@ class player(pygame.sprite.Sprite):
 
 buyer = player("../res/image/人物.png", 12)
 buyer_speed = 12
+max_speed = 12
+min_speed = 6
 
 
 # 设置障碍物
@@ -99,12 +101,16 @@ clock = pygame.time.Clock()
 
 while True:
 
-    # 锁60帧
+#锁60帧
 
     clock.tick(60)
 
-# 处理事件
+#更新速度
 
+    buyer_speed = (int)(max_speed-(max_speed-min_speed)*(bag_volume-bag_left)/bag_volume)
+    
+#处理事件
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -129,98 +135,119 @@ while True:
             movement_x = -buyer_speed
             buyer.towards = 1
             buyer.movement = 1
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            if  96 <= background_x <= 480 and -1376 <= background_y <= -1184:
+                for i in range(0,4):
+                    result_item[i] += bag_item[i]
+                    bag_item[i] = 0
+            flag = 1
+            
 
+#处理上下碰撞
 
-# 处理上下碰撞
     if (movement_x == 0 and movement_y != 0):
-        flag_ud = 1
-        for i in blocks:
-            i.rect.top += movement_y
-            if pygame.sprite.collide_rect(buyer, i):
-                i.rect.top -= movement_y
-                flag_ud = 0
-                break
-            i.rect.top -= movement_y
-        if flag_ud == 1:
-            background_y += movement_y
-            for i in blocks:
-                i.rect.top += movement_y
-
-# 处理左右碰撞
+        if (solid_collide_y(blocks,movement_y,buyer) == 1):
+            flag = 1
+            for i in range(0,6):
+                if (solid_collide_y(shelf[i],movement_y,buyer) == 0):
+                    flag = 0
+                    break
+            if flag == 1:
+                background_y += movement_y
+                for i in blocks:
+                    i.rect.top += movement_y
+                for j in range(0,6):
+                    for i in shelf[j]:
+                        i.rect.top += movement_y
+                        
+#处理左右碰撞
     if (movement_y == 0 and movement_x != 0):
-        flag_lr = 1
-        for i in blocks:
-            i.rect.left += movement_x
-            if pygame.sprite.collide_rect(buyer, i):
-                i.rect.left -= movement_x
-                flag_lr = 0
-                break
-            i.rect.left -= movement_x
-        if flag_lr == 1:
-            background_x += movement_x
-            for i in blocks:
-                i.rect.left += movement_x
-
-# 处理斜碰
+        if (solid_collide_x(blocks,movement_x,buyer) == 1):
+            flag = 1
+            for i in range(0,6):
+                if (solid_collide_x(shelf[i],movement_x,buyer) == 0):
+                    flag = 0
+                    break
+            if flag == 1:
+                background_x += movement_x
+                for i in blocks:
+                    i.rect.left += movement_x
+                for j in range(0,6):
+                    for i in shelf[j]:
+                        i.rect.left += movement_x
+    
+#处理斜碰
     if (movement_y != 0 and movement_x != 0):
         flag = 1
         flag_ud = 1
         m_x1 = (int)(movement_x / math.sqrt(2))
         m_y1 = (int)(movement_y / math.sqrt(2))
-        for i in blocks:
-            i.rect.left += m_x1
-            i.rect.top += m_y1
-            if pygame.sprite.collide_rect(buyer, i):
-                i.rect.left -= m_x1
-                i.rect.top -= m_y1
-                flag = 0
-                break
-            i.rect.left -= m_x1
-            i.rect.top -= m_y1
-        if flag == 1:
-            background_x += m_x1
-            background_y += m_y1
-            for i in blocks:
-                i.rect.left += m_x1
-                i.rect.top += m_y1
+        flag = 1
+        if (solid_collide_xy(blocks,m_x1,m_y1,buyer) == 1):
+            for i in range(0,6):
+                if (solid_collide_xy(shelf[i],m_x1,m_y1,buyer) == 0):
+                    flag = 0
+                    break
+            if flag == 1:
+                background_x += m_x1
+                background_y += m_y1
+                for i in blocks:
+                    i.rect.left += m_x1
+                    i.rect.top += m_y1
+                for j in range(0,6):
+                    for i in shelf[j]:
+                        i.rect.left += m_x1
+                        i.rect.top += m_y1
         else:
-            # 处理上下碰撞
-            flag_ud = 1
-            for i in blocks:
-                i.rect.top += movement_y
-                if pygame.sprite.collide_rect(buyer, i):
-                    i.rect.top -= movement_y
-                    flag_ud = 0
-                    break
-                i.rect.top -= movement_y
-            if flag_ud == 1:
-                background_y += movement_y
-                for i in blocks:
-                    i.rect.top += movement_y
-            # 处理左右碰撞
-            flag_lr = 1
-            for i in blocks:
-                i.rect.left += movement_x
-                if pygame.sprite.collide_rect(buyer, i):
-                    i.rect.left -= movement_x
-                    flag_lr = 0
-                    break
-                i.rect.left -= movement_x
-            if flag_lr == 1:
-                background_x += movement_x
-                for i in blocks:
-                    i.rect.left += movement_x
+            flag = 0
+        if flag == 0:
+            #处理上下碰撞
+            if (solid_collide_y(blocks,movement_y,buyer) == 1):
+                flagud = 1
+                for i in range(0,6):
+                    if (solid_collide_y(shelf[i],movement_y,buyer) == 0):
+                        flagud = 0
+                        break
+                if flagud == 1:
+                    background_y += movement_y
+                    for i in blocks:
+                        i.rect.top += movement_y
+                    for j in range(0,6):
+                        for i in shelf[j]:
+                            i.rect.top += movement_y
+            #处理左右碰撞
+            if (solid_collide_x(blocks,movement_x,buyer) == 1):
+                flaglr = 1
+                for i in range(0,6):
+                    if (solid_collide_x(shelf[i],movement_x,buyer) == 0):
+                        flaglr = 0
+                        break
+                if flaglr == 1:
+                    background_x += movement_x
+                    for i in blocks:
+                        i.rect.left += movement_x
+                    for j in range(0,6):
+                        for i in shelf[j]:
+                            i.rect.left += movement_x
+            
+#打印图像
 
-# 打印图像
+    main_screen.blit( image_background , ( background_x , background_y ))
 
-    main_screen.blit(image_background, (background_x, background_y))
-
+    '''
     for i in blocks:
-        main_screen.blit(i.image, i.rect)
+        main_screen.blit( i.image , i.rect )
+    
+        
+    for j in range(0,6):
+        for i in shelf[j]:
+            main_screen.blit( i.image , i.rect )
+    '''
     if buyer.movement == 1:
         buyer.update(pygame.time.get_ticks())
     else:
         buyer.index = buyer.firstframe[buyer.towards]
     buyer.image = buyer.images[buyer.index]
     main_screen.blit(buyer.image, buyer.rect)
+    
     pygame.display.flip()
