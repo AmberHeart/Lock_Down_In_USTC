@@ -12,12 +12,12 @@ pygame.init()
 
 main_screen = pygame.display.set_mode((1280,960))
 pygame.display.set_caption("这是一个标题")
-image_icon = pygame.image.load("../res/icon.png").convert()
+image_icon = pygame.image.load("../res/image/icon.png").convert()
 pygame.display.set_icon(image_icon)
 
 #设置背景
 
-image_background = pygame.image.load("../res/map.png").convert()
+image_background = pygame.image.load("../res/image/map.png").convert()
 background_x = 320
 background_y = -1280
 
@@ -37,16 +37,18 @@ class solid(pygame.sprite.Sprite):
 
 #设置角色
         
-buyer = solid("../res/player_right.png" , (640-80,480-80))
-buyer_speed =  12
+buyer = solid("../res/image/player_right.png" , (640-80,480-80))
+buyer_speed = 12
 
 #设置障碍物
 
 blocks = []
 for i in range(7,26):
-    blocks.append(solid("../res/wrong.png" , (160*i+320,160*3-1280)))
+    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*3-1280)))
 for i in range(7,22):
-    blocks.append(solid("../res/wrong.png" , (160*i+320,160*15-1280)))
+    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*15-1280)))
+for i in range(0,3):
+    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*9-1280)))
 
 #创建时钟对象（控制游戏的FPS）
 
@@ -56,7 +58,7 @@ clock = pygame.time.Clock()
 
 while True:
 
-#锁60帧
+#锁120帧
 
     clock.tick(60)
     
