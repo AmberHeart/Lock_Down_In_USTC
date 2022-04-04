@@ -1,9 +1,5 @@
 #导入模块
-from ctypes.wintypes import RGB
-from operator import index
-from random import randint
 import sys
-from turtle import towards
 import pygame
 import math
 
@@ -14,7 +10,7 @@ pygame.init()
 #设置主窗口
 
 main_screen = pygame.display.set_mode((1280,960))
-pygame.display.set_caption("这是一个标题")
+pygame.display.set_caption("科大封校隔离60s")
 image_icon = pygame.image.load("../res/image/icon.png").convert()
 pygame.display.set_icon(image_icon)
 
@@ -281,7 +277,7 @@ def all_move(m_x,m_y):
 
 clock = pygame.time.Clock()
 
-#主循环
+#超市部分主循环
 
 while True:
 
@@ -533,5 +529,48 @@ while True:
     TextSurf, TextRect = text_objects('背包剩余容量：'+str(bag_left)+'/10', font1, (255,0,0))
     TextRect.center = (640, 850)
     main_screen.blit(TextSurf, TextRect)
-    
+    pygame.display.flip()
+    if(clock_ < 61):
+        break
+#结算部分
+class stage(pygame.sprite.Sprite):
+    def __init__(self,filename,location):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = location
+
+stage_result = stage("../res/image/结算界面.png",(0,0))
+stage_result1 = stage("../res/image/按钮.png",(735,828))
+#结算部分主循环：
+#处理事件循环：
+while True:
+    main_screen.blit(stage_result.image,stage_result.rect)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    buttons = pygame.mouse.get_pressed()
+    pos = pygame.mouse.get_pos()
+    x = 0
+    for x in range(len(result_item)):
+        TextSurf, TextRect = text_objects(str(result_item[x]), font, black)
+        if(x < 3):
+            TextRect.center = (545, 450 + x * 165)
+        if(x>= 3):
+            TextRect.center = (760, 450 + (x-3) * 165)
+        main_screen.blit(TextSurf, TextRect)
+    if pos[0] > 740 and pos[0] < 810 and pos[1] >822 and pos[1] < 860:
+        main_screen.blit(stage_result1.image,stage_result1.rect)
+        if buttons[0]:
+            break
+    # text0 = "mouse position: " + str(pos)
+    # if buttons[0]:
+    #     text0 += "  left button pressed"
+    # elif buttons[1]:
+    #     text0 += "  middle button pressed"
+    # elif buttons[2]:
+    #     text0 += "  right button pressed"
+    # text0_surface = font.render(text0, True, (255, 0, 0))
+    # main_screen.blit(text0_surface, (10, 50))
     pygame.display.flip()
