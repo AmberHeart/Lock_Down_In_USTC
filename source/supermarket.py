@@ -341,6 +341,7 @@ class Supermarket:
                                             pick_sound.play()
                                             shelf_empty[j][cnt] = -1
                                         else:
+                                            pick_sound.play()
                                             shelf_empty[j][cnt] = 0
                                             emptypng.append(solid("../res/image/空大柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
                                         '''
@@ -392,6 +393,7 @@ class Supermarket:
                                     bag_left -= item_volume[5]
                                     bag_item[5] += 1
                                     if shelf_empty[5][cnt] == 1:
+                                        pick_sound.play()
                                         shelf_empty[5][cnt] = 0
                                         emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[5][cnt][0]+(background_x-320),shelf_location[5][cnt][1]+(background_y+1280))))
                                         break
@@ -406,6 +408,7 @@ class Supermarket:
                                     bag_left -= item_volume[4]
                                     bag_item[4] += 1
                                     if shelf_empty[4][cnt] == 1:
+                                        pick_sound.play()
                                         shelf_empty[4][cnt] = 0
                                         emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[4][cnt][0]+(background_x-320),shelf_location[4][cnt][1]+(background_y+1280))))
                                         break
@@ -534,7 +537,8 @@ class Supermarket:
             if(clock_ < 0):
                 break
 
-            
+        for i in range(0,6):
+            result_item[i] += bag_item[i]
         #结算部分
         class stage(pygame.sprite.Sprite):
             def __init__(self,filename,location):
