@@ -1,6 +1,7 @@
 #导入模块
 from ctypes.wintypes import RGB
 from operator import index
+from random import randint
 import sys
 from turtle import towards
 import pygame
@@ -85,7 +86,9 @@ max_speed = 12
 min_speed = 6
 
 # 设置字体等参数
-font = pygame.font.Font("../res/font/Pixel.ttf",35)
+font = pygame.font.Font("../res/font/Pixel.ttf",45)
+font1 = pygame.font.Font("../res/font/Pixel.ttf",25)
+
 black = (0, 0, 0)
 white = (255, 255, 255)
 
@@ -493,8 +496,10 @@ while True:
     main_screen.blit(items_bag.image,items_bag.rect)
     x = 1
     for x in range(len(bag_item)):
-        TextSurf, TextRect = text_objects(str(bag_item[x]), font, white)
+        TextSurf, TextRect = text_objects(str(bag_item[x]), font1, white)
         TextRect.center = (640-160 + x * (430 / 6), 940)
         main_screen.blit(TextSurf, TextRect)
-    
+    TextSurf, TextRect = text_objects('背包剩余容量：'+str(bag_left)+'/10', font1, (255,0,0))
+    TextRect.center = (640, 850)
+    main_screen.blit(TextSurf, TextRect)
     pygame.display.flip()
