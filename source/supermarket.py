@@ -525,6 +525,8 @@ class Supermarket:
             pygame.display.flip()
             if(clock_ < 0):
                 break
+
+            
         #结算部分
         class stage(pygame.sprite.Sprite):
             def __init__(self,filename,location):
