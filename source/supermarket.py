@@ -107,45 +107,72 @@ for i in range(0,6):
     shelf.append([])
 
 for i in range(8,26):
-    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*3-1280)))
-for i in range(10,20):
+    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*3-1280-40)))
+    
+shelf[0].append(solid("../res/image/wrong.png" , (1600+320+20,160*4-1280-80)))
+blocks.append(solid("../res/image/wrong.png" , (1600+320+20,160*7-1280)))
+shelf[1].append(solid("../res/image/wrong.png" , (1600+320+20,160*8-1280-80)))
+shelf[0].append(solid("../res/image/wrong.png" , (160*19+320-20,160*4-1280-80)))
+blocks.append(solid("../res/image/wrong.png" , (160*19+320-20,160*7-1280)))
+shelf[1].append(solid("../res/image/wrong.png" , (160*19+320-20,160*8-1280-80)))
+for i in range(11,19):
     shelf[0].append(solid("../res/image/wrong.png" , (160*i+320,160*4-1280-80)))
     blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*7-1280)))
     shelf[1].append(solid("../res/image/wrong.png" , (160*i+320,160*8-1280-80)))
-for i in range(8,18):
+    
+blocks.append(solid("../res/image/wrong.png" , (160*8+320+20,160*11-1280)))
+shelf[3].append(solid("../res/image/wrong.png" , (160*8+320+20,160*12-1280-80)))
+blocks.append(solid("../res/image/wrong.png" , (160*17+320-20,160*11-1280)))
+shelf[3].append(solid("../res/image/wrong.png" , (160*17+320-20,160*12-1280-80)))
+for i in range(9,17):
     blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*11-1280)))
     shelf[3].append(solid("../res/image/wrong.png" , (160*i+320,160*12-1280-80)))
-for i in range(22,26):
+
+blocks.append(solid("../res/image/wrong.png" , (160*22+320+20,160*5-1280)))
+shelf[2].append(solid("../res/image/wrong.png" , (160*22+320+20,160*6-1280-80)))
+blocks.append(solid("../res/image/wrong.png" , (160*22+320+20,160*9-1280)))
+shelf[2].append(solid("../res/image/wrong.png" , (160*22+320+20,160*10-1280-80)))
+for i in range(23,26):
     blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*5-1280)))
     shelf[2].append(solid("../res/image/wrong.png" , (160*i+320,160*6-1280-80)))
     blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*9-1280)))
     shelf[2].append(solid("../res/image/wrong.png" , (160*i+320,160*10-1280-80)))
+
 for i in range(4,13):
-    blocks.append(solid("../res/image/wrong.png" , (160*26+320,160*i-1280)))
+    blocks.append(solid("../res/image/wrong.png" , (160*26+320+20,160*i-1280)))
+    
 for i in range(8,19):
     blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*15-1280)))
-for i in range(4,8):
-    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*6-1280)))
-for i in range(7,10):
-    blocks.append(solid("../res/image/wrong.png" , (480+320,160*i-1280)))
-for i in range(12,13):
-    blocks.append(solid("../res/image/wrong.png" , (480+320,160*i-1280)))
-for i in range(4,6):
-    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*13-1280)))
+
+blocks.append(solid("../res/image/wrong.png" , (160*7+320-20,160*6-1280-40)))
+for i in range(4,7):
+    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*6-1280-40)))
+
+for i in range(6,9):
+    blocks.append(solid("../res/image/wrong.png" , (480+320-20,160*i-1280)))
+
+blocks.append(solid("../res/image/wrong.png" , (160*4+320,160*13-1280)))
+blocks.append(solid("../res/image/wrong.png" , (160*5+320-20,160*13-1280)))
+
 for i in range(20,26):
-    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*13-1280)))
-for i in range(6,8):
-    shelf[4].append(solid("../res/image/wrong.png" , (160*i+320,160*14-1280)))
-for i in range(19,20):
-    shelf[5].append(solid("../res/image/wrong.png" , (160*i+320,160*14-1280)))
+    blocks.append(solid("../res/image/wrong.png" , (160*i+320+20,160*13-1280)))
+
+shelf[4].append(solid("../res/image/wrong.png" , (160*6+320,160*14-1280)))
+shelf[4].append(solid("../res/image/wrong.png" , (160*7+320-20,160*14-1280)))
+shelf[5].append(solid("../res/image/wrong.png" , (160*19+320+20,160*14-1280)))
+    
 for i in range(4,6):
-    blocks.append(solid("../res/image/wrong.png" , (160*7+320,160*i-1280)))
-for i in range(1,3):
-    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*9-1280)))
-for i in range(1,3):
+    blocks.append(solid("../res/image/wrong.png" , (160*7+320-20,160*i-1280)))
+
+blocks.append(solid("../res/image/wrong.png" , (160*3+320-20,160*9-1280-80)))
+blocks.append(solid("../res/image/wrong.png" , (160*3+320-20,160*12-1280)))
+for i in range(0,3):
+    blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*9-1280-80)))
+for i in range(0,3):
     blocks.append(solid("../res/image/wrong.png" , (160*i+320,160*12-1280)))
-for i in range(10,12):
-    blocks.append(solid("../res/image/wrong.png" , (320,160*i-1280)))
+    
+for i in range(9,13):
+    blocks.append(solid("../res/image/wrong.png" , (320-40,160*i-1280)))
 
 
 #定义碰撞函数
@@ -224,14 +251,16 @@ while True:
             buyer.movement = 1
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                if  96 <= background_x <= 480 and -1376 <= background_y <= -1184:
+                if  96 <= background_x <= 480 and -1376 <= background_y <= -1096:
                     for i in range(0,6):
                         result_item[i] += bag_item[i]
                         bag_item[i] = 0
                         bag_left = bag_volume
                         print(result_item[i])
+                print(background_x)
+                print(background_y)
                 for j in range(0,6):
-                    if (solid_collide_y(shelf[j],max_speed,buyer) == 0):
+                    if (solid_collide_y(shelf[j],40,buyer) == 0):
                         if bag_left >= item_volume[j]:
                             bag_left -= item_volume[j]
                             bag_item[j] += 1
@@ -333,11 +362,12 @@ while True:
     for i in blocks:
         main_screen.blit( i.image , i.rect )
     
-        
+      
     for j in range(0,6):
         for i in shelf[j]:
             main_screen.blit( i.image , i.rect )
     '''
+    
     if buyer.movement == 1:
         buyer.update(pygame.time.get_ticks())
     else:
