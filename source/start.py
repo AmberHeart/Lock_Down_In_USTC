@@ -61,9 +61,10 @@ class Start:
                     self.rect.center = location
 
         stage1 = stage("../res/image/游戏标题.png", (640,200))
-        stage2 = stage("../res/image/开始游戏0.png", (640,700))
-        stage3 = stage("../res/image/开始游戏1.png", (640,580))
-            
+        stage2 = stage("../res/image/开始游戏0.png", (640,585))
+        stage3 = stage("../res/image/开始游戏1.png", (640,585))
+        stage4 = stage("../res/image/游戏教程.png", (640,685))
+        stage5 = stage("../res/image/游戏教程1.png", (640,685))
         #设置角色
                 
         buyer = player("../res/image/模糊人物.png", 12)
@@ -119,17 +120,26 @@ class Start:
             self.blit( buyer.image , buyer.rect )
             buttons = pygame.mouse.get_pressed()
             pos = pygame.mouse.get_pos()
-            text0 = "mouse position: " + str(pos)
-            if buttons[0]:
-                text0 += "  left button pressed"
-            elif buttons[1]:
-                text0 += "  middle button pressed"
-            elif buttons[2]:
-                text0 += "  right button pressed"
-            self.fill((0,0,0))
+            # text0 = "mouse position: " + str(pos)
+            # if buttons[0]:
+            #     text0 += "  left button pressed"
+            # elif buttons[1]:
+            #     text0 += "  middle button pressed"
+            # elif buttons[2]:
+            #     text0 += "  right button pressed"
             text0_surface = font.render(text0, True, (255, 0, 0))
             self.blit(text0_surface, (10, 50))
             self.blit(stage1.image,stage1.rect)
             self.blit(stage2.image,stage2.rect)
-            #self.blit(stage1,stage1.rect)
+            self.blit(stage4.image,stage4.rect)
+            if pos[0] > 525 and pos[0] < 755 and pos[1] >550 and pos[1] < 620:
+                self.blit(stage3.image,stage3.rect)
+                if buttons[0]:
+                    self.fill((0,0,0))
+                    break
+            if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
+                self.blit(stage5.image,stage5.rect)
+                if buttons[0]:
+                    break
+
             pygame.display.flip()
