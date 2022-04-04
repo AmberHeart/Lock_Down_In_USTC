@@ -556,7 +556,7 @@ class Supermarket:
             if pos[0] > 740 and pos[0] < 810 and pos[1] >822 and pos[1] < 860:
                 self.blit(stage_result1.image,stage_result1.rect)
                 if buttons[0]:
-                    return result
+                    return result_item
             # text0 = "mouse position: " + str(pos)
             # if buttons[0]:
             #     text0 += "  left button pressed"
