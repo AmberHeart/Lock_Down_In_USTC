@@ -86,7 +86,7 @@ buyer_speed = 12
 max_speed = 12
 min_speed = 6
 # 设置字体等参数
-font = pygame.font.SysFont("隶书", 35)
+font = pygame.font.Font("../res/font/Pixel.ttf",35)
 black = (0, 0, 0)
 white = (255, 255, 255)
 # 设置物品参数
@@ -411,8 +411,7 @@ while True:
     #绘制物品数量
     x = 1
     for x in range(len(bag_item)):
-        text = pygame.font.SysFont("arial",25,1)
-        TextSurf, TextRect = text_objects(str(bag_item[x]), text, white)
+        TextSurf, TextRect = text_objects(str(bag_item[x]), font, white)
         TextRect.center = (640-160 + x * (430 / 6), 940)
         main_screen.blit(TextSurf, TextRect)
     pygame.display.flip()
