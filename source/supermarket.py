@@ -335,6 +335,7 @@ class Supermarket:
                                         elif shelf_empty[j][cnt] == 2:
                                             shelf_empty[j][cnt] = -1
                                         else:
+                                            shelf_empty[j][cnt] = 0
                                             emptypng.append(solid("../res/image/空大柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
                                         '''
                                         print(shelf_location[j][cnt])
@@ -555,7 +556,7 @@ class Supermarket:
             if pos[0] > 740 and pos[0] < 810 and pos[1] >822 and pos[1] < 860:
                 self.blit(stage_result1.image,stage_result1.rect)
                 if buttons[0]:
-                    break
+                    return result
             # text0 = "mouse position: " + str(pos)
             # if buttons[0]:
             #     text0 += "  left button pressed"
