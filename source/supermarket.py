@@ -23,9 +23,9 @@ class Supermarket:
 
         #设置音效
         pick_sound = pygame.mixer.Sound("../res/sound/pick.wav")
-        pick_sound.set_volume(0.2)
+        pick_sound.set_volume(0.3)
         put_sound = pygame.mixer.Sound("../res/sound/put.wav")
-        put_sound.set_volume(0.2)
+        put_sound.set_volume(0.3)
         
         #定义实体类
 
