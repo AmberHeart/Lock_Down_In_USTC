@@ -65,6 +65,8 @@ class Start:
         stage3 = stage("../res/image/开始游戏1.png", (640,585))
         stage4 = stage("../res/image/游戏教程.png", (640,685))
         stage5 = stage("../res/image/游戏教程1.png", (640,685))
+        stage6 = stage("../res/image/退出游戏0.png", (640,785))
+        stage7 = stage("../res/image/退出游戏1.png", (640,785))
         #设置角色
                 
         buyer = player("../res/image/模糊人物.png", 12)
@@ -127,11 +129,12 @@ class Start:
             #     text0 += "  middle button pressed"
             # elif buttons[2]:
             #     text0 += "  right button pressed"
-            text0_surface = font.render(text0, True, (255, 0, 0))
-            self.blit(text0_surface, (10, 50))
+            #text0_surface = font.render(text0, True, (255, 0, 0))
+            #self.blit(text0_surface, (10, 50))
             self.blit(stage1.image,stage1.rect)
             self.blit(stage2.image,stage2.rect)
             self.blit(stage4.image,stage4.rect)
+            self.blit(stage6.image,stage6.rect)
             if pos[0] > 525 and pos[0] < 755 and pos[1] >550 and pos[1] < 620:
                 self.blit(stage3.image,stage3.rect)
                 if buttons[0]:
@@ -140,6 +143,11 @@ class Start:
             if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
                 self.blit(stage5.image,stage5.rect)
                 if buttons[0]:
+                    # !此处接入游戏教程
                     break
-
+            if pos[0] > 525 and pos[0] < 755 and pos[1] >750 and pos[1] < 820:
+                self.blit(stage7.image,stage7.rect)
+                if buttons[0]:
+                    pygame.quit()
+                    sys.exit()
             pygame.display.flip()

@@ -78,8 +78,10 @@ class Supermarket:
         min_speed = 6
 
         # 设置字体等参数
-        font = pygame.font.Font("../res/font/Pixel.ttf",45)
+        font = pygame.font.Font("../res/font/Pixel.ttf",65)
         font1 = pygame.font.Font("../res/font/Pixel.ttf",25)
+        font2 = pygame.font.Font("../res/font/Pixel.ttf",100)
+        font3 = pygame.font.Font("../res/font/Pixel.ttf",45)
         black = (0, 0, 0)
         white = (255, 255, 255)
 
@@ -274,9 +276,10 @@ class Supermarket:
         while True:
 
         #控制时间进程
+            time1 = time = pygame.time.get_ticks()
             time = pygame.time.get_ticks()
         #初始化倒计时
-            clock_ = int(60 - (time-time0)/1000)
+            clock_ = int(64 - (time-time0)/1000)
         #锁60帧
             clock.tick(60)
 
@@ -285,125 +288,127 @@ class Supermarket:
             buyer_speed = (int)(max_speed-(max_speed-min_speed)*(bag_volume-bag_left)/bag_volume)
             
         #处理事件
-            
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.KEYUP:
-                    movement_x = 0
-                    movement_y = 0
-                    buyer.movement = 0
-                if pygame.key.get_pressed()[pygame.K_w]:
-                    movement_y = buyer_speed
-                    buyer.towards = 4
-                    buyer.movement = 1
-                if pygame.key.get_pressed()[pygame.K_s]:
-                    movement_y = -buyer_speed
-                    buyer.towards = 2
-                    buyer.movement = 1
-                if pygame.key.get_pressed()[pygame.K_a]:
-                    movement_x = buyer_speed
-                    buyer.towards = 3
-                    buyer.movement = 1
-                if pygame.key.get_pressed()[pygame.K_d]:
-                    movement_x = -buyer_speed
-                    buyer.towards = 1
-                    buyer.movement = 1
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        if  96 <= background_x <= 480 and -1376 <= background_y <= -1096:
-                            for i in range(0,6):
-                                result_item[i] += bag_item[i]
-                                bag_item[i] = 0
-                                bag_left = bag_volume
-                                tmpsur,tmprect = text_objects(str(result_item[i]), font, white)
-                                result_num[i] = (tmpsur , result_num[i][1])
-                        if buyer.towards == 4:
-                            for j in range(0,4):
-                                cnt = 0
-                                flag = 1
-                                for i in shelf[j]:
-                                    i.rect.top += 40
-                                    if pygame.sprite.collide_rect(buyer , i) and shelf_empty[j][cnt] != 0 and bag_left >= item_volume[j]:
+            if clock_ > 60:
+                pygame.event.pump()
+            if clock_ <= 60:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    if event.type == pygame.KEYUP:
+                        movement_x = 0
+                        movement_y = 0
+                        buyer.movement = 0
+                    if pygame.key.get_pressed()[pygame.K_w]:
+                        movement_y = buyer_speed
+                        buyer.towards = 4
+                        buyer.movement = 1
+                    if pygame.key.get_pressed()[pygame.K_s]:
+                        movement_y = -buyer_speed
+                        buyer.towards = 2
+                        buyer.movement = 1
+                    if pygame.key.get_pressed()[pygame.K_a]:
+                        movement_x = buyer_speed
+                        buyer.towards = 3
+                        buyer.movement = 1
+                    if pygame.key.get_pressed()[pygame.K_d]:
+                        movement_x = -buyer_speed
+                        buyer.towards = 1
+                        buyer.movement = 1
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            if  96 <= background_x <= 480 and -1376 <= background_y <= -1096:
+                                for i in range(0,6):
+                                    result_item[i] += bag_item[i]
+                                    bag_item[i] = 0
+                                    bag_left = bag_volume
+                                    tmpsur,tmprect = text_objects(str(result_item[i]), font, white)
+                                    result_num[i] = (tmpsur , result_num[i][1])
+                            if buyer.towards == 4:
+                                for j in range(0,4):
+                                    cnt = 0
+                                    flag = 1
+                                    for i in shelf[j]:
+                                        i.rect.top += 40
+                                        if pygame.sprite.collide_rect(buyer , i) and shelf_empty[j][cnt] != 0 and bag_left >= item_volume[j]:
+                                            i.rect.top -= 40
+                                            bag_left -= item_volume[j]
+                                            bag_item[j] += 1
+                                            if shelf_empty[j][cnt] == 1:
+                                                shelf_empty[j][cnt] = 0
+                                                emptypng.append(solid("../res/image/空柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
+                                            elif shelf_empty[j][cnt] == 2:
+                                                shelf_empty[j][cnt] = -1
+                                            else:
+                                                shelf_empty[j][cnt] = 0
+                                                emptypng.append(solid("../res/image/空大柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
+                                            '''
+                                            print(shelf_location[j][cnt])
+                                            print(i.rect.top)
+                                            print(i.rect.left)
+                                            '''
+                                            flag = 0
+                                            break            
                                         i.rect.top -= 40
-                                        bag_left -= item_volume[j]
-                                        bag_item[j] += 1
-                                        if shelf_empty[j][cnt] == 1:
-                                            shelf_empty[j][cnt] = 0
-                                            emptypng.append(solid("../res/image/空柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
-                                        elif shelf_empty[j][cnt] == 2:
-                                            shelf_empty[j][cnt] = -1
-                                        else:
-                                            shelf_empty[j][cnt] = 0
-                                            emptypng.append(solid("../res/image/空大柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
-                                        '''
-                                        print(shelf_location[j][cnt])
-                                        print(i.rect.top)
-                                        print(i.rect.left)
-                                        '''
-                                        flag = 0
-                                        break            
+                                        cnt += 1
+                                    if flag == 0:
+                                        break
+                            if buyer.towards == 2:
+                                cnt = 0
+                                for i in shelf[4]:
                                     i.rect.top -= 40
+                                    if pygame.sprite.collide_rect(buyer , i) and shelf_empty[4][cnt] != 0 and bag_left >= item_volume[4]:
+                                        i.rect.top += 40
+                                        bag_left -= item_volume[4]
+                                        bag_item[4] += 1
+                                        if shelf_empty[4][cnt] == 1:
+                                            shelf_empty[4][cnt] = 0
+                                            emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[4][cnt][0]+(background_x-320),shelf_location[4][cnt][1]+(background_y+1280))))
+                                            break
+                                    i.rect.top += 40
                                     cnt += 1
-                                if flag == 0:
-                                    break
-                        if buyer.towards == 2:
-                            cnt = 0
-                            for i in shelf[4]:
-                                i.rect.top -= 40
-                                if pygame.sprite.collide_rect(buyer , i) and shelf_empty[4][cnt] != 0 and bag_left >= item_volume[4]:
+                                cnt = 0
+                                for i in shelf[5]:
+                                    i.rect.top -= 40
+                                    if pygame.sprite.collide_rect(buyer , i) and shelf_empty[5][cnt] != 0 and bag_left >= item_volume[5]:
+                                        i.rect.top += 40
+                                        bag_left -= item_volume[5]
+                                        bag_item[5] += 1
+                                        if shelf_empty[5][cnt] == 1:
+                                            shelf_empty[5][cnt] = 0
+                                            emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[5][cnt][0]+(background_x-320),shelf_location[5][cnt][1]+(background_y+1280))))
+                                            break
                                     i.rect.top += 40
-                                    bag_left -= item_volume[4]
-                                    bag_item[4] += 1
-                                    if shelf_empty[4][cnt] == 1:
-                                        shelf_empty[4][cnt] = 0
-                                        emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[4][cnt][0]+(background_x-320),shelf_location[4][cnt][1]+(background_y+1280))))
-                                        break
-                                i.rect.top += 40
-                                cnt += 1
-                            cnt = 0
-                            for i in shelf[5]:
-                                i.rect.top -= 40
-                                if pygame.sprite.collide_rect(buyer , i) and shelf_empty[5][cnt] != 0 and bag_left >= item_volume[5]:
-                                    i.rect.top += 40
-                                    bag_left -= item_volume[5]
-                                    bag_item[5] += 1
-                                    if shelf_empty[5][cnt] == 1:
-                                        shelf_empty[5][cnt] = 0
-                                        emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[5][cnt][0]+(background_x-320),shelf_location[5][cnt][1]+(background_y+1280))))
-                                        break
-                                i.rect.top += 40
-                                cnt += 1
-                        if buyer.towards == 1:
-                            cnt = 0
-                            for i in shelf[5]:
-                                i.rect.left -= 40
-                                if pygame.sprite.collide_rect(buyer , i) and shelf_empty[5][cnt] != 0 and bag_left >= item_volume[5]:
-                                    i.rect.left += 40
-                                    bag_left -= item_volume[5]
-                                    bag_item[5] += 1
-                                    if shelf_empty[5][cnt] == 1:
-                                        shelf_empty[5][cnt] = 0
-                                        emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[5][cnt][0]+(background_x-320),shelf_location[5][cnt][1]+(background_y+1280))))
-                                        break
-                                i.rect.left += 40
-                                cnt += 1
-                        if buyer.towards == 3:
-                            cnt = 0
-                            for i in shelf[4]:
-                                i.rect.left += 40
-                                if pygame.sprite.collide_rect(buyer , i) and shelf_empty[4][cnt] != 0 and bag_left >= item_volume[4]:
+                                    cnt += 1
+                            if buyer.towards == 1:
+                                cnt = 0
+                                for i in shelf[5]:
                                     i.rect.left -= 40
-                                    bag_left -= item_volume[4]
-                                    bag_item[4] += 1
-                                    if shelf_empty[4][cnt] == 1:
-                                        shelf_empty[4][cnt] = 0
-                                        emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[4][cnt][0]+(background_x-320),shelf_location[4][cnt][1]+(background_y+1280))))
-                                        break
-                                i.rect.left -= 40
-                                cnt += 1
-          
+                                    if pygame.sprite.collide_rect(buyer , i) and shelf_empty[5][cnt] != 0 and bag_left >= item_volume[5]:
+                                        i.rect.left += 40
+                                        bag_left -= item_volume[5]
+                                        bag_item[5] += 1
+                                        if shelf_empty[5][cnt] == 1:
+                                            shelf_empty[5][cnt] = 0
+                                            emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[5][cnt][0]+(background_x-320),shelf_location[5][cnt][1]+(background_y+1280))))
+                                            break
+                                    i.rect.left += 40
+                                    cnt += 1
+                            if buyer.towards == 3:
+                                cnt = 0
+                                for i in shelf[4]:
+                                    i.rect.left += 40
+                                    if pygame.sprite.collide_rect(buyer , i) and shelf_empty[4][cnt] != 0 and bag_left >= item_volume[4]:
+                                        i.rect.left -= 40
+                                        bag_left -= item_volume[4]
+                                        bag_item[4] += 1
+                                        if shelf_empty[4][cnt] == 1:
+                                            shelf_empty[4][cnt] = 0
+                                            emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[4][cnt][0]+(background_x-320),shelf_location[4][cnt][1]+(background_y+1280))))
+                                            break
+                                    i.rect.left -= 40
+                                    cnt += 1
+            
         #处理上下碰撞
 
             if (movement_x == 0 and movement_y != 0):
@@ -488,7 +493,7 @@ class Supermarket:
             for i in blocks:
                 self.blit( i.image , i.rect )
             
-              
+            
             for j in range(0,6):
                 for i in shelf[j]:
                     self.blit( i.image , i.rect )
@@ -506,7 +511,17 @@ class Supermarket:
         #绘制成果数量
             for i in result_num:
                 self.blit( i[0] , i[1] )
-
+        #绘制开始计时
+            if clock_ > 60:
+                text =  str(clock_ - 60)+"s"
+                TextSurf, TextRect = text_objects(text, font2, (255,255,255))
+                TextRect.center = (640, 380)
+                self.blit(TextSurf, TextRect)
+            if clock_ == 60:
+                text =  "GO!!"
+                TextSurf, TextRect = text_objects(text, font2, (255,255,255))
+                TextRect.center = (640, 380)
+                self.blit(TextSurf, TextRect)
         #绘制倒计时
             clock_g = "距离封校隔离还有"+str(clock_)+"s"
             TextSurf, TextRect = text_objects(clock_g, font, (255,0,0))
@@ -519,11 +534,13 @@ class Supermarket:
                 TextSurf, TextRect = text_objects(str(bag_item[x]), font1, white)
                 TextRect.center = (640-160 + x * (430 / 6), 940)
                 self.blit(TextSurf, TextRect)
-            TextSurf, TextRect = text_objects('背包剩余容量：'+str(bag_left)+'/10', font1, (255,0,0))
+            TextSurf, TextRect = text_objects('背包剩余容量：'+str(bag_left)+'/10', font3, (255,0,0))
             TextRect.center = (640, 850)
             self.blit(TextSurf, TextRect)
             pygame.display.flip()
             if(clock_ < 0):
+                for i in range(len(result_item)):
+                    result_item[i] += bag_item[i]
                 break
 
             
