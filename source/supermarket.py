@@ -26,6 +26,7 @@ class Supermarket:
         pick_sound.set_volume(0.3)
         put_sound = pygame.mixer.Sound("../res/sound/put.wav")
         put_sound.set_volume(0.3)
+        nextpage_sound = pygame.mixer.Sound("../res/sound/nextpage.mp3")
         
         #定义实体类
 
@@ -592,6 +593,7 @@ class Supermarket:
             if pos[0] > 740 and pos[0] < 810 and pos[1] >822 and pos[1] < 860:
                 self.blit(stage_result1.image,stage_result1.rect)
                 if buttons[0]:
+                    nextpage_sound.play()
                     return result_item
             # text0 = "mouse position: " + str(pos)
             # if buttons[0]:

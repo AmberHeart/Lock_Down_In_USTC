@@ -21,7 +21,7 @@ pygame.display.set_icon(image_icon)
 #开始界面
 Start.Game0(main_screen)
 result = Supermarket.Game1(main_screen)
-Dormitory.Game2(main_screen)
+#Dormitory.Game2(main_screen)
 
 #结束游戏
 pygame.quit()

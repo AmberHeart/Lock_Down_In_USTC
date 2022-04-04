@@ -14,6 +14,11 @@ class Start:
 
         movement_x = 0
         movement_y = 0
+
+        #设置音效
+        press_sound = pygame.mixer.Sound("../res/sound/press.wav")
+        press_sound.set_volume(0.3)
+        
         # 定义玩家类
 
 
@@ -138,16 +143,19 @@ class Start:
             if pos[0] > 525 and pos[0] < 755 and pos[1] >550 and pos[1] < 620:
                 self.blit(stage3.image,stage3.rect)
                 if buttons[0]:
+                    press_sound.play()
                     self.fill((0,0,0))
                     break
             if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
                 self.blit(stage5.image,stage5.rect)
                 if buttons[0]:
+                    press_sound.play()
                     # !此处接入游戏教程
                     break
             if pos[0] > 525 and pos[0] < 755 and pos[1] >750 and pos[1] < 820:
                 self.blit(stage7.image,stage7.rect)
                 if buttons[0]:
+                    press_sound.play()
                     pygame.quit()
                     sys.exit()
             pygame.display.flip()
