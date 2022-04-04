@@ -102,7 +102,8 @@ bag_item = [0, 0, 0, 0, 0, 0]
 # 设置战果
 
 result_item = [0, 0, 0, 0, 0, 0]
-
+#设置物品栏
+items_bag = solid("../res/image/物品栏.png",(640-445/2 , 880))
 # 设置障碍物和柜子
 
 blocks = []
@@ -385,7 +386,7 @@ while True:
 # 打印图像
 
     main_screen.blit(image_background, (background_x, background_y))
-
+    main_screen.blit(items_bag.image,items_bag.rect)
     '''
     for i in blocks:
         main_screen.blit( i.image , i.rect )
@@ -407,4 +408,11 @@ while True:
     TextSurf, TextRect = text_objects(clock_g, font, (255,0,0))
     TextRect.center = (640, 75)
     main_screen.blit(TextSurf, TextRect)
+    #绘制物品数量
+    x = 1
+    for x in range(len(bag_item)):
+        text = pygame.font.SysFont("arial",25,1)
+        TextSurf, TextRect = text_objects(str(bag_item[x]), text, white)
+        TextRect.center = (640-160 + x * (430 / 6), 940)
+        main_screen.blit(TextSurf, TextRect)
     pygame.display.flip()
