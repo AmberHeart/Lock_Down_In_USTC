@@ -29,6 +29,12 @@ background_y = -1280
 movement_x = 0
 movement_y = 0
 
+
+# 在一个新 Surface 对象上绘制文本
+def text_objects(text, font,color):
+    textSurface = font.render(text, True, color)
+    return textSurface, textSurface.get_rect()
+
 #定义实体类
 
 class solid(pygame.sprite.Sprite):
@@ -88,7 +94,6 @@ min_speed = 6
 # 设置字体等参数
 font = pygame.font.Font("../res/font/Pixel.ttf",45)
 font1 = pygame.font.Font("../res/font/Pixel.ttf",25)
-
 black = (0, 0, 0)
 white = (255, 255, 255)
 
@@ -107,6 +112,23 @@ bag_item = [0,0,0,0,0,0]
 
 result_item = [0,0,0,0,0,0]
 
+result_num = []
+for i in range(0,6):
+    result_num.append(text_objects(str(result_item[i]), font, white))
+result_num[0][1].top = 65
+result_num[0][1].left = 610
+result_num[1][1].top = 160
+result_num[1][1].left = 610
+result_num[2][1].top = 260
+result_num[2][1].left = 610
+result_num[3][1].top = 65
+result_num[3][1].left = 745
+result_num[4][1].top = 160
+result_num[4][1].left = 745
+result_num[5][1].top = 260
+result_num[5][1].left = 745
+
+
 #设置物品栏
 items_bag = solid("../res/image/物品栏.png",(640-445/2 , 880))
 
@@ -123,8 +145,6 @@ for i in range(0,6):
 shelf_location = []
 for i in range(0,6):
     shelf_location.append([])
-
-
 
 shelf_empty = []
 for i in range(0,6):
@@ -243,11 +263,6 @@ def solid_collide_xy(a,m_x,m_y,b):
         i.rect.top -= m_y
     return 1
 
-# 在一个新 Surface 对象上绘制文本
-def text_objects(text, font,color):
-    textSurface = font.render(text, True, color)
-    return textSurface, textSurface.get_rect()
-
 #定义移动函数
 def solid_move(a , m_x, m_y):
     a.rect.left += m_x
@@ -314,6 +329,8 @@ while True:
                         result_item[i] += bag_item[i]
                         bag_item[i] = 0
                         bag_left = bag_volume
+                        tmpsur,tmprect = text_objects(str(result_item[i]), font, white)
+                        result_num[i] = (tmpsur , result_num[i][1])
                 if buyer.towards == 4:
                     for j in range(0,4):
                         cnt = 0
@@ -410,6 +427,8 @@ while True:
             if flag == 1:
                 background_y += movement_y
                 all_move(0, movement_y)
+                for i in result_num:
+                    i[1].top += movement_y
                         
 #处理左右碰撞
     if (movement_y == 0 and movement_x != 0):
@@ -422,6 +441,8 @@ while True:
             if flag == 1:
                 background_x += movement_x
                 all_move(movement_x, 0)
+                for i in result_num:
+                    i[1].left += movement_x
     
 #处理斜碰
     if (movement_y != 0 and movement_x != 0):
@@ -439,6 +460,9 @@ while True:
                 background_x += m_x1
                 background_y += m_y1
                 all_move(m_x1, m_y1)
+                for i in result_num:
+                    i[1].left += m_x1
+                    i[1].top += m_y1
         else:
             flag = 0
         if flag == 0:
@@ -452,6 +476,8 @@ while True:
                 if flagud == 1:
                     background_y += movement_y
                     all_move(0, movement_y)
+                    for i in result_num:
+                        i[1].top += movement_y
             #处理左右碰撞
             if (solid_collide_x(blocks,movement_x,buyer) == 1):
                 flaglr = 1
@@ -462,6 +488,8 @@ while True:
                 if flaglr == 1:
                     background_x += movement_x
                     all_move(movement_x, 0)
+                    for i in result_num:
+                        i[1].left += movement_x
             
 #打印图像
 
@@ -486,6 +514,9 @@ while True:
         buyer.index = buyer.firstframe[buyer.towards]
     buyer.image = buyer.images[buyer.index]
     main_screen.blit( buyer.image , buyer.rect )
+#绘制成果数量
+    for i in result_num:
+        main_screen.blit( i[0] , i[1] )
 
 #绘制倒计时
     clock_g = "距离封校隔离还有"+str(clock_)+"s"
@@ -502,4 +533,5 @@ while True:
     TextSurf, TextRect = text_objects('背包剩余容量：'+str(bag_left)+'/10', font1, (255,0,0))
     TextRect.center = (640, 850)
     main_screen.blit(TextSurf, TextRect)
+    
     pygame.display.flip()
