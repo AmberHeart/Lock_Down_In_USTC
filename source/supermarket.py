@@ -22,10 +22,14 @@ class Supermarket:
             return textSurface, textSurface.get_rect()
 
         #设置音效
+        pygame.mixer.init()
+        pygame.mixer.music.load("../res/sound/超市BGM.mp3")
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play(-1)
         pick_sound = pygame.mixer.Sound("../res/sound/pick.wav")
-        pick_sound.set_volume(0.3)
+        pick_sound.set_volume(0.4)
         put_sound = pygame.mixer.Sound("../res/sound/put.wav")
-        put_sound.set_volume(0.3)
+        put_sound.set_volume(0.4)
         nextpage_sound = pygame.mixer.Sound("../res/sound/nextpage.mp3")
         
         #定义实体类

@@ -6,10 +6,6 @@ from dormitory import Dormitory
 
 #pygame 初始化
 pygame.init()
-pygame.mixer.init()
-pygame.mixer.music.load("../res/sound/BGM.mp3")
-pygame.mixer.music.set_volume(0.2)
-pygame.mixer.music.play(-1)
                     
 #设置主窗口
 

@@ -16,8 +16,14 @@ class Start:
         movement_y = 0
 
         #设置音效
+        pygame.mixer.init()
+        pygame.mixer.music.load("../res/sound/标题BGM.mp3")
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play(-1)
         press_sound = pygame.mixer.Sound("../res/sound/press.wav")
-        press_sound.set_volume(0.3)
+        press_sound.set_volume(0.4)
+        button_sound = pygame.mixer.Sound("../res/sound/button.mp3")
+        button_sound.set_volume(0.4)
         
         # 定义玩家类
 
@@ -84,6 +90,7 @@ class Start:
         #计数器
 
         cnt = 0
+        button_flag = [0,0,0]
 
         #开始界面主循环
                 
@@ -142,20 +149,35 @@ class Start:
             self.blit(stage6.image,stage6.rect)
             if pos[0] > 525 and pos[0] < 755 and pos[1] >550 and pos[1] < 620:
                 self.blit(stage3.image,stage3.rect)
+                if button_flag[0] == 0:
+                    button_sound.play()
+                    button_flag[0] == 1
                 if buttons[0]:
                     press_sound.play()
                     self.fill((0,0,0))
                     break
+            else:
+                button_flag[0] = 0
             if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
                 self.blit(stage5.image,stage5.rect)
+                if button_flag[1] == 0:
+                    button_sound.play()
+                    button_flag[1] == 1
                 if buttons[0]:
                     press_sound.play()
                     # !此处接入游戏教程
                     break
+            else:
+                button_flag[1] = 0
             if pos[0] > 525 and pos[0] < 755 and pos[1] >750 and pos[1] < 820:
                 self.blit(stage7.image,stage7.rect)
+                if button_flag[2] == 0:
+                    button_sound.play()
+                    button_flag[2] == 1
                 if buttons[0]:
                     press_sound.play()
                     pygame.quit()
                     sys.exit()
+            else:
+                button_flag[2] = 0
             pygame.display.flip()
