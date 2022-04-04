@@ -21,6 +21,12 @@ class Supermarket:
             textSurface = font.render(text, True, color)
             return textSurface, textSurface.get_rect()
 
+        #设置音效
+        pick_sound = pygame.mixer.Sound("../res/sound/pick.wav")
+        pick_sound.set_volume(0.2)
+        put_sound = pygame.mixer.Sound("../res/sound/put.wav")
+        put_sound.set_volume(0.2)
+        
         #定义实体类
 
         class solid(pygame.sprite.Sprite):
@@ -279,7 +285,7 @@ class Supermarket:
             time1 = time = pygame.time.get_ticks()
             time = pygame.time.get_ticks()
         #初始化倒计时
-            clock_ = int(64 - (time-time0)/1000)
+            clock_ = int(60 - (time-time0)/1000)
         #锁60帧
             clock.tick(60)
 
@@ -318,12 +324,17 @@ class Supermarket:
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_SPACE:
                             if  96 <= background_x <= 480 and -1376 <= background_y <= -1096:
+                                flag_sound = 0
                                 for i in range(0,6):
                                     result_item[i] += bag_item[i]
+                                    if bag_item[i] != 0:
+                                        flag_sound = 1
                                     bag_item[i] = 0
                                     bag_left = bag_volume
                                     tmpsur,tmprect = text_objects(str(result_item[i]), font, white)
                                     result_num[i] = (tmpsur , result_num[i][1])
+                                if flag_sound == 1:
+                                    put_sound.play()
                             if buyer.towards == 4:
                                 for j in range(0,4):
                                     cnt = 0
@@ -336,10 +347,13 @@ class Supermarket:
                                             bag_item[j] += 1
                                             if shelf_empty[j][cnt] == 1:
                                                 shelf_empty[j][cnt] = 0
+                                                pick_sound.play()
                                                 emptypng.append(solid("../res/image/空柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
                                             elif shelf_empty[j][cnt] == 2:
+                                                pick_sound.play()
                                                 shelf_empty[j][cnt] = -1
                                             else:
+                                                pick_sound.play()
                                                 shelf_empty[j][cnt] = 0
                                                 emptypng.append(solid("../res/image/空大柜子.png" , (shelf_location[j][cnt][0]+(background_x-320),shelf_location[j][cnt][1]+(background_y+1280))))
                                             '''
@@ -363,6 +377,7 @@ class Supermarket:
                                         bag_item[4] += 1
                                         if shelf_empty[4][cnt] == 1:
                                             shelf_empty[4][cnt] = 0
+                                            pick_sound.play()
                                             emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[4][cnt][0]+(background_x-320),shelf_location[4][cnt][1]+(background_y+1280))))
                                             break
                                     i.rect.top += 40
@@ -375,6 +390,7 @@ class Supermarket:
                                         bag_left -= item_volume[5]
                                         bag_item[5] += 1
                                         if shelf_empty[5][cnt] == 1:
+                                            pick_sound.play()
                                             shelf_empty[5][cnt] = 0
                                             emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[5][cnt][0]+(background_x-320),shelf_location[5][cnt][1]+(background_y+1280))))
                                             break
@@ -389,6 +405,7 @@ class Supermarket:
                                         bag_left -= item_volume[5]
                                         bag_item[5] += 1
                                         if shelf_empty[5][cnt] == 1:
+                                            pick_sound.play()
                                             shelf_empty[5][cnt] = 0
                                             emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[5][cnt][0]+(background_x-320),shelf_location[5][cnt][1]+(background_y+1280))))
                                             break
@@ -403,12 +420,13 @@ class Supermarket:
                                         bag_left -= item_volume[4]
                                         bag_item[4] += 1
                                         if shelf_empty[4][cnt] == 1:
+                                            pick_sound.play()
                                             shelf_empty[4][cnt] = 0
                                             emptypng.append(solid("../res/image/空箱子.png" , (shelf_location[4][cnt][0]+(background_x-320),shelf_location[4][cnt][1]+(background_y+1280))))
                                             break
                                     i.rect.left -= 40
                                     cnt += 1
-            
+              
         #处理上下碰撞
 
             if (movement_x == 0 and movement_y != 0):
@@ -493,7 +511,7 @@ class Supermarket:
             for i in blocks:
                 self.blit( i.image , i.rect )
             
-            
+              
             for j in range(0,6):
                 for i in shelf[j]:
                     self.blit( i.image , i.rect )
@@ -534,7 +552,7 @@ class Supermarket:
                 TextSurf, TextRect = text_objects(str(bag_item[x]), font1, white)
                 TextRect.center = (640-160 + x * (430 / 6), 940)
                 self.blit(TextSurf, TextRect)
-            TextSurf, TextRect = text_objects('背包剩余容量：'+str(bag_left)+'/10', font3, (255,0,0))
+            TextSurf, TextRect = text_objects('背包剩余容量：'+str(bag_left)+'/10', font1, (255,0,0))
             TextRect.center = (640, 850)
             self.blit(TextSurf, TextRect)
             pygame.display.flip()
@@ -543,7 +561,6 @@ class Supermarket:
                     result_item[i] += bag_item[i]
                 break
 
-            
         #结算部分
         class stage(pygame.sprite.Sprite):
             def __init__(self,filename,location):
