@@ -151,7 +151,7 @@ class Start:
                 self.blit(stage3.image,stage3.rect)
                 if button_flag[0] == 0:
                     button_sound.play()
-                    button_flag[0] == 1
+                    button_flag[0] = 1
                 if buttons[0]:
                     press_sound.play()
                     self.fill((0,0,0))
@@ -162,7 +162,7 @@ class Start:
                 self.blit(stage5.image,stage5.rect)
                 if button_flag[1] == 0:
                     button_sound.play()
-                    button_flag[1] == 1
+                    button_flag[1] = 1
                 if buttons[0]:
                     press_sound.play()
                     # !此处接入游戏教程
@@ -173,7 +173,7 @@ class Start:
                 self.blit(stage7.image,stage7.rect)
                 if button_flag[2] == 0:
                     button_sound.play()
-                    button_flag[2] == 1
+                    button_flag[2] = 1
                 if buttons[0]:
                     press_sound.play()
                     pygame.quit()
