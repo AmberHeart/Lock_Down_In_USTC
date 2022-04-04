@@ -285,7 +285,7 @@ class Supermarket:
             time1 = time = pygame.time.get_ticks()
             time = pygame.time.get_ticks()
         #初始化倒计时
-            clock_ = int(60 - (time-time0)/1000)
+            clock_ = int(64 - (time-time0)/1000)
         #锁60帧
             clock.tick(60)
 
