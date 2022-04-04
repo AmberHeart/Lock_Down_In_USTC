@@ -530,7 +530,7 @@ while True:
     TextRect.center = (640, 850)
     main_screen.blit(TextSurf, TextRect)
     pygame.display.flip()
-    if(clock_ < 61):
+    if(clock_ < 0):
         break
 #结算部分
 class stage(pygame.sprite.Sprite):
