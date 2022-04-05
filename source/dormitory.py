@@ -2,6 +2,7 @@
 import sys
 import pygame
 import random
+import pygame.freetype
 
 class Dormitory:
     
@@ -11,11 +12,30 @@ class Dormitory:
         pygame.mixer.music.load("../res/sound/宿舍BGM.mp3")
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.play(-1)
+
+        #文本打印函数
+        font1 = pygame.freetype.Font("../res/font/Pixel.ttf",45)
+        font1.antialiased = False
+        #space_limit = (左,右,上,下)
+        def word_print(space_limit ,text, font, color=(255, 255, 255)):
+            font.origin = True
+            #words = text.split()
+            l_left = space_limit[0]
+            l_right = space_limit[1]
+            l_up = space_limit[2]
+            l_down = space_limit[3]
+            line_spacing = font.get_sized_height() + 2
+            x, y = l_left, line_spacing + l_up
+            space = font.get_rect(' ')
+            for word in text:
+                bounds = font.get_rect(word)
+                if x + bounds.width + bounds.x >= l_right:
+                    x, y = l_left, y + line_spacing
+                font.render_to(self, (x, y), None, color)
+                x += bounds.width + space.width
         
-        #创建时钟对象（控制游戏的FPS）
-
-        clock = pygame.time.Clock()
-
+        #按钮类
+        
         class button(pygame.sprite.Sprite):
             button_image = []
             on_button_flag = 0
@@ -50,7 +70,9 @@ class Dormitory:
                 else:
                     self.on_button_flag = 0
                     self.image = self.button_image[0]
-            
+
+        #玩家类
+        
         class stu:
             #饥饿值
             hungry = 100
@@ -63,6 +85,8 @@ class Dormitory:
             #GPA
             gpa = 3.0
 
+        #随机事件
+        
         def spawn_event():
             judge_num = random.randint()
             if 95 <= judge_num:
@@ -78,7 +102,14 @@ class Dormitory:
                 #common
                 a=1
 
+        
         testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585),"../res/sound/button.mp3","../res/sound/press.wav")
+
+        #计数器
+        day = 0
+        
+        #创建时钟对象（控制游戏的FPS）
+        clock = pygame.time.Clock()
         
         #宿舍部分主循环
                 
@@ -97,6 +128,9 @@ class Dormitory:
                 pygame.quit()
                 sys.exit()
                 return -1
+
+        #打印文本
+            word_print((200,400,200,400),"00000000000000000000000000xxxxxxxxx00000000000",font1)
             
         #打印图像
             self.blit(testbutton.image,testbutton.rect)

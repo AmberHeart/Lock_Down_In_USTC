@@ -1,6 +1,8 @@
 #导入模块
 import sys
 import pygame
+import pygame.freetype
+
 class Tutorial:
     def Show(self):
         #设置音效
