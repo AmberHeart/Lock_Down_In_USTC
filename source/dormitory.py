@@ -88,7 +88,7 @@ class Dormitory:
         #随机事件
         
         def spawn_event():
-            judge_num = random.randint()
+            judge_num = random.randint(1,100)
             if 95 <= judge_num:
                 #legendary
                 a =1

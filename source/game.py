@@ -18,7 +18,8 @@ pygame.display.set_icon(image_icon)
 #开始界面
 
 #Start.Game0(main_screen)
-result = Supermarket.Game1(main_screen)
+#result = Supermarket.Game1(main_screen)
+result = [0,0,0,0,0,0]
 ending = Dormitory.Game2(main_screen,result)
 
 #结束游戏
