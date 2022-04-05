@@ -31,6 +31,9 @@ class Supermarket:
         put_sound = pygame.mixer.Sound("../res/sound/put.wav")
         put_sound.set_volume(0.4)
         nextpage_sound = pygame.mixer.Sound("../res/sound/nextpage.mp3")
+        nextpage_sound.set_volume(0.8)
+        button_sound = pygame.mixer.Sound("../res/sound/button.mp3")
+        button_sound.set_volume(0.4)
         
         #定义实体类
 
@@ -290,7 +293,8 @@ class Supermarket:
             time1 = time = pygame.time.get_ticks()
             time = pygame.time.get_ticks()
         #初始化倒计时
-            clock_ = int(64 - (time-time0)/1000)
+            #clock_ = int(64 - (time-time0)/1000)
+            clock_ = int(0 - (time-time0)/1000)
         #锁60帧
             clock.tick(60)
 
@@ -578,6 +582,7 @@ class Supermarket:
         stage_result1 = stage("../res/image/按钮.png",(735,828))
         #结算部分主循环：
         #处理事件循环：
+        button_flag = 0
         while True:
             self.blit(stage_result.image,stage_result.rect)
             for event in pygame.event.get():
@@ -595,10 +600,16 @@ class Supermarket:
                     TextRect.center = (760, 450 + (x-3) * 165)
                 self.blit(TextSurf, TextRect)
             if pos[0] > 740 and pos[0] < 810 and pos[1] >822 and pos[1] < 860:
+                if button_flag == 0:
+                    button_sound.play()
+                    button_flag = 1
                 self.blit(stage_result1.image,stage_result1.rect)
                 if buttons[0]:
                     nextpage_sound.play()
+                    self.fill((0,0,0))
                     return result_item
+            else:
+                button_flag = 0
             # text0 = "mouse position: " + str(pos)
             # if buttons[0]:
             #     text0 += "  left button pressed"

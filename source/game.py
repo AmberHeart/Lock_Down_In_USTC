@@ -1,5 +1,6 @@
 import pygame
 import sys
+import pygame.freetype
 from supermarket import Supermarket
 from start import Start
 from dormitory import Dormitory
@@ -15,9 +16,10 @@ image_icon = pygame.image.load("../res/image/icon.png").convert()
 pygame.display.set_icon(image_icon)
 
 #开始界面
-Start.Game0(main_screen)
+
+#Start.Game0(main_screen)
 result = Supermarket.Game1(main_screen)
-#Dormitory.Game2(main_screen)
+ending = Dormitory.Game2(main_screen,result)
 
 #结束游戏
 pygame.quit()
