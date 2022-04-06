@@ -181,3 +181,4 @@ class Start:
             else:
                 button_flag[2] = 0
             pygame.display.flip()
+#sure在测试git
