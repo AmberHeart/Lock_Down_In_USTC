@@ -18,7 +18,7 @@ class Start:
         #设置音效
         pygame.mixer.init()
         pygame.mixer.music.load("../res/sound/标题BGM.mp3")
-        pygame.mixer.music.set_volume(0.4)
+        pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.play(-1)
         press_sound = pygame.mixer.Sound("../res/sound/press.wav")
         press_sound.set_volume(0.4)

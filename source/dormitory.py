@@ -3,6 +3,7 @@ import sys
 import pygame
 import random
 import pygame.freetype
+import os
 
 class Dormitory:
     
@@ -71,6 +72,40 @@ class Dormitory:
                     self.on_button_flag = 0
                     self.image = self.button_image[0]
 
+        class choice_button(pygame.sprite.Sprite):
+            def __init__(self,filename1,location,font,text):
+                pygame.sprite.Sprite.__init__(self)
+                self.image = (pygame.image.load(filename1))
+                self.rect = self.image.get_rect()
+                self.rect.center = location
+                self.text = text
+                self.font = font
+                self.color = (0,0,0)
+            def update(self):
+                pos = pygame.mouse.get_pos()
+                lpos = self.rect.center[0] - self.image.get_width()/2
+                rpos = self.rect.center[0] + self.image.get_width()/2
+                upos = self.rect.center[1] - self.image.get_height()/2
+                dpos = self.rect.center[1] + self.image.get_height()/2
+                if pos[0] > lpos and pos[0] < rpos and pos[1] > upos and pos[1] < dpos:
+                    if self.color == (0,0,0):
+                        self.color = (255,255,255)
+                    buttons = pygame.mouse.get_pressed()
+                    if buttons[0]:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    self.color = (0,0,0)
+            def print(self,screen):
+                screen.blit(self.image, self.rect)
+                lpos = self.rect.center[0] - self.image.get_width()/2
+                rpos = self.rect.center[0] + self.image.get_width()/2
+                upos = self.rect.center[1] - self.image.get_height()/2
+                dpos = self.rect.center[1] + self.image.get_height()/2
+                word_print((lpos +20,rpos - 20 , upos +10 , dpos -10), self.text , self.font ,self.color)
+                    
+                
         #玩家类
         
         class stu:
@@ -85,10 +120,47 @@ class Dormitory:
             #GPA
             gpa = 3.0
 
+        #事件类
+        class choose_event:
+            
+            def __init__(self, screen ,filename2 , font, text1, choice_num, texts):
+                self.screen = screen
+                self.bg_image = pygame.image.load("../res/image/事件背景.png")
+                self.bg_image_topleft = (100,100)
+                self.event_image = pygame.image.load(filename2)
+                self.event_image_topleft = (200 , 800)
+                self.num = choice_num
+                self.font = font
+                self.text = text1
+                self.choice_text = texts
+                self.buttons = []
+                
+                for i in range(0, self.num):
+                    self.buttons.append(choice_button("../res/image/选项按钮.png", (800,600+i*150), self.font , self.choice_text[i] ) )
+
+            def update(self):
+                #计数器
+                cnt = 0
+                
+                for choice_button in self.buttons:
+                    if choice_button.update() == 1:
+                        return cnt
+                    cnt += 1
+                return -1
+                
+            def print_event(self):
+                self.screen.blit(self.bg_image, self.bg_image_topleft)
+                self.screen.blit(self.event_image, self.bg_image_topleft)
+                word_print((200,700,200,900) , self.text, self.font, (0,0,0))
+                for choice_button in self.buttons:
+                    choice_button.print(self.screen)
+                
+                    
+        
         #随机事件
         
         def spawn_event():
-            judge_num = random.randint(1,100)
+            judge_num = random.randint(0,99)
             if 95 <= judge_num:
                 #legendary
                 a =1
@@ -101,9 +173,14 @@ class Dormitory:
             else:
                 #common
                 a=1
+                
+        #test        
+        #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
 
+        event_content = "balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala"
+        choice_content = ["a选项","b选项","c选项"]
         
-        testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585),"../res/sound/button.mp3","../res/sound/press.wav")
+        testevent = choose_event( self ,"../res/image/test事件.png", font1 , event_content, 3 , choice_content)
 
         #计数器
         day = 0
@@ -123,15 +200,18 @@ class Dormitory:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                    
         #更新图像
-            if testbutton.update() == 1:
-                pygame.quit()
-                sys.exit()
-                return -1
+            event_result = testevent.update()
+            if event_result != -1:
+                for i in range(0 , testevent.num):
+                    if event_result == i:
+                        #结果i
+                        a=1
 
         #打印文本
-            word_print((200,400,200,400),"00000000000000000000000000xxxxxxxxx00000000000",font1)
             
         #打印图像
-            self.blit(testbutton.image,testbutton.rect)
+            testevent.print_event()
+        #刷新屏幕
             pygame.display.flip()
