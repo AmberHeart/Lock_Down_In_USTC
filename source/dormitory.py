@@ -123,7 +123,7 @@ class Dormitory:
         #事件类
         class choose_event:
             
-            def __init__(self, screen ,filename2 , font, text1, choice_num, texts):
+            def __init__(self, screen ,filename2 , font, text1, choice_num, texts , resulttexts):
                 self.screen = screen
                 self.bg_image = pygame.image.load("../res/image/事件背景.png")
                 self.bg_image_topleft = (100,100)
@@ -134,27 +134,30 @@ class Dormitory:
                 self.text = text1
                 self.choice_text = texts
                 self.buttons = []
-                
+                self.result_text = resulttexts
+                self.chosen = -1
+    
                 for i in range(0, self.num):
-                    self.buttons.append(choice_button("../res/image/选项按钮.png", (800,600+i*150), self.font , self.choice_text[i] ) )
+                    self.buttons.append(choice_button("../res/image/选项按钮.png", (800,600+i*110), self.font , self.choice_text[i] ) )
 
             def update(self):
                 #计数器
                 cnt = 0
-                
-                for choice_button in self.buttons:
-                    if choice_button.update() == 1:
-                        return cnt
-                    cnt += 1
-                return -1
+                if self.chosen == -1:
+                    for choice_button in self.buttons:
+                        if choice_button.update() == 1:
+                            self.chosen = cnt    
+                        cnt += 1
                 
             def print_event(self):
                 self.screen.blit(self.bg_image, self.bg_image_topleft)
                 self.screen.blit(self.event_image, self.bg_image_topleft)
                 word_print((200,700,200,900) , self.text, self.font, (0,0,0))
-                for choice_button in self.buttons:
-                    choice_button.print(self.screen)
-                
+                if self.chosen == -1:
+                    for choice_button in self.buttons:
+                        choice_button.print(self.screen)
+                else:
+                    word_print((400 , 1200 , 600 , 1000) , self.result_text[self.chosen], self.font, (0,0,0))
                     
         
         #随机事件
@@ -179,8 +182,9 @@ class Dormitory:
 
         event_content = "balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala"
         choice_content = ["a选项","b选项","c选项"]
+        result_content = ["you chose a", "you chose b" , "you chose c"]
         
-        testevent = choose_event( self ,"../res/image/test事件.png", font1 , event_content, 3 , choice_content)
+        testevent = choose_event( self ,"../res/image/test事件.png", font1 , event_content, 3 , choice_content, result_content)
 
         #计数器
         day = 0
@@ -202,12 +206,7 @@ class Dormitory:
                     sys.exit()
                     
         #更新图像
-            event_result = testevent.update()
-            if event_result != -1:
-                for i in range(0 , testevent.num):
-                    if event_result == i:
-                        #结果i
-                        a=1
+            testevent.update()
 
         #打印文本
             
