@@ -4,6 +4,7 @@ import pygame
 import random
 import pygame.freetype
 import os
+from pause import GamePause
 
 class Dormitory:
     
@@ -204,7 +205,14 @@ class Dormitory:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                    
+                if event.type == pygame.WINDOWFOCUSLOST:
+                    if GamePause.pause(self,1) == 1:
+                        return -1
+                if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            if GamePause.pause(self,2) == 1:
+                                return -1
+                
         #更新图像
             testevent.update()
 
