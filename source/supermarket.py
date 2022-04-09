@@ -2,6 +2,8 @@
 import sys
 import pygame
 import math
+from pause import GamePause
+
 class Supermarket:
     def Game1(self):
         #设置背景
@@ -34,6 +36,8 @@ class Supermarket:
         nextpage_sound.set_volume(0.8)
         button_sound = pygame.mixer.Sound("../res/sound/button.mp3")
         button_sound.set_volume(0.4)
+        finish_sound = pygame.mixer.Sound("../res/sound/finish.wav")
+        finish_sound.set_volume(0.4)
         
         #定义实体类
 
@@ -304,9 +308,32 @@ class Supermarket:
             
         #处理事件
             if clock_ > 60:
-                pygame.event.pump()
+                for event in pygame.event.get():
+                    if event.type == pygame.WINDOWFOCUSLOST:
+                        tmptime0 = pygame.time.get_ticks()
+                        if GamePause.pause(self,1) == 1:
+                            return [-1]
+                        self.fill((0,0,0))
+                        tmptime1 = pygame.time.get_ticks()
+                        time0 += tmptime1 - tmptime0
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            tmptime0 = pygame.time.get_ticks()
+                            if GamePause.pause(self,1) == 1:
+                                return [-1]
+                            self.fill((0,0,0))
+                            tmptime1 = pygame.time.get_ticks()
+                            time0 += tmptime1 - tmptime0
+                    #pygame.event.pump()
             if clock_ <= 60:
                 for event in pygame.event.get():
+                    if event.type == pygame.WINDOWFOCUSLOST:
+                        tmptime0 = pygame.time.get_ticks()
+                        if GamePause.pause(self,1) == 1:
+                            return [-1]
+                        self.fill((0,0,0))
+                        tmptime1 = pygame.time.get_ticks()
+                        time0 += tmptime1 - tmptime0
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         sys.exit()
@@ -331,6 +358,13 @@ class Supermarket:
                         buyer.towards = 1
                         buyer.movement = 1
                     if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            tmptime0 = pygame.time.get_ticks()
+                            if GamePause.pause(self,1) == 1:
+                                return [-1]
+                            self.fill((0,0,0))
+                            tmptime1 = pygame.time.get_ticks()
+                            time0 += tmptime1 - tmptime0
                         if event.key == pygame.K_SPACE:
                             if  96 <= background_x <= 480 and -1376 <= background_y <= -1096:
                                 flag_sound = 0
@@ -583,6 +617,7 @@ class Supermarket:
         #结算部分主循环：
         #处理事件循环：
         button_flag = 0
+        finish_sound.play()
         while True:
             self.blit(stage_result.image,stage_result.rect)
             for event in pygame.event.get():

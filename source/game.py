@@ -4,7 +4,10 @@ import pygame.freetype
 import os
 from supermarket import Supermarket
 from start import Start
+from tutorial import Tutorial
 from dormitory import Dormitory
+from pause import GamePause
+from ending import Ending
 
 #pygame 初始化
 pygame.init()
@@ -16,12 +19,30 @@ pygame.display.set_caption("这是一个标题")
 image_icon = pygame.image.load("../res/image/icon.png").convert()
 pygame.display.set_icon(image_icon)
 
-#开始界面
-
-#Start.Game0(main_screen)
-#result = Supermarket.Game1(main_screen)
-result = []
-ending = Dormitory.Game2(main_screen,result)
+#游戏循环
+while True:
+    #GamePause.pause(main_screen)
+    startchosen = Start.Game0(main_screen)
+    t1 = pygame.time.wait(100)
+    if startchosen == 0:
+        result = Supermarket.Game1(main_screen)
+        if result[0] == -1:
+            continue
+    elif startchosen == 1:
+        Tutorial.Show(main_screen)
+        continue
+    else:
+        #此处接继续游戏
+        result[0] == -1
+    t1 = pygame.time.wait(100)
+    #result = []
+    ending = Dormitory.Game2(main_screen,result)
+    t1 = pygame.time.wait(100)
+    if ending == -1:
+        continue
+    else:
+        if Ending.print(main_screen, ending) != -1:
+            break
 
 #结束游戏
 pygame.quit()

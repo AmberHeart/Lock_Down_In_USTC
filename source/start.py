@@ -155,7 +155,7 @@ class Start:
                 if buttons[0]:
                     press_sound.play()
                     self.fill((0,0,0))
-                    break
+                    return 0
             else:
                 button_flag[0] = 0
             if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
@@ -165,8 +165,7 @@ class Start:
                     button_flag[1] = 1
                 if buttons[0]:
                     press_sound.play()
-                    # !此处接入游戏教程
-                    break
+                    return 1
             else:
                 button_flag[1] = 0
             if pos[0] > 525 and pos[0] < 755 and pos[1] >750 and pos[1] < 820:
@@ -181,3 +180,4 @@ class Start:
             else:
                 button_flag[2] = 0
             pygame.display.flip()
+        
