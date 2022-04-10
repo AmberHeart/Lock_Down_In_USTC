@@ -357,6 +357,8 @@ class Supermarket:
                         movement_x = -buyer_speed
                         buyer.towards = 1
                         buyer.movement = 1
+                    if pygame.key.get_pressed()[pygame.K_p]:
+                        clock_ = -1
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             tmptime0 = pygame.time.get_ticks()
@@ -364,7 +366,7 @@ class Supermarket:
                                 return [-1]
                             self.fill((0,0,0))
                             tmptime1 = pygame.time.get_ticks()
-                            time0 += tmptime1 - tmptime0
+                            time0 += tmptime1 - tmptime0                           
                         if event.key == pygame.K_SPACE:
                             if  96 <= background_x <= 480 and -1376 <= background_y <= -1096:
                                 flag_sound = 0
@@ -587,7 +589,7 @@ class Supermarket:
             clock_g = "距离封校隔离还有"+str(clock_)+"s"
             TextSurf, TextRect = text_objects(clock_g, font, (255,0,0))
             TextRect.center = (640, 75)
-            self.blit(TextSurf, TextRect)
+            self.blit(TextSurf, TextRect)          
         #绘制物品数量
             self.blit(items_bag.image,items_bag.rect)
             x = 1
