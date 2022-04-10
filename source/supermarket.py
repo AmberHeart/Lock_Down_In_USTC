@@ -48,24 +48,8 @@ class Supermarket:
                 self.image = pygame.image.load(filename)
                 self.rect = self.image.get_rect()
                 self.rect.topleft = location
+                
 
-        def word_print(space_limit ,text, font, color=(255, 255, 255)):
-            font.origin = True
-            #words = text.split()
-            l_left = space_limit[0]
-            l_right = space_limit[1]
-            l_up = space_limit[2]
-            l_down = space_limit[3]
-            line_spacing = font.get_sized_height() + 2
-            x, y = l_left, line_spacing + l_up
-            space = font.get_rect(' ')
-            for word in text:
-                bounds = font.get_rect(word)
-                if x + bounds.width + bounds.x >= l_right:
-                    x, y = l_left, y + line_spacing
-                font.render_to(self, (x, y), None, color)
-                x += bounds.width + space.width        
-        
         # 定义玩家类
 
 
@@ -121,6 +105,23 @@ class Supermarket:
         white = (255, 255, 255)
         passfont = pygame.freetype.Font("../res/font/Pixel.ttf",30)
         passfont.antialiased = False
+
+        def word_print(space_limit ,text, font, color=(255, 255, 255)):
+            font.origin = True
+            #words = text.split()
+            l_left = space_limit[0]
+            l_right = space_limit[1]
+            l_up = space_limit[2]
+            l_down = space_limit[3]
+            line_spacing = font.get_sized_height() + 2
+            x, y = l_left, line_spacing + l_up
+            space = font.get_rect(' ')
+            for word in text:
+                bounds = font.get_rect(word)
+                if x + bounds.width + bounds.x >= l_right:
+                    x, y = l_left, y + line_spacing
+                font.render_to(self, (x, y), None, color)
+                x += bounds.width + space.width        
 
         #设置物品参数
         #饮料 食物 书 杂项 鱼 水果
@@ -336,6 +337,7 @@ class Supermarket:
                 word_print((lpos +20,rpos - 20 , upos +10 , dpos -10), self.text , self.font ,self.color)
         passbutton = button("../res/image/选项按钮.png" , (1100 , 750) , passfont , "跳过" )
 
+
         #创建时钟对象（控制游戏的FPS）
 
         clock = pygame.time.Clock()
@@ -347,7 +349,6 @@ class Supermarket:
         while True:
 
         #控制时间进程
-            time1 = time = pygame.time.get_ticks()
             time = pygame.time.get_ticks()
         #初始化倒计时
             clock_ = int(64 - (time-time0)/1000)
@@ -379,9 +380,6 @@ class Supermarket:
                             time0 += tmptime1 - tmptime0
                     #pygame.event.pump()
             if clock_ <= 60:
-                passbutton.print(self)
-                if passbutton.update() == 1:
-                    clock_ = -1
                 for event in pygame.event.get():
                     if event.type == pygame.WINDOWFOCUSLOST:
                         tmptime0 = pygame.time.get_ticks()
@@ -413,8 +411,6 @@ class Supermarket:
                         movement_x = -buyer_speed
                         buyer.towards = 1
                         buyer.movement = 1
-                    if pygame.key.get_pressed()[pygame.K_p]:
-                        clock_ = -1
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             tmptime0 = pygame.time.get_ticks()
@@ -422,7 +418,7 @@ class Supermarket:
                                 return [-1]
                             self.fill((0,0,0))
                             tmptime1 = pygame.time.get_ticks()
-                            time0 += tmptime1 - tmptime0                           
+                            time0 += tmptime1 - tmptime0
                         if event.key == pygame.K_SPACE:
                             if  96 <= background_x <= 480 and -1376 <= background_y <= -1096:
                                 flag_sound = 0
@@ -627,6 +623,11 @@ class Supermarket:
                 buyer.index = buyer.firstframe[buyer.towards]
             buyer.image = buyer.images[buyer.index]
             self.blit( buyer.image , buyer.rect )
+        #绘制跳过键
+            if clock_ <= 60:
+                passbutton.print(self)
+                if passbutton.update() == 1:
+                        clock_ = -1
         #绘制成果数量
             for i in result_num:
                 self.blit( i[0] , i[1] )
@@ -645,7 +646,7 @@ class Supermarket:
             clock_g = "距离封校隔离还有"+str(clock_)+"s"
             TextSurf, TextRect = text_objects(clock_g, font, (255,0,0))
             TextRect.center = (640, 75)
-            self.blit(TextSurf, TextRect)          
+            self.blit(TextSurf, TextRect)
         #绘制物品数量
             self.blit(items_bag.image,items_bag.rect)
             x = 1
