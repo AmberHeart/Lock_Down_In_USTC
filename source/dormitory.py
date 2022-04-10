@@ -4,11 +4,14 @@ import pygame
 import random
 import pygame.freetype
 import os
+from eventlist import EventList
 from pause import GamePause
+from randomdraw import Randdraw
 
 class Dormitory:
     
-    def Game2(self,start_item):
+    def Game2(self,start_item,save):
+        
         #设置音效
         pygame.mixer.init()
         pygame.mixer.music.load("../res/sound/宿舍BGM.mp3")
@@ -110,23 +113,24 @@ class Dormitory:
         #玩家类
         
         class stu:
-            #饥饿值
-            hungry = 100
-            #口渴值
-            thirsty = 100
-            #san值
-            san = 100
-            #清洁值
-            clean = 100
-            #GPA
-            gpa = 3.0
+            def __init__(self, hungry, thirsty, san, clean, gpa):
+                #饥饿值
+                self.hungry = hungry
+                #口渴值
+                self.thirsty = thirsty
+                #san值
+                self.san = san
+                #清洁值
+                self.clean = clean
+                #GPA
+                self.gpa = gpa
 
         #事件类
         class choose_event:
             
             def __init__(self, screen ,filename2 , font, text1, choice_num, texts , resulttexts):
                 self.screen = screen
-                self.bg_image = pygame.image.load("../res/image/事件背景.png")
+                self.bg_image = pygame.image.load("../res/image/事件.png")
                 self.bg_image_topleft = (100,100)
                 self.event_image = pygame.image.load(filename2)
                 self.event_image_topleft = (200 , 800)
@@ -162,6 +166,15 @@ class Dormitory:
                     
         
         #随机事件
+
+        l_eve_num = 0
+        e_eve_num = 0
+        r_eve_num = 0
+        c_eve_num = 0
+        l_no = []
+        e_no = []
+        r_no = []
+        c_no = []
         
         def spawn_event():
             judge_num = random.randint(0,99)
@@ -181,14 +194,20 @@ class Dormitory:
         #test        
         #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
 
-        event_content = "balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala"
-        choice_content = ["a选项","b选项","c选项"]
-        result_content = ["you chose a", "you chose b" , "you chose c"]
-        
-        testevent = choose_event( self ,"../res/image/test事件.png", font1 , event_content, 3 , choice_content, result_content)
+        te = EventList.evelist[0][0]
+        testevent = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
 
-        #计数器
-        day = 0
+        #开始
+        
+        if start_item[0] == -1:
+            #继续游戏
+            continu = 1
+        else:
+            #从第一天开始
+            now_item = Randdraw.getdraw(start_item)
+            now_state = stu(100,100,100,100,3.0)
+            day = 1
+        
         
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()

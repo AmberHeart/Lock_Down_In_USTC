@@ -28,15 +28,17 @@ while True:
         result = Supermarket.Game1(main_screen)
         if result[0] == -1:
             continue
+        t1 = pygame.time.wait(100)
+        ending = Dormitory.Game2(main_screen,result,"new_begin")
     elif startchosen == 1:
         Tutorial.Show(main_screen)
         continue
     else:
-        #此处接继续游戏
+        with open('../save1.txt', 'r') as f:
+            save1 = f.read()
         result[0] == -1
-    t1 = pygame.time.wait(100)
-    #result = []
-    ending = Dormitory.Game2(main_screen,result)
+        ending = Dormitory.Game2(main_screen,result,save1)
+    
     t1 = pygame.time.wait(100)
     if ending == -1:
         continue
