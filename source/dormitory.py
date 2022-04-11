@@ -13,7 +13,7 @@ class Dormitory:
     def Game2(self,start_item,save):
         #设置背景
 
-        bg = pygame.image.load("../res/image/寝室.png").convert()
+        bg = pygame.image.load("../res/image/dormitory.png").convert()
         
         #设置音效
         pygame.mixer.init()
@@ -22,8 +22,11 @@ class Dormitory:
         pygame.mixer.music.play(-1)
 
         #文本打印函数
+        eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",15)
         font1 = pygame.freetype.Font("../res/font/Pixel.ttf",30)
         font1.antialiased = False
+        font2 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
+        font2.antialiased = False
         #space_limit = (左,右,上,下)
         def word_print(space_limit ,text, font, color=(255, 255, 255)):
             font.origin = True
@@ -44,7 +47,7 @@ class Dormitory:
         
         #按钮类
         
-        class button(pygame.sprite.Sprite): # ! 两个图像的按钮 初始化条件如下↓
+        class button(pygame.sprite.Sprite):
             button_image = []
             on_button_flag = 0
             def __init__(self,filename1,filename2,location,sound_chosen,sound_pressed):
@@ -79,7 +82,7 @@ class Dormitory:
                     self.on_button_flag = 0
                     self.image = self.button_image[0]
 
-        class choice_button(pygame.sprite.Sprite): # !反馈是字体变白的按钮
+        class choice_button(pygame.sprite.Sprite):
             def __init__(self,filename1,location,font,text):
                 pygame.sprite.Sprite.__init__(self)
                 self.image = (pygame.image.load(filename1))
@@ -110,12 +113,12 @@ class Dormitory:
                 rpos = self.rect.center[0] + self.image.get_width()/2
                 upos = self.rect.center[1] - self.image.get_height()/2
                 dpos = self.rect.center[1] + self.image.get_height()/2
-                word_print((lpos +20,rpos - 20 , upos +10 , dpos -10), self.text , self.font ,self.color)
+                word_print((lpos +10,rpos - 8 , upos -4 , dpos -8), self.text , self.font ,self.color)
                     
                 
         #玩家类
         
-        class stu: #!人物的各项数值
+        class stu:
             def __init__(self, hungry, thirsty, san, clean, gpa):
                 #饥饿值
                 self.hungry = hungry
@@ -144,9 +147,10 @@ class Dormitory:
                 self.buttons = []
                 self.result_text = resulttexts
                 self.chosen = -1
+                self.close = choice_button("../res/image/关闭.png", (1040,180), font2 , "X" )
     
                 for i in range(0, self.num):
-                    self.buttons.append(choice_button("../res/image/选项.png", (840,530+i*75), self.font , self.choice_text[i] ) )
+                    self.buttons.append(choice_button("../res/image/选项.png", (840,530+i*75), eventfont , self.choice_text[i] ) )
 
             def update(self):
                 #计数器
@@ -156,10 +160,15 @@ class Dormitory:
                         if choice_button.update() == 1:
                             self.chosen = cnt    
                         cnt += 1
+                if self.close.update() == 1:
+                    return 1
+                return 0
                 
             def print_event(self):
                 self.screen.blit(self.bg_image, self.bg_image_topleft)
                 self.screen.blit(self.event_image, self.event_image_topleft)
+                self.screen.blit(self.event_image, self.event_image_topleft)
+                self.close.print(self.screen)
                 word_print((280,620,220,760) , self.text, self.font, (0,0,0))
                 if self.chosen == -1:
                     for choice_button in self.buttons:
@@ -210,12 +219,15 @@ class Dormitory:
             now_item = Randdraw.getdraw(start_item)
             now_state = stu(100,100,100,100,3.0)
             day = 1
-            resteve = 1
+
+        resteve = 1            
+        eveshown = 0
 
         #画面组件
         #下一步
-        nextmove = choice_button("../res/image/选项按钮.png", (1130, 880), font1 , "下一步" )
-        nextday = choice_button("../res/image/选项按钮.png", (1130, 880), font1 , "下一天" )
+        nextmove = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一步" )
+        nextday = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一天" )
+        openevent = choice_button("../res/image/是按钮.png" , (1200 , 100) , font1 , "事件")
         
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
@@ -241,7 +253,12 @@ class Dormitory:
                             return -1
                 
         #更新图像
-            now_event.update()
+            if now_event.update() == 1:
+                eveshown = 0
+
+            if openevent.update() == 1:
+                eveshown = 1
+            
             if now_event.chosen != -1:
                 if resteve != 1:
                     if nextmove.update() == 1:
@@ -250,19 +267,22 @@ class Dormitory:
                         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                 else:
                     if nextday.update() == 1:
+                        day += 1
                         resteve = 1
                         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-                    
+            
 
         #打印文本
             
         #打印图像
             self.blit(bg , (0,0))
-            now_event.print_event()
-            if now_event.chosen != -1:
-                if resteve != 1:
-                    nextmove.print(self)
-                else:
-                    nextday.print(self)
+            openevent.print(self)
+            if eveshown == 1:
+                now_event.print_event()
+                if now_event.chosen != -1:
+                    if resteve != 1:
+                        nextmove.print(self)
+                    else:
+                        nextday.print(self)
         #刷新屏幕
             pygame.display.flip()
