@@ -228,16 +228,33 @@ class Dormitory:
                     
         #test        
         #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
-
+        #背包类
+        class bag: #!先用上事件的贴图了
+            def __init__(self, screen):
+                self.screen = screen
+                self.bg_image = pygame.image.load("../res/image/箱子.png")
+                self.bg_image_topleft = (128, 120)
+                self.chosen = -1
+                self.close = choice_button("../res/image/关闭.png", (1144,130), font2 , "X" )
+            def update(self):       
+                if self.close.update() == 1:
+                    return 1
+                return 0
+            def print_event(self):
+                self.screen.blit(self.bg_image, self.bg_image_topleft)
+                self.close.print(self.screen)
+                
+                
         te = EventList.evelist[0][0]
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-
+        now_bag = bag(self)
         #开始
         now_state = stu(10,10,10,2,10,3.0)
         day = 1
 
         resteve = 1            
         eveshown = 0
+        bagshown = 0
         if start_item[0] == -1:
             #继续游戏
             continu = 1
@@ -248,6 +265,7 @@ class Dormitory:
         nextmove = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一步" )
         nextday = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一天" )
         openevent = choice_button("../res/image/事件余.png" , (1200 , 50) , font1 , "事件余"+str(resteve))
+        openbag = choice_button("../res/image/背包.png" , (1100 , 800) , font1 , "背包")
         state_hungry = state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57))
         state_thirsty = state("口渴值",(10 , 10000 , 300 , 10000) , (99,184,255))
         state_san = state("san值",(10 , 10000 , 400 , 10000) , (191,62,255))
@@ -279,10 +297,14 @@ class Dormitory:
         #更新图像
             if now_event.update() == 1:
                 eveshown = 0
+            if now_bag.update() == 1:
+                bagshown = 0
 
             if openevent.update() == 1:
                 eveshown = 1
             
+            if openbag.update() == 1:
+                bagshown = 1
             if now_event.chosen != -1:
                 if resteve != 1:
                     if nextmove.update() == 1:
@@ -307,6 +329,9 @@ class Dormitory:
             state_clean.print(self,now_state.clean)
             word_print((10 , 10000 , 700 , 10000), "GPA  "+str(now_state.gpa) , gpafont , (255,0,0))
             openevent.print(self)
+            openbag.print(self)
+            if bagshown == 1:
+                now_bag.print_event()
             if eveshown == 1:
                 now_event.print_event()
                 if now_event.chosen != -1:
@@ -314,5 +339,10 @@ class Dormitory:
                         nextmove.print(self)
                     else:
                         nextday.print(self)
+            buttons = pygame.mouse.get_pressed()
+            pos = pygame.mouse.get_pos()            
+            text0 = "mouse position: " + str(pos)
+            text0_surface = font1.render(text0, True, (255, 0, 0))
+            self.blit(text0_surface, (10, 50))
         #刷新屏幕
             pygame.display.flip()
