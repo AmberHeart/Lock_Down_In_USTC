@@ -44,7 +44,7 @@ class Dormitory:
         
         #按钮类
         
-        class button(pygame.sprite.Sprite):
+        class button(pygame.sprite.Sprite): # ! 两个图像的按钮 初始化条件如下↓
             button_image = []
             on_button_flag = 0
             def __init__(self,filename1,filename2,location,sound_chosen,sound_pressed):
@@ -79,7 +79,7 @@ class Dormitory:
                     self.on_button_flag = 0
                     self.image = self.button_image[0]
 
-        class choice_button(pygame.sprite.Sprite):
+        class choice_button(pygame.sprite.Sprite): # !反馈是字体变白的按钮
             def __init__(self,filename1,location,font,text):
                 pygame.sprite.Sprite.__init__(self)
                 self.image = (pygame.image.load(filename1))
@@ -115,7 +115,7 @@ class Dormitory:
                 
         #玩家类
         
-        class stu:
+        class stu: #!人物的各项数值
             def __init__(self, hungry, thirsty, san, clean, gpa):
                 #饥饿值
                 self.hungry = hungry
