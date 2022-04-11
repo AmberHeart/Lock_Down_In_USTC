@@ -624,7 +624,7 @@ class Supermarket:
             buyer.image = buyer.images[buyer.index]
             self.blit( buyer.image , buyer.rect )
         #绘制跳过键
-            if clock_ <= 60:
+            if clock_ <= 63:
                 passbutton.print(self)
                 if passbutton.update() == 1:
                         clock_ = -1
