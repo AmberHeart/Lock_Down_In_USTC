@@ -222,7 +222,8 @@ class Dormitory:
 
         resteve = 1            
         eveshown = 0
-
+        bagshown = 0
+        
         #画面组件
         #下一步
         nextmove = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一步" )
