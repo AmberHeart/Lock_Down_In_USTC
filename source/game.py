@@ -47,5 +47,6 @@ while True:
             break
 
 #结束游戏
+
 pygame.quit()
 sys.exit()

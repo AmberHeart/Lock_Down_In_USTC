@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+
 class Randdraw:
 
     l_item_num = [1,1,1,1,1,1]

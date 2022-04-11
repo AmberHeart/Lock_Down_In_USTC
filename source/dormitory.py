@@ -11,6 +11,9 @@ from randomdraw import Randdraw
 class Dormitory:
     
     def Game2(self,start_item,save):
+        #设置背景
+
+        bg = pygame.image.load("../res/image/dormitory.png").convert()
         
         #设置音效
         pygame.mixer.init()
@@ -19,7 +22,7 @@ class Dormitory:
         pygame.mixer.music.play(-1)
 
         #文本打印函数
-        font1 = pygame.freetype.Font("../res/font/Pixel.ttf",45)
+        font1 = pygame.freetype.Font("../res/font/Pixel.ttf",30)
         font1.antialiased = False
         #space_limit = (左,右,上,下)
         def word_print(space_limit ,text, font, color=(255, 255, 255)):
@@ -131,9 +134,9 @@ class Dormitory:
             def __init__(self, screen ,filename2 , font, text1, choice_num, texts , resulttexts):
                 self.screen = screen
                 self.bg_image = pygame.image.load("../res/image/事件.png")
-                self.bg_image_topleft = (100,100)
+                self.bg_image_topleft = (240, 180)
                 self.event_image = pygame.image.load(filename2)
-                self.event_image_topleft = (200 , 800)
+                self.event_image_topleft = (660 , 220)
                 self.num = choice_num
                 self.font = font
                 self.text = text1
@@ -143,7 +146,7 @@ class Dormitory:
                 self.chosen = -1
     
                 for i in range(0, self.num):
-                    self.buttons.append(choice_button("../res/image/选项按钮.png", (800,600+i*110), self.font , self.choice_text[i] ) )
+                    self.buttons.append(choice_button("../res/image/选项按钮.png", (840,530+i*75), self.font , self.choice_text[i] ) )
 
             def update(self):
                 #计数器
@@ -156,13 +159,13 @@ class Dormitory:
                 
             def print_event(self):
                 self.screen.blit(self.bg_image, self.bg_image_topleft)
-                self.screen.blit(self.event_image, self.bg_image_topleft)
-                word_print((200,700,200,900) , self.text, self.font, (0,0,0))
+                self.screen.blit(self.event_image, self.event_image_topleft)
+                word_print((280,620,220,760) , self.text, self.font, (0,0,0))
                 if self.chosen == -1:
                     for choice_button in self.buttons:
                         choice_button.print(self.screen)
                 else:
-                    word_print((400 , 1200 , 600 , 1000) , self.result_text[self.chosen], self.font, (0,0,0))
+                    word_print((690 , 1040 , 530 , 830) , self.result_text[self.chosen], self.font, (0,0,0))
                     
         
         #随机事件
@@ -195,7 +198,7 @@ class Dormitory:
         #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
 
         te = EventList.evelist[0][0]
-        testevent = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
 
         #开始
         
@@ -207,7 +210,12 @@ class Dormitory:
             now_item = Randdraw.getdraw(start_item)
             now_state = stu(100,100,100,100,3.0)
             day = 1
-        
+            resteve = 1
+
+        #画面组件
+        #下一步
+        nextmove = choice_button("../res/image/选项按钮.png", (1130, 880), font1 , "下一步" )
+        nextday = choice_button("../res/image/选项按钮.png", (1130, 880), font1 , "下一天" )
         
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
@@ -228,16 +236,33 @@ class Dormitory:
                     if GamePause.pause(self,1) == 1:
                         return -1
                 if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
-                            if GamePause.pause(self,2) == 1:
-                                return -1
+                    if event.key == pygame.K_ESCAPE:
+                        if GamePause.pause(self,2) == 1:
+                            return -1
                 
         #更新图像
-            testevent.update()
+            now_event.update()
+            if now_event.chosen != -1:
+                if resteve != 1:
+                    if nextmove.update() == 1:
+                        resteve -= 1
+                        #生成新事件 暂时用测试事件代替
+                        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                else:
+                    if nextday.update() == 1:
+                        resteve = 1
+                        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                    
 
         #打印文本
             
         #打印图像
-            testevent.print_event()
+            self.blit(bg , (0,0))
+            now_event.print_event()
+            if now_event.chosen != -1:
+                if resteve != 1:
+                    nextmove.print(self)
+                else:
+                    nextday.print(self)
         #刷新屏幕
             pygame.display.flip()
