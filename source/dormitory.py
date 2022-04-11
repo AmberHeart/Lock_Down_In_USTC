@@ -137,7 +137,7 @@ class Dormitory:
             def __init__(self, screen ,filename2 , font, text1, choice_num, texts , resulttexts):
                 self.screen = screen
                 self.bg_image = pygame.image.load("../res/image/事件.png")
-                self.bg_image_topleft = (240, 180)
+                self.bg_image_topleft = (128,120)
                 self.event_image = pygame.image.load(filename2)
                 self.event_image_topleft = (660 , 220)
                 self.num = choice_num
@@ -147,7 +147,7 @@ class Dormitory:
                 self.buttons = []
                 self.result_text = resulttexts
                 self.chosen = -1
-                self.close = choice_button("../res/image/关闭.png", (1040,180), font2 , "X" )
+                self.close = choice_button("../res/image/关闭.png", (1024+120,130), font2 , "X" )
     
                 for i in range(0, self.num):
                     self.buttons.append(choice_button("../res/image/选项.png", (840,530+i*75), eventfont , self.choice_text[i] ) )
@@ -188,7 +188,7 @@ class Dormitory:
         r_no = []
         c_no = []
         
-        def spawn_event():
+        def spawn_event(): 
             judge_num = random.randint(0,99)
             if 95 <= judge_num:
                 #legendary
