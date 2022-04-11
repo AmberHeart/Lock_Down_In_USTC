@@ -13,7 +13,7 @@ class Dormitory:
     def Game2(self,start_item,save):
         #设置背景
 
-        bg = pygame.image.load("../res/image/dormitory.png").convert()
+        bg = pygame.image.load("../res/image/寝室.png").convert()
         
         #设置音效
         pygame.mixer.init()
