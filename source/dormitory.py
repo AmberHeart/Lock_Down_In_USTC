@@ -13,7 +13,7 @@ class Dormitory:
     def Game2(self,start_item,save):
         #设置背景
 
-        bg = pygame.image.load("../res/image/dormitory.png").convert()
+        bg = pygame.image.load("../res/image/寝室.png").convert()
         
         #设置音效
         pygame.mixer.init()
@@ -146,7 +146,7 @@ class Dormitory:
                 self.chosen = -1
     
                 for i in range(0, self.num):
-                    self.buttons.append(choice_button("../res/image/选项按钮.png", (840,530+i*75), self.font , self.choice_text[i] ) )
+                    self.buttons.append(choice_button("../res/image/选项.png", (840,530+i*75), self.font , self.choice_text[i] ) )
 
             def update(self):
                 #计数器
