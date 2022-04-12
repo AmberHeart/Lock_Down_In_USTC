@@ -339,10 +339,9 @@ class Dormitory:
                         nextmove.print(self)
                     else:
                         nextday.print(self)
-            buttons = pygame.mouse.get_pressed()
             pos = pygame.mouse.get_pos()            
-            text0 = "mouse position: " + str(pos)
-            text0_surface = font1.render(text0, True, (255, 0, 0))
-            self.blit(text0_surface, (10, 50))
+            # text0 = "mouse position: " + str(pos)
+            # text0_surface = font1.render(text0, True, (255, 0, 0))
+            # self.blit(text0_surface, (10, 50))
         #刷新屏幕
             pygame.display.flip()
