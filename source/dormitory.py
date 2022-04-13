@@ -32,6 +32,9 @@ class Dormitory:
         font1.antialiased = False
         font2 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         font2.antialiased = False
+
+        #testfont
+        testfont = pygame.font.Font("../res/font/Pixel.ttf",25)
         #space_limit = (左,右,上,下)
         def word_print(space_limit ,text, font, color=(255, 255, 255)):
             font.origin = True
@@ -225,9 +228,6 @@ class Dormitory:
                     screen.blit(tmpface , (self.location[0]+60+i*20,self.location[2]))
                 tmploca = (self.location[0]+260,self.location[1],self.location[2],self.location[3])
                 word_print(tmploca, str(num)+"/10" , statefont , self.color)
-                    
-        #test        
-        #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
         #背包类
         class bag: #!先用上事件的贴图了
             def __init__(self, screen):
@@ -244,10 +244,13 @@ class Dormitory:
                 self.screen.blit(self.bg_image, self.bg_image_topleft)
                 self.close.print(self.screen)
                 
-                
+        #test        
+        #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
+
         te = EventList.evelist[0][0]
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
         now_bag = bag(self)
+        
         #开始
         now_state = stu(10,10,10,2,10,3.0)
         day = 1
@@ -255,11 +258,13 @@ class Dormitory:
         resteve = 1            
         eveshown = 0
         bagshown = 0
+        
         if start_item[0] == -1:
             #继续游戏
             continu = 1
         else:
             now_item = Randdraw.getdraw(start_item)
+
         #画面组件
         #下一步
         nextmove = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一步" )
@@ -297,14 +302,17 @@ class Dormitory:
         #更新图像
             if now_event.update() == 1:
                 eveshown = 0
+                
             if now_bag.update() == 1:
                 bagshown = 0
+                
+            if eveshown == 0 and bagshown == 0:
+                if openevent.update() == 1:
+                    eveshown = 1
 
-            if openevent.update() == 1:
-                eveshown = 1
-            
-            if openbag.update() == 1:
-                bagshown = 1
+                if openbag.update() == 1:
+                    bagshown = 1
+                
             if now_event.chosen != -1:
                 if resteve != 1:
                     if nextmove.update() == 1:
@@ -339,10 +347,13 @@ class Dormitory:
                         nextmove.print(self)
                     else:
                         nextday.print(self)
+
+            #testpart
             buttons = pygame.mouse.get_pressed()
             pos = pygame.mouse.get_pos()            
             text0 = "mouse position: " + str(pos)
-            text0_surface = font1.render(text0, True, (255, 0, 0))
+            text0_surface = testfont.render(text0, True, (255, 0, 0))
             self.blit(text0_surface, (10, 50))
+            
         #刷新屏幕
             pygame.display.flip()
