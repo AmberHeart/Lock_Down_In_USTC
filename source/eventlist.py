@@ -10,7 +10,11 @@ class EventList:
             self.choice_text = choice_text
             self.resulttext = resulttext
     evelist = []
-    for i in range(0,5):
-        evelist.append([])
+    effect = []
     
-    evelist[0].append(eve("../res/image/test事件.png","今天又9:40起床了，要不要choco捏",2 ,["cho!","不cho!"] , ["好cho!(gpa降低)","冲去上课，满身是汗(清洁值降低)"]))
+    #0
+    evelist.append(eve("../res/image/test事件.png","今天又9:40起床了，要不要choco捏",2 ,["cho!","不cho!"] , ["好cho!(智商降低)","冲去上课，满身是汗(清洁值降低)"]))
+    effect.append([[0,0,0,-1,0],[0,0,0,0,-1]])
+    #1
+    #2
+    #...
