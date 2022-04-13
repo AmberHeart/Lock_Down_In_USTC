@@ -127,8 +127,8 @@ class Dormitory:
         #玩家类
         
         class stu:
-            #饥饿值 口渴值 san值 智商 清洁值 时间（以小时为单位，影响每日事件进度）
-            def __init__(self, hungry, thirsty, san, iq, clean, gpa, day_time):
+            #饥饿值 口渴值 san值 智商 清洁值 时间（以小时为单位，影响每日事件进度）GPA
+            def __init__(self, hungry, thirsty, san, iq, clean , day_time , gpa):
                 self.state = [hungry,thirsty,san,iq,clean,day_time]
                 #GPA
                 self.gpa = gpa
@@ -184,7 +184,7 @@ class Dormitory:
         #随机事件
         
         def spawn_event():
-            judge_num = random.randint(0,0)
+            judge_num = random.randint(0,EventList.event_num - 1)
             return EventList.evelist[judge_num] , judge_num
 
         #属性类
@@ -299,6 +299,9 @@ class Dormitory:
                         student.state[i] += EventList.effect[now_event_id][now_event.chosen][i]
                         if student.state[i] < 0:
                             student.state[i] = 0
+                        if student.state[i] > 10:
+                            student.state[i] = 10
+                    student.state[5] += EventList.effect[now_event_id][now_event.chosen][5]
                 now_event_solved = 1
                 
                 if resteve != 1:
@@ -323,6 +326,7 @@ class Dormitory:
             self.blit(bg , (0,0))
             for i in range(0,5):
                 state_bar[i].print(self,student.state[i])
+            word_print((10 , 10000 , 100 , 10000), "时间  "+str(student.state[5])+":00" , gpafont , (0,255,0))
             word_print((10 , 10000 , 700 , 10000), "GPA  "+str(student.gpa) , gpafont , (255,0,0))
             openevent.print(self)
             openbag.print(self)
