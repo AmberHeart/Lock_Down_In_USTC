@@ -127,9 +127,9 @@ class Dormitory:
         #玩家类
         
         class stu:
-            #饥饿值 口渴值 san值 智商 清洁值
-            def __init__(self, hungry, thirsty, san, iq, clean, gpa):
-                self.state = [hungry,thirsty,san,iq,clean]
+            #饥饿值 口渴值 san值 智商 清洁值 时间（以小时为单位，影响每日事件进度）
+            def __init__(self, hungry, thirsty, san, iq, clean, gpa, day_time):
+                self.state = [hungry,thirsty,san,iq,clean,day_time]
                 #GPA
                 self.gpa = gpa
                 #buff or debuff
@@ -229,7 +229,7 @@ class Dormitory:
         now_event_solved = 0
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
         now_bag = bag(self)
-        student = stu(10,10,10,2,10,3.0)
+        student = stu(10,10,10,2,10,0,3.0)
         day = 1
 
         resteve = 1            
