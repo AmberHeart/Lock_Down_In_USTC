@@ -9,16 +9,16 @@ class Randdraw:
         judge_num = random.randint(0,99)
         if 95 <= judge_num:
             #legendary
-            return 1
+            return 0
         elif 80 <= judge_num:
             #epic
-            return 2
+            return 1
         elif 50 <= judge_num:
             #rare
-            return 3
+            return 2
         else:
             #common
-            return 4
+            return 3
         
     def getdraw(start_item):
 
