@@ -11,6 +11,7 @@ from randomdraw import Randdraw
 class Dormitory:
     
     def Game2(self,start_item,save):
+        
         #设置背景
 
         bg = pygame.image.load("../res/image/寝室.png").convert()
@@ -28,6 +29,8 @@ class Dormitory:
         statefont.antialiased = False
         gpafont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
         gpafont.antialiased = False
+        tipsfont = pygame.freetype.Font("../res/font/Pixel.ttf",30)
+        tipsfont.antialiased = False
         font1 = pygame.freetype.Font("../res/font/Pixel.ttf",30)
         font1.antialiased = False
         font2 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
@@ -35,6 +38,8 @@ class Dormitory:
         font3 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         font3.antialiased = False
 
+        #提示持续时间
+        
         #testfont
         testfont = pygame.font.Font("../res/font/Pixel.ttf",25)
         #space_limit = (左,右,上,下)
@@ -129,13 +134,22 @@ class Dormitory:
         #玩家类
         
         class stu:
-            #饥饿值 口渴值 san值 智商 清洁值 时间（以小时为单位，影响每日事件进度）GPA
+            #饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) GPA
             def __init__(self, hungry, thirsty, san, iq, clean , day_time , gpa):
                 self.state = [hungry,thirsty,san,iq,clean,day_time]
                 #GPA
                 self.gpa = gpa
                 #buff or debuff
                 self.buff = []
+
+            def updatestate(self):
+
+                dailyconsume = [-4,-4,-4,-4,-4]
+                for i in range(0,5):
+                    self.state[i] += dailyconsume[i]
+                    if self.state[i] < 0:
+                        student.state[i] = 0
+                self.state[5] = 32
 
         #事件类
         class choose_event:
@@ -154,17 +168,33 @@ class Dormitory:
                 self.result_text = resulttexts
                 self.chosen = -1
                 self.close = choice_button("../res/image/关闭.png", (1144,130), font1 , "×" )
+                self.tipstime = 0
+                self.tipstr = ""
     
                 for i in range(0, self.num):
                     self.buttons.append(choice_button("../res/image/选项.png", (840,530+i*75), eventfont , self.choice_text[i] ) )
 
-            def update(self):
+            def update(self,student,eveid):
                 #计数器
                 cnt = 0
+                tiptext = ["饥饿值","口渴值","san值","智商","清洁值"]
                 if self.chosen == -1:
                     for choice_button in self.buttons:
                         if choice_button.update() == 1:
-                            self.chosen = cnt    
+                            flag = 0
+                            self.tipstr = ""
+                            for i in range(0,5):
+                                if EventList.limit[eveid][cnt][i] > student.state[i]:
+                                    if flag == 0:
+                                        flag = 1
+                                        self.tipstr = tiptext[i] + self.tipstr
+                                    else:
+                                        self.tipstr = tiptext[i] + "和" + self.tipstr
+                            if flag == 1:
+                                self.tipstr = self.tipstr + "不足！！！"
+                                self.tipstime = 30
+                            else:
+                                self.chosen = cnt    
                         cnt += 1
                 if self.close.update() == 1:
                     return 1
@@ -263,9 +293,8 @@ class Dormitory:
             now_item = Randdraw.getdraw(start_item)
 
         #画面组件
-        #下一步
-        nextmove = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一步" )
-        nextday = choice_button("../res/image/选项.png", (1130, 880), font1 , "下一天" )
+        nextmove = choice_button("../res/image/选项.png", (850, 800), font1 , "确认" )
+        nextday = choice_button("../res/image/选项.png", (830, 880), font1 , "上床睡觉！" )
         openevent = choice_button("../res/image/事件余.png" , (1200 , 50) , font1 , "事件余"+str(resteve))
         openbag = choice_button("../res/image/背包.png" , (1100 , 800) , font1 , "背包")
         state_bar = []
@@ -274,6 +303,8 @@ class Dormitory:
         state_bar.append(state("san值",(10 , 10000 , 400 , 10000) , (191,62,255)))
         state_bar.append(state("智商",(10 , 10000 , 500 , 10000) , (0,250,154)))
         state_bar.append(state("清洁值",(10 , 10000 , 600 , 10000) , (255,240,245)))
+        timeword_min = ["00","15","30","45"]
+        timeword_hour = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
         
@@ -298,7 +329,7 @@ class Dormitory:
                             return -1
                 
         #更新图像
-            if now_event.update() == 1:
+            if now_event.update(student , now_event_id) == 1:
                 eveshown = 0
                 
             if now_bag.update() == 1:
@@ -307,10 +338,17 @@ class Dormitory:
             if eveshown == 0 and bagshown == 0:
                 if openevent.update() == 1:
                     eveshown = 1
-
+                    if resteve == 0:
+                        eveshown = 0
+                        now_event.tipstime = 30
+                        now_event.tipstr = "该去睡觉啦！！！"
                 if openbag.update() == 1:
                     bagshown = 1
-                
+                    if resteve == 0:
+                        bagshown = 0
+                        now_event.tipstime = 30
+                        now_event.tipstr = "该去睡觉啦！！！"
+                        
             if now_event.chosen != -1:
 
                 if now_event_solved == 0:
@@ -321,22 +359,23 @@ class Dormitory:
                         if student.state[i] > 10:
                             student.state[i] = 10
                     student.state[5] += EventList.effect[now_event_id][now_event.chosen][5]
+                    if student.state[5] >= 96:
+                        student.state[5] -= 96
                 now_event_solved = 1
                 
-                if resteve != 1:
-                    if nextmove.update() == 1:
-                        resteve -= 1
-                        #生成新事件 暂时用测试事件代替
-                        te, now_event_id =spawn_event()
-                        now_event_solved = 0
-                        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-                else:
-                    if nextday.update() == 1:
-                        day += 1
-                        resteve = 1
-                        te, now_event_id =spawn_event()
-                        now_event_solved = 0
-                        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                if nextmove.update() == 1:
+                    #生成新事件
+                    eveshown = 0
+                    te, now_event_id =spawn_event()
+                    now_event_solved = 0
+                    now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+            if student.state[5] >= 88 or student.state[5] < 32:
+                if nextday.update() == 1:
+                    day += 1
+                    resteve = 1
+                    #睡觉动画maybe
+                    student.updatestate()
+                
             openevent.text = "事件余"+str(resteve)
 
         #打印文本
@@ -345,20 +384,25 @@ class Dormitory:
             self.blit(bg , (0,0))
             for i in range(0,5):
                 state_bar[i].print(self,student.state[i])
-            word_print((10 , 10000 , 100 , 10000), "时间  "+str(student.state[5])+":00" , gpafont , (0,255,0))
+            word_print((10 , 10000 , 100 , 10000), "时间  "+str(timeword_hour[student.state[5]//4])+":"+str(timeword_min[student.state[5] % 4]) , gpafont , (0,255,0))
             word_print((10 , 10000 , 700 , 10000), "GPA  "+str(student.gpa) , gpafont , (255,0,0))
+            word_print((10 , 10000 , 10 , 10000), "第  "+str(day)+"  天" , gpafont , (255,255,0))
             openevent.print(self)
             openbag.print(self)
+
+            if student.state[5] >= 88 or student.state[5] < 32:
+                nextday.print(self)
+                resteve = 0
             if bagshown == 1:
                 now_bag.print_event()
             if eveshown == 1:
                 now_event.print_event()
                 if now_event.chosen != -1:
-                    if resteve != 1:
-                        nextmove.print(self)
-                    else:
-                        nextday.print(self)
-
+                    nextmove.print(self)
+            if now_event.tipstime > 0:
+                word_print((500,10000,20,10000) , now_event.tipstr, tipsfont, (255,0,0))
+                now_event.tipstime -= 1
+            
             #testpart
             buttons = pygame.mouse.get_pressed()
             pos = pygame.mouse.get_pos()            
