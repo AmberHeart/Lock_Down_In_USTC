@@ -144,11 +144,13 @@ class Dormitory:
 
             def updatestate(self):
 
-                dailyconsume = [-4,-4,-4,-4,-4]
+                dailyconsume = [-4,-4,1,-4,-4]
                 for i in range(0,5):
                     self.state[i] += dailyconsume[i]
                     if self.state[i] < 0:
                         student.state[i] = 0
+                    if self.state[i] > 10:
+                        student.state[i] = 10
                 self.state[5] = 32
 
         #事件类
@@ -234,58 +236,58 @@ class Dormitory:
                     screen.blit(tmpface , (self.location[0]+60+i*20,self.location[2]))
                 tmploca = (self.location[0]+260,self.location[1],self.location[2],self.location[3])
                 word_print(tmploca, str(num)+"/10" , statefont , self.color)
+
         #背包类
-        #test        
-        #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
-
-        
-        
-        
-        #开始
-        te , now_event_id= spawn_event()
-        now_event_solved = 0
-        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-        student = stu(10,10,10,2,10,0,3.0)
-        day = 1
-
-        resteve = 1            
-        eveshown = 0
-        bagshown = 0
-        now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0],[0]]
-        
         class bag: #!先用上事件的贴图了
-            def __init__(self, screen):
+            def __init__(self, screen, items):
                 self.screen = screen
                 self.bg_image = pygame.image.load("../res/image/箱子.png")
                 self.bg_image_topleft = (128, 120)
                 self.chosen = -1
                 self.close = choice_button("../res/image/关闭.png", (1144,130), font1 , "×" )
+                self.itemnum = items
                 self.item =[[],[],[],[]]
                 itemlevel=["传奇","稀有","优秀","普通"]
                 for y in range(0,4):
-                    self.item[0].append(choice_button("../res/image/背包选项.png", (536,283+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[0][y])))
+                    self.item[0].append(choice_button("../res/image/背包选项.png", (536,283+y*40),font3, itemlevel[y] +"物品剩余数量"+str(self.itemnum[0][y])))
                 for y in range(0,4):
-                    self.item[1].append(choice_button("../res/image/背包选项.png", (973,283+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[1][y])))
+                    self.item[1].append(choice_button("../res/image/背包选项.png", (973,283+y*40),font3, itemlevel[y] +"物品剩余数量"+str(self.itemnum[1][y])))
                 for y in range(0,4):
-                    self.item[2].append (choice_button("../res/image/背包选项.png", (536,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[2][y])))
+                    self.item[2].append (choice_button("../res/image/背包选项.png", (536,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(self.itemnum[2][y])))
                 for y in range(0,4):
-                    self.item[3].append(choice_button("../res/image/背包选项.png", (973,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[3][y])))
+                    self.item[3].append(choice_button("../res/image/背包选项.png", (973,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(self.itemnum[3][y])))
             def update(self):
                 for x in range(0,4):
                     for y in range(0,4):
                         if self.item[x][y].update() == 1:
-                            return 1
+                            return x , y
                 if self.close.update() == 1:
-                    return 1
-                return 0
+                    return 4 , 4
+                return -2 , -2
             def print_event(self):
                 self.screen.blit(self.bg_image, self.bg_image_topleft)
                 self.close.print(self.screen)
                 for x in range(0,4):
                     for y in range(0,4):
                         self.item[x][y].print(self.screen)
+                
+        #test        
+        #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
         
-        now_bag = bag(self)
+        
+        #开始
+        te , now_event_id= spawn_event()
+        now_event_solved = 0
+        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+        student = stu(10,10,10,2,10,32,3.0)
+        day = 1
+
+        resteve = 1            
+        eveshown = 0
+        bagshown = 0
+        now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0],[0]]
+        now_bag = bag(self, now_item)
+        
         if start_item[0] == -1:
             #继续游戏
             continu = 1
@@ -329,11 +331,24 @@ class Dormitory:
                             return -1
                 
         #更新图像
-            if now_event.update(student , now_event_id) == 1:
-                eveshown = 0
-                
-            if now_bag.update() == 1:
-                bagshown = 0
+            if eveshown == 1:
+                if now_event.update(student , now_event_id) == 1:
+                    eveshown = 0
+
+            now_bag = bag(self, now_item)
+            #consume_result x , y
+            if bagshown == 1:
+                crx , cry = now_bag.update()
+                if crx >= 0 and cry >= 0:
+                    if crx == 4 and cry == 4:
+                        bagshown = 0
+                    elif now_item[crx][cry] == 0:
+                        now_event.tipstime = 30
+                        now_event.tipstr = "物品不足！"
+                    else:
+                        now_item[crx][cry] -= 1
+                        #这里写物品效果
+                        bagshown = 0
                 
             if eveshown == 0 and bagshown == 0:
                 if openevent.update() == 1:
@@ -369,6 +384,7 @@ class Dormitory:
                     te, now_event_id =spawn_event()
                     now_event_solved = 0
                     now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                    
             if student.state[5] >= 88 or student.state[5] < 32:
                 if nextday.update() == 1:
                     day += 1
@@ -377,6 +393,7 @@ class Dormitory:
                     student.updatestate()
                 
             openevent.text = "事件余"+str(resteve)
+            
 
         #打印文本
             
