@@ -32,6 +32,8 @@ class Dormitory:
         font1.antialiased = False
         font2 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         font2.antialiased = False
+        font3 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
+        font3.antialiased = False
 
         #testfont
         testfont = pygame.font.Font("../res/font/Pixel.ttf",25)
@@ -151,7 +153,7 @@ class Dormitory:
                 self.buttons = []
                 self.result_text = resulttexts
                 self.chosen = -1
-                self.close = choice_button("../res/image/关闭.png", (1144,130), font2 , "X" )
+                self.close = choice_button("../res/image/关闭.png", (1144,130), font1 , "×" )
     
                 for i in range(0, self.num):
                     self.buttons.append(choice_button("../res/image/选项.png", (840,530+i*75), eventfont , self.choice_text[i] ) )
@@ -203,21 +205,6 @@ class Dormitory:
                 tmploca = (self.location[0]+260,self.location[1],self.location[2],self.location[3])
                 word_print(tmploca, str(num)+"/10" , statefont , self.color)
         #背包类
-        class bag: #!先用上事件的贴图了
-            def __init__(self, screen):
-                self.screen = screen
-                self.bg_image = pygame.image.load("../res/image/箱子.png")
-                self.bg_image_topleft = (128, 120)
-                self.chosen = -1
-                self.close = choice_button("../res/image/关闭.png", (1144,130), font2 , "X" )
-            def update(self):       
-                if self.close.update() == 1:
-                    return 1
-                return 0
-            def print_event(self):
-                self.screen.blit(self.bg_image, self.bg_image_topleft)
-                self.close.print(self.screen)
-                
         #test        
         #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
 
@@ -228,7 +215,6 @@ class Dormitory:
         te , now_event_id= spawn_event()
         now_event_solved = 0
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-        now_bag = bag(self)
         student = stu(10,10,10,2,10,0,3.0)
         day = 1
 
@@ -237,6 +223,39 @@ class Dormitory:
         bagshown = 0
         now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0],[0]]
         
+        class bag: #!先用上事件的贴图了
+            def __init__(self, screen):
+                self.screen = screen
+                self.bg_image = pygame.image.load("../res/image/箱子.png")
+                self.bg_image_topleft = (128, 120)
+                self.chosen = -1
+                self.close = choice_button("../res/image/关闭.png", (1144,130), font1 , "×" )
+                self.item =[[],[],[],[]]
+                itemlevel=["传奇","稀有","优秀","普通"]
+                for y in range(0,4):
+                    self.item[0].append(choice_button("../res/image/背包选项.png", (536,283+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[0][y])))
+                for y in range(0,4):
+                    self.item[1].append(choice_button("../res/image/背包选项.png", (973,283+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[1][y])))
+                for y in range(0,4):
+                    self.item[2].append (choice_button("../res/image/背包选项.png", (536,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[2][y])))
+                for y in range(0,4):
+                    self.item[3].append(choice_button("../res/image/背包选项.png", (973,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(now_item[3][y])))
+            def update(self):
+                for x in range(0,4):
+                    for y in range(0,4):
+                        if self.item[x][y].update() == 1:
+                            return 1
+                if self.close.update() == 1:
+                    return 1
+                return 0
+            def print_event(self):
+                self.screen.blit(self.bg_image, self.bg_image_topleft)
+                self.close.print(self.screen)
+                for x in range(0,4):
+                    for y in range(0,4):
+                        self.item[x][y].print(self.screen)
+        
+        now_bag = bag(self)
         if start_item[0] == -1:
             #继续游戏
             continu = 1

@@ -1,3 +1,4 @@
+import random
 import sys
 import pygame
 
@@ -25,6 +26,6 @@ class Randdraw:
 
         for i in range(0,4):
             for j in range(0,start_item[i]):
-                draw_result[i][spawn_item()] += 1
+                draw_result[i][Randdraw.spawn_item()] += 1
                 
         return draw_result
