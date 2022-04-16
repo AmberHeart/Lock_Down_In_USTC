@@ -31,6 +31,8 @@ class Dormitory:
         gpafont.antialiased = False
         tipsfont = pygame.freetype.Font("../res/font/Pixel.ttf",30)
         tipsfont.antialiased = False
+        timefont = pygame.freetype.Font("../res/font/LCD.TTF",40)
+        timefont.antialiased = False
         font1 = pygame.freetype.Font("../res/font/Pixel.ttf",30)
         font1.antialiased = False
         font2 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
@@ -323,7 +325,7 @@ class Dormitory:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.WINDOWFOCUSLOST:
-                    if GamePause.pause(self,1) == 1:
+                    if GamePause.pause(self,2) == 1:
                         return -1
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
@@ -401,7 +403,7 @@ class Dormitory:
             self.blit(bg , (0,0))
             for i in range(0,5):
                 state_bar[i].print(self,student.state[i])
-            word_print((10 , 10000 , 100 , 10000), "时间  "+str(timeword_hour[student.state[5]//4])+":"+str(timeword_min[student.state[5] % 4]) , gpafont , (0,255,0))
+            word_print((10 , 10000 , 100 , 10000), "Time  "+str(timeword_hour[student.state[5]//4])+":"+str(timeword_min[student.state[5] % 4]) , timefont , (0,255,0))
             word_print((10 , 10000 , 700 , 10000), "GPA  "+str(student.gpa) , gpafont , (255,0,0))
             word_print((10 , 10000 , 10 , 10000), "第  "+str(day)+"  天" , gpafont , (255,255,0))
             openevent.print(self)
