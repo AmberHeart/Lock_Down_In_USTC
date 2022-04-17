@@ -43,8 +43,6 @@ class Dormitory:
         font2.antialiased = False
         font3 = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         font3.antialiased = False
-
-        #提示持续时间
         
         #testfont
         testfont = pygame.font.Font("../res/font/Pixel.ttf",25)
@@ -149,17 +147,23 @@ class Dormitory:
                 self.gpa = gpa
                 #buff or debuff
                 self.buff = []
+                #结局参数
+                self.too_low = [0,0,0,0,0]
 
-            def updatestate(self):
+            def updatestate(self,consume):
 
-                dailyconsume = [-2,-2,0,0,-2]
                 for i in range(0,5):
-                    self.state[i] += dailyconsume[i]
+                    self.state[i] += consume[i]
                     if self.state[i] < 0:
+                        self.too_low[i] -= self.state[i]
                         student.state[i] = 0
+                    elif self.state[i] != 0:
+                        self.too_low[i] = 0
                     if self.state[i] > 10:
                         student.state[i] = 10
-                self.state[5] = 32
+                student.state[5] += consume[5]
+                if student.state[5] >= 96:
+                    student.state[5] -= 96
 
         #事件类
         class choose_event:
@@ -344,6 +348,11 @@ class Dormitory:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pressed = [1]
 
+        #结局检测
+            if student.too_low[0] >= 5:
+                return 0
+            if student.too_low[1] >= 5:
+                return 1
                 
         #更新图像
 
@@ -373,15 +382,14 @@ class Dormitory:
                                 message_queue.append("喝了一瓶饮料，口渴值+"+str(4-cry))
                                 now_item[crx][cry] -= 1
                                 bagshown = 0
+                                cons = [0,4-cry,0,0,0,0]
                                 if student.state[1] <= 3:
-                                    student.state[5] += 2
+                                    cons[5] = 2
                                 elif student.state[1] >= 8:
-                                    student.state[5] += 4
+                                    cons[5] = 4
                                 else:
-                                    student.state[5] += 3
-                                student.state[1] += 4-cry
-                                if student.state[1] > 10:
-                                    student.state[1] = 10
+                                    cons[5] = 3
+                                student.updatestate(cons)
 
                         if crx == 1:
                             if student.state[0] == 10:
@@ -397,15 +405,14 @@ class Dormitory:
                                 message_queue.append("吃了一餐，饥饿值+"+str(4-cry))
                                 now_item[crx][cry] -= 1
                                 bagshown = 0
+                                cons = [4-cry,0,0,0,0,0]
                                 if student.state[0] <= 3:
-                                    student.state[5] += 2
+                                    cons[5] = 2
                                 elif student.state[0] >= 8:
-                                    student.state[5] += 4
+                                    cons[5] = 4
                                 else:
-                                    student.state[5] += 3
-                                student.state[0] += 4-cry
-                                if student.state[0] > 10:
-                                    student.state[0] = 10
+                                    cons[5] = 3
+                                student.updatestate(cons)
                                 
 
                         if crx == 2:
@@ -418,24 +425,14 @@ class Dormitory:
                             message_queue.append("认真学习，智商+"+str(6-cry)+",饥饿值-2，口渴值-2，清洁值-2")
                             now_item[crx][cry] -= 1
                             bagshown = 0
+                            cons = [-2,-2,0,6-cry,-2,0]
                             if student.state[3] <= 4:
-                                student.state[5] += 12
+                                cons[5] = 12
                             elif student.state[3] >= 7:
-                                student.state[5] += 8
+                                cons[5] = 8
                             else:
-                                student.state[5] += 10
-                            student.state[0] -= 2
-                            student.state[1] -= 2
-                            student.state[4] -= 2
-                            student.state[3] += 6-cry
-                            if student.state[0] < 0:
-                                student.state[0] = 0
-                            if student.state[1] < 0:
-                                student.state[1] = 0
-                            if student.state[4] < 0:
-                                student.state[4] = 0
-                            if student.state[3] > 10:
-                                student.state[3] = 10
+                                cons[5] = 10                           
+                            student.updatestate(cons)
                                 
                         if crx == 3:
                             if student.state[4] == 10:
@@ -451,15 +448,14 @@ class Dormitory:
                                 message_queue.append("洗了个澡，清洁值+"+str(6-cry))
                                 now_item[crx][cry] -= 1
                                 bagshown = 0
+                                cons = [0,0,0,0,6-cry,0]
                                 if student.state[4] <= 2:
-                                    student.state[5] += 6
+                                    cons[5] = 6
                                 elif student.state[4] >= 6:
-                                    student.state[5] += 2
+                                    cons[5] = 2
                                 else:
-                                    student.state[5] += 4
-                                student.state[4] += 6-cry
-                                if student.state[4] > 10:
-                                    student.state[4] = 10
+                                    cons[5] = 4
+                                student.updatestate(cons)
                                 
             if eveshown == 1:
                 if now_event.update(student , now_event_id, pressed) == 1:
@@ -489,15 +485,8 @@ class Dormitory:
                     time_queue.append(student.state[5])
                     day_queue.append(day)
                     message_queue.append(EventList.message[now_event_id][now_event.chosen])
-                    for i in range(0,5):
-                        student.state[i] += EventList.effect[now_event_id][now_event.chosen][i]
-                        if student.state[i] < 0:
-                            student.state[i] = 0
-                        if student.state[i] > 10:
-                            student.state[i] = 10
-                    student.state[5] += EventList.effect[now_event_id][now_event.chosen][5]
-                    if student.state[5] >= 96:
-                        student.state[5] -= 96
+                    student.updatestate(EventList.effect[now_event_id][now_event.chosen])
+                    
                 now_event_solved = 1
                 
                 if nextmove.update(pressed) == 1:
@@ -515,7 +504,8 @@ class Dormitory:
                     tmpstate = []
                     for i in range(0,5):
                         tmpstate.append(student.state[i])
-                    student.updatestate()
+                    student.updatestate([-2,-2,0,0,-2,0])
+                    student.state[5] = 32
                     if len(message_queue) == 7:
                         del message_queue[0]
                         del day_queue[0]

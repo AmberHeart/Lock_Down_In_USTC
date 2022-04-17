@@ -19,6 +19,9 @@ pygame.display.set_caption("这是一个标题")
 image_icon = pygame.image.load("../res/image/icon.png").convert()
 pygame.display.set_icon(image_icon)
 
+#参数
+ending = -1
+
 #游戏循环
 while True:
     #GamePause.pause(main_screen)
