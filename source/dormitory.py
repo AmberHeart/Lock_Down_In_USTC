@@ -364,6 +364,13 @@ class Dormitory:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "喝不下啦！"
                             else:
+                                if len(message_queue) == 7:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("喝了一瓶饮料，口渴值+"+str(4-cry))
                                 now_item[crx][cry] -= 1
                                 bagshown = 0
                                 if student.state[1] <= 3:
@@ -375,20 +382,19 @@ class Dormitory:
                                 student.state[1] += 4-cry
                                 if student.state[1] > 10:
                                     student.state[1] = 10
-                                if len(message_queue) == 7:
-                                    del message_queue[0]
-                                    del day_queue[0]
-                                    del time_queue[0]
-                                time_queue.append(student.state[5])
-                                day_queue.append(day)
-                                message_queue.append("喝了一瓶饮料，口渴值+"+str(4-cry))
-                                bagshown = 0
 
                         if crx == 1:
                             if student.state[0] == 10:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "吃不下啦！"
                             else:
+                                if len(message_queue) == 7:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("吃了一餐，饥饿值+"+str(4-cry))
                                 now_item[crx][cry] -= 1
                                 bagshown = 0
                                 if student.state[0] <= 3:
@@ -400,13 +406,60 @@ class Dormitory:
                                 student.state[0] += 4-cry
                                 if student.state[0] > 10:
                                     student.state[0] = 10
+                                
+
+                        if crx == 2:
+                            if len(message_queue) == 7:
+                                del message_queue[0]
+                                del day_queue[0]
+                                del time_queue[0]
+                            time_queue.append(student.state[5])
+                            day_queue.append(day)
+                            message_queue.append("认真学习，智商+"+str(6-cry)+",饥饿值-2，口渴值-2，清洁值-2")
+                            now_item[crx][cry] -= 1
+                            bagshown = 0
+                            if student.state[3] <= 4:
+                                student.state[5] += 12
+                            elif student.state[3] >= 7:
+                                student.state[5] += 8
+                            else:
+                                student.state[5] += 10
+                            student.state[0] -= 2
+                            student.state[1] -= 2
+                            student.state[4] -= 2
+                            student.state[3] += 6-cry
+                            if student.state[0] < 0:
+                                student.state[0] = 0
+                            if student.state[1] < 0:
+                                student.state[1] = 0
+                            if student.state[4] < 0:
+                                student.state[4] = 0
+                            if student.state[3] > 10:
+                                student.state[3] = 10
+                                
+                        if crx == 3:
+                            if student.state[4] == 10:
+                                now_event.tipstime = 30
+                                now_event.tipstr = "很干净啦！"
+                            else:
                                 if len(message_queue) == 7:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
                                 time_queue.append(student.state[5])
                                 day_queue.append(day)
-                                message_queue.append("吃了一餐，饥饿值+"+str(4-cry))
+                                message_queue.append("洗了个澡，清洁值+"+str(6-cry))
+                                now_item[crx][cry] -= 1
+                                bagshown = 0
+                                if student.state[4] <= 2:
+                                    student.state[5] += 6
+                                elif student.state[4] >= 6:
+                                    student.state[5] += 2
+                                else:
+                                    student.state[5] += 4
+                                student.state[4] += 6-cry
+                                if student.state[4] > 10:
+                                    student.state[4] = 10
                                 
             if eveshown == 1:
                 if now_event.update(student , now_event_id, pressed) == 1:
