@@ -189,6 +189,7 @@ class Dormitory:
                 #结局参数
                 self.too_low = [0,0,0,0,0]
                 self.without_fruit = 0
+                self.hesuan = 0
 
             def updatestate(self,consume):
 
@@ -425,7 +426,9 @@ class Dormitory:
                         now_item[x][y] += 5
                 now_item[4] += 5
                 now_item[5] += 5
+                
             if eventid == 4 and chosen == 0:
+                self.fill((0,0,0))
                 result = Supermarket.Game1(self)
                 earned_item = Randdraw.getdraw(result)
                 for i in range(0,4):
@@ -433,6 +436,9 @@ class Dormitory:
                         now_item[i][j] += earned_item[i][j]
                 now_item[4] += earned_item[4]
                 now_item[5] += earned_item[5]
+
+            if eventid == 5 and chosen == 1:
+                student.hesuan += 1
                 
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
@@ -464,6 +470,8 @@ class Dormitory:
                 return 0
             if student.too_low[1] >= 5:
                 return 1
+            if student.hesuan >= 3:
+                return 2
                 
         #更新图像
 
