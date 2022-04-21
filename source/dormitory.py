@@ -268,17 +268,30 @@ class Dormitory:
                     self.item[2].append (choice_button("../res/image/背包选项.png", (536,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(self.itemnum[2][y])))
                 for y in range(0,4):
                     self.item[3].append(choice_button("../res/image/背包选项.png", (973,515+y*40),font3, itemlevel[y] +"物品剩余数量"+str(self.itemnum[3][y])))
+                self.fish = []
+                self.fish.append(choice_button("../res/image/背包选项.png", (536, 727), font3, "喂猫：物品剩余"+str(self.itemnum[4])))
+                self.fish.append(choice_button("../res/image/背包选项.png", (536, 767), font3, "食用：物品剩余"+str(self.itemnum[4])))
+                self.apple = choice_button("../res/image/背包选项.png", (973, 747), font3, "吃水果：物品剩余"+str(self.itemnum[5]))
             def update(self,pressed):
                 for x in range(0,4):
                     for y in range(0,4):
                         if self.item[x][y].update(pressed) == 1:
                             return x , y
+                if self.fish[0].update(pressed) == 1:
+                    return 4, 5
+                if self.fish[1].update(pressed) == 1:
+                    return 4, 6
+                if self.apple.update(pressed) == 1:
+                    return 5, 5
                 if self.close.update(pressed) == 1:
                     return 4 , 4
                 return -2 , -2
             def print_event(self):
                 self.screen.blit(self.bg_image, self.bg_image_topleft)
                 self.close.print(self.screen)
+                self.fish[0].print(self.screen)
+                self.fish[1].print(self.screen)
+                self.apple.print(self.screen)
                 for x in range(0,4):
                     for y in range(0,4):
                         self.item[x][y].print(self.screen)
@@ -363,7 +376,10 @@ class Dormitory:
                 if crx >= 0 and cry >= 0:
                     if crx == 4 and cry == 4:
                         bagshown = 0
-                    elif now_item[crx][cry] == 0:
+                    elif cry >= 5 and now_item[crx] == 0:
+                        now_event.tipstime = 30
+                        now_event.tipstr = "物品不足！"
+                    elif cry < 5 and now_item[crx][cry] == 0:
                         now_event.tipstime = 30
                         now_event.tipstr = "物品不足！"
                     else:
@@ -456,6 +472,46 @@ class Dormitory:
                                 else:
                                     cons[5] = 4
                                 student.updatestate(cons)
+
+                        if crx == 4:
+                            if cry == 5:#喂猫 
+                                if len(message_queue) == 7:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("给猫猫喂鱼了，猫猫队出动")
+                                now_item[4] -= 1
+                                bagshown = 0
+                                #! 猫猫按钮还没做！！！！这里要加函数
+                                cons = [0,0,0,0,0,2]
+                                student.updatestate(cons)
+                            if cry == 6: #吃鱼
+                                if len(message_queue) == 7:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("生吃了个鱼，饥饿值+2，口渴值 + 2，清洁值 -1")
+                                now_item[4] -= 1
+                                bagshown = 0
+                                cons = [2,2,0,0,-1,2]
+                                student.updatestate(cons)
+
+                        if crx == 5:
+                            if len(message_queue) == 7:
+                                del message_queue[0]
+                                del day_queue[0]
+                                del time_queue[0]
+                            time_queue.append(student.state[5])
+                            day_queue.append(day)
+                            message_queue.append("吃了些水果，新鲜维他命！感到状态好极了，饥饿值+2，口渴值+2")
+                            now_item[crx] -= 1
+                            bagshown = 0
+                            cons = [2,2,0,0,0,2]
+                            student.updatestate(cons)
                                 
             if eveshown == 1:
                 if now_event.update(student , now_event_id, pressed) == 1:
