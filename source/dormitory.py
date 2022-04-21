@@ -27,6 +27,7 @@ class Dormitory:
         eventfont.antialiased = False
         eventpfont = pygame.freetype.Font("../res/font/Pixel.ttf",25)
         eventpfont.antialiased = False
+        Font = pygame.font.Font("../res/font/Pixel.ttf",25)
         statefont = pygame.freetype.Font("../res/font/Pixel.ttf",15)
         statefont.antialiased = False
         gpafont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
@@ -137,8 +138,41 @@ class Dormitory:
                 upos = self.rect.center[1] - self.image.get_height()/2
                 dpos = self.rect.center[1] + self.image.get_height()/2
                 word_print((lpos +10,rpos - 8 , upos -4 , dpos -8), self.text , self.font ,self.color)
-                    
-                
+        
+        def text_objects(text, font,color):
+            textSurface = font.render(text, True, color)
+            return textSurface, textSurface.get_rect()         
+        class choice_button1(pygame.sprite.Sprite):
+            def __init__(self,filename1,location,font,text):
+                pygame.sprite.Sprite.__init__(self)
+                self.image = (pygame.image.load(filename1))
+                self.rect = self.image.get_rect()
+                self.rect.center = location
+                self.text = text
+                self.font = font
+                self.color = (0,0,0)
+            def update(self,pressed):
+                pos = pygame.mouse.get_pos()
+                lpos = self.rect.center[0] - self.image.get_width()/2
+                rpos = self.rect.center[0] + self.image.get_width()/2
+                upos = self.rect.center[1] - self.image.get_height()/2
+                dpos = self.rect.center[1] + self.image.get_height()/2
+                if pos[0] > lpos and pos[0] < rpos and pos[1] > upos and pos[1] < dpos:
+                    if self.color == (0,0,0):
+                        self.color = (255,255,255)
+                    buttons = pygame.mouse.get_pressed()
+                    if buttons[0] and pressed[0] == 1:
+                        pressed[0] = 0
+                        return 1
+                    else:
+                        return 0
+                else:
+                    self.color = (0,0,0)
+            def print(self,screen):
+                screen.blit(self.image, self.rect)
+                TextSurf, TextRect = text_objects(self.text,self.font,self.color)
+                TextRect.center = self.rect.center
+                screen.blit(TextSurf, TextRect)
         #玩家类
         
         class stu:
@@ -324,9 +358,9 @@ class Dormitory:
         #画面组件
         nextmove = choice_button("../res/image/选项.png", (850, 800), font1 , "确认" )
         nextday = choice_button("../res/image/选项.png", (630, 880), font1 , "上床睡觉！" )
-        openevent = choice_button("../res/image/事件余.png" , (900 , 750) , eventpfont , "事件余"+str(resteve))
-        refreshevent = choice_button("../res/image/事件余.png" , (900 , 850) , eventpfont , "刷新事件")
-        openbag = choice_button("../res/image/背包.png" , (1100 , 800) , font1 , "背包")
+        openevent = choice_button1("../res/image/事件余.png" , (900 , 750) , Font , "事件余"+str(resteve))
+        refreshevent = choice_button1("../res/image/事件余.png" , (900 , 850) , Font , "刷新事件")
+        openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , Font , "背包")
         state_bar = []
         state_bar.append(state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57)))
         state_bar.append(state("口渴值",(10 , 10000 , 300 , 10000) , (99,184,255)))
