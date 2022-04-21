@@ -8,7 +8,6 @@ from pause import GamePause
 class Supermarket:
     def Game1(self):
         #设置背景
-
         image_background = pygame.image.load("../res/image/map.png").convert()
         background_x = 320
         background_y = -1280

@@ -4,6 +4,7 @@ import pygame
 import random
 import pygame.freetype
 import os
+from supermarket import Supermarket
 from eventlist import EventList
 from pause import GamePause
 from randomdraw import Randdraw
@@ -15,6 +16,7 @@ class Dormitory:
         #设置背景
 
         bg = pygame.image.load("../res/image/寝室.png").convert()
+        message_bg = pygame.image.load("../res/image/状态栏背景.png").convert()
         
         #设置音效
         pygame.mixer.init()
@@ -23,11 +25,11 @@ class Dormitory:
         pygame.mixer.music.play(-1)
 
         #文本打印函数
-        eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
+        eventpFont = pygame.font.Font("../res/font/Pixel.ttf",25)
+        eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         eventfont.antialiased = False
         eventpfont = pygame.freetype.Font("../res/font/Pixel.ttf",25)
         eventpfont.antialiased = False
-        Font = pygame.font.Font("../res/font/Pixel.ttf",25)
         statefont = pygame.freetype.Font("../res/font/Pixel.ttf",15)
         statefont.antialiased = False
         gpafont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
@@ -137,11 +139,13 @@ class Dormitory:
                 rpos = self.rect.center[0] + self.image.get_width()/2
                 upos = self.rect.center[1] - self.image.get_height()/2
                 dpos = self.rect.center[1] + self.image.get_height()/2
-                word_print((lpos +10,rpos - 8 , upos -4 , dpos -8), self.text , self.font ,self.color)
-        
+                word_print((lpos +10,rpos - 8 , upos -4 , dpos -8), self.text , self.font ,self.color)                    
+
         def text_objects(text, font,color):
             textSurface = font.render(text, True, color)
-            return textSurface, textSurface.get_rect()         
+            return textSurface, textSurface.get_rect()
+                
+            #居中按钮
         class choice_button1(pygame.sprite.Sprite):
             def __init__(self,filename1,location,font,text):
                 pygame.sprite.Sprite.__init__(self)
@@ -173,6 +177,7 @@ class Dormitory:
                 TextSurf, TextRect = text_objects(self.text,self.font,self.color)
                 TextRect.center = self.rect.center
                 screen.blit(TextSurf, TextRect)
+                        
         #玩家类
         
         class stu:
@@ -181,13 +186,15 @@ class Dormitory:
                 self.state = [hungry,thirsty,san,iq,clean,day_time]
                 #GPA
                 self.gpa = gpa
-                #buff or debuff
-                self.buff = []
                 #结局参数
                 self.too_low = [0,0,0,0,0]
+                self.without_fruit = 0
+                self.hesuan = 0
 
             def updatestate(self,consume):
 
+                if consume[0] > 0 and self.without_fruit >= 10:
+                    consume[2] -= 1
                 for i in range(0,5):
                     self.state[i] += consume[i]
                     if self.state[i] < 0:
@@ -265,8 +272,20 @@ class Dormitory:
         
         #随机事件
         
-        def spawn_event():
+        def Check(eveid, state):
+            for i in range(0,5):
+                if EventList.refreshneed[eveid][i] > state[i]:
+                    return 0
+            if EventList.refreshneed[eveid][5] == 0 and EventList.refreshneed[eveid][6] == 0:
+                return 1
+            if EventList.refreshneed[eveid][5] <= state[5] and state[5] <= EventList.refreshneed[eveid][6]:
+                return 1
+            else:
+                return 0
+        def spawn_event(state):
             judge_num = random.randint(0,EventList.event_num - 1)
+            while Check(judge_num, state) == 0:
+                judge_num = random.randint(0,EventList.event_num - 1)
             return EventList.evelist[judge_num] , judge_num
 
         #属性类
@@ -331,36 +350,61 @@ class Dormitory:
                 for x in range(0,4):
                     for y in range(0,4):
                         self.item[x][y].print(self.screen)
+
                 
         #test        
         #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
         
         
         #开始
-        te , now_event_id= spawn_event()
+        student = stu(10,10,10,2,10,32,3.0)
+        te , now_event_id= spawn_event(student.state)
         now_event_solved = 0
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-        student = stu(10,10,10,2,10,32,3.0)
         day = 1
 
         resteve = 0            
         eveshown = 0
         bagshown = 0
-        now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0],[0]]
+        now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],0,0]
         now_bag = bag(self, now_item)
         
         if start_item[0] == -1:
             #继续游戏
-            continu = 1
+            save1 = save.split()
+            student = stu(int(save1[0]),int(save1[1]),int(save1[2]),int(save1[3]),int(save1[4]),int(save1[5]),float(save1[6]))
+            student.too_low = [int(save1[7]),int(save1[8]),int(save1[9]),int(save1[10]),int(save1[11])]
+            student.without_fruit = int(save1[12])
+            now_item = [[int(save1[13]),int(save1[14]),int(save1[15]),int(save1[16])],
+                        [int(save1[17]),int(save1[18]),int(save1[19]),int(save1[20])],
+                        [int(save1[21]),int(save1[22]),int(save1[23]),int(save1[24])],
+                        [int(save1[25]),int(save1[26]),int(save1[27]),int(save1[28])],
+                        int(save1[29]),int(save1[30])]
+            day = int(save1[31])
         else:
             now_item = Randdraw.getdraw(start_item)
+            with open('save1.txt', 'w') as f:
+                save = ""
+                for i in range(0,6):
+                    save = save + str(student.state[i])+" "
+                save = save + str(student.gpa)+" "
+                for i in range(0,5):
+                    save = save + str(student.too_low[i])+" "
+                save = save + str(student.without_fruit)+" "
+                for i in range(0,4):
+                    for j in range(0,4):
+                        save = save + str(now_item[i][j])+" "
+                save = save + str(now_item[4])+" "
+                save = save + str(now_item[5])+" "
+                save = save + str(day)
+                f.write(save)
 
         #画面组件
         nextmove = choice_button("../res/image/选项.png", (850, 800), font1 , "确认" )
         nextday = choice_button("../res/image/选项.png", (630, 880), font1 , "上床睡觉！" )
-        openevent = choice_button1("../res/image/事件余.png" , (900 , 750) , Font , "事件余"+str(resteve))
-        refreshevent = choice_button1("../res/image/事件余.png" , (900 , 850) , Font , "刷新事件")
-        openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , Font , "背包")
+        openevent = choice_button1("../res/image/事件余.png" , (900 , 800) , eventpFont , "事件余"+str(resteve))
+        refreshevent = choice_button1("../res/image/事件余.png" , (370 , 800) , eventpFont , "刷新事件")
+        openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , eventpFont , "背包")
         state_bar = []
         state_bar.append(state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57)))
         state_bar.append(state("口渴值",(10 , 10000 , 300 , 10000) , (99,184,255)))
@@ -372,7 +416,30 @@ class Dormitory:
         message_queue = []
         timeword_min = ["00","15","30","45"]
         timeword_hour = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
-        
+
+
+        #！！有特别效果的事件
+        def specialeffect(eventid , chosen):
+            if eventid == 3 and chosen == 0:
+                for x in range(0,4):
+                    for y in range(0,4):
+                        now_item[x][y] += 5
+                now_item[4] += 5
+                now_item[5] += 5
+                
+            if eventid == 4 and chosen == 0:
+                self.fill((0,0,0))
+                result = Supermarket.Game1(self)
+                earned_item = Randdraw.getdraw(result)
+                for i in range(0,4):
+                    for j in range(0,4):
+                        now_item[i][j] += earned_item[i][j]
+                now_item[4] += earned_item[4]
+                now_item[5] += earned_item[5]
+
+            if eventid == 5 and chosen == 1:
+                student.hesuan += 1
+                
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
         
@@ -403,6 +470,8 @@ class Dormitory:
                 return 0
             if student.too_low[1] >= 5:
                 return 1
+            if student.hesuan >= 3:
+                return 2
                 
         #更新图像
 
@@ -426,7 +495,7 @@ class Dormitory:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "喝不下啦！"
                             else:
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -449,7 +518,7 @@ class Dormitory:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "吃不下啦！"
                             else:
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -469,7 +538,7 @@ class Dormitory:
                                 
 
                         if crx == 2:
-                            if len(message_queue) == 7:
+                            if len(message_queue) == 6:
                                 del message_queue[0]
                                 del day_queue[0]
                                 del time_queue[0]
@@ -492,7 +561,7 @@ class Dormitory:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "很干净啦！"
                             else:
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -512,7 +581,7 @@ class Dormitory:
 
                         if crx == 4:
                             if cry == 5:#喂猫 
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -525,7 +594,7 @@ class Dormitory:
                                 cons = [0,0,0,0,0,2]
                                 student.updatestate(cons)
                             if cry == 6: #吃鱼
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -538,7 +607,7 @@ class Dormitory:
                                 student.updatestate(cons)
 
                         if crx == 5:
-                            if len(message_queue) == 7:
+                            if len(message_queue) == 6:
                                 del message_queue[0]
                                 del day_queue[0]
                                 del time_queue[0]
@@ -549,12 +618,13 @@ class Dormitory:
                             bagshown = 0
                             cons = [2,2,0,0,0,2]
                             student.updatestate(cons)
-                                
+                            student.without_fruit = 0
+                            
             if eveshown == 1:
                 if now_event.chosen != -1:
 
                     if now_event_solved == 0:
-                        if len(message_queue) == 7:
+                        if len(message_queue) == 6:
                             del message_queue[0]
                             del day_queue[0]
                             del time_queue[0]
@@ -562,13 +632,14 @@ class Dormitory:
                         day_queue.append(day)
                         message_queue.append(EventList.message[now_event_id][now_event.chosen])
                         student.updatestate(EventList.effect[now_event_id][now_event.chosen])
+                        specialeffect(now_event_id , now_event.chosen)
                         
                     now_event_solved = 1
                     
                     if now_event.update(student , now_event_id, pressed) == 1 or nextmove.update(pressed) == 1:
                         eveshown = 0
                         resteve -= 1
-                        te, now_event_id =spawn_event()
+                        te, now_event_id =spawn_event(student.state)
                         now_event_solved = 0
                         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                         
@@ -600,7 +671,7 @@ class Dormitory:
                         now_event.tipstr = "该去睡觉啦！！！"
                     else:
                         resteve += 1
-                        if len(message_queue) == 7:
+                        if len(message_queue) == 6:
                             del message_queue[0]
                             del day_queue[0]
                             del time_queue[0]
@@ -621,7 +692,8 @@ class Dormitory:
                         tmpstate.append(student.state[i])
                     student.updatestate([-2,-2,0,0,-2,0])
                     student.state[5] = 32
-                    if len(message_queue) == 7:
+                    student.without_fruit += 1
+                    if len(message_queue) == 6:
                         del message_queue[0]
                         del day_queue[0]
                         del time_queue[0]
@@ -633,17 +705,35 @@ class Dormitory:
                     tmpmessage = tmpmessage + "清洁值-" +str(tmpstate[4]-student.state[4]) + "，"
                     tmpmessage = tmpmessage + "未处理的事件已清空"
                     message_queue.append(tmpmessage)
+
+                    #存档
+                    with open('save1.txt', 'w') as f:
+                        save = ""
+                        for i in range(0,6):
+                            save = save + str(student.state[i])+" "
+                        save = save + str(student.gpa)+" "
+                        for i in range(0,5):
+                            save = save + str(student.too_low[i])+" "
+                        save = save + str(student.without_fruit)+" "
+                        for i in range(0,4):
+                            for j in range(0,4):
+                                save = save + str(now_item[i][j])+" "
+                        save = save + str(now_item[4])+" "
+                        save = save + str(now_item[5])+" "
+                        save = save + str(day)
+                        f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
             pressed[0] = 0
             
         #打印图像
             self.blit(bg , (0,0))
-
+            self.blit(message_bg , (950,0))
+            
             message_cnt = 0
             for message in message_queue:
-                word_print((1000 , 1200 , message_cnt*100 , 30+message_cnt*100), "[Day"+str(day_queue[message_cnt])+"  "+str(timeword_hour[time_queue[message_cnt]//4])+":"+str(timeword_min[time_queue[message_cnt] % 4]+"]") , timefont2 , (0,255,255))
-                word_print((1000 , 1200 , 25+message_cnt*100 , 130+message_cnt*100), message , messagefont , (255 ,255 ,255))
+                word_print((1000 , 1200 , 40+message_cnt*100 , 70+message_cnt*100), "[Day"+str(day_queue[message_cnt])+"  "+str(timeword_hour[time_queue[message_cnt]//4])+":"+str(timeword_min[time_queue[message_cnt] % 4]+"]") , timefont2 , (0,255,255))
+                word_print((1000 , 1200 , 65+message_cnt*100 , 170+message_cnt*100), message , messagefont , (255 ,255 ,255))
                 message_cnt += 1
                 
             for i in range(0,5):
@@ -651,6 +741,8 @@ class Dormitory:
             word_print((10 , 10000 , 100 , 10000), "Time  "+str(timeword_hour[student.state[5]//4])+":"+str(timeword_min[student.state[5] % 4]) , timefont , (0,255,0))
             word_print((10 , 10000 , 700 , 10000), "GPA  "+str(student.gpa) , gpafont , (255,0,0))
             word_print((10 , 10000 , 10 , 10000), "第  "+str(day)+"  天" , gpafont , (255,255,0))
+            if student.without_fruit >= 10:
+                word_print((10 , 280 , 800 , 10000), "缺乏维生素，口腔溃疡了，每次吃东西的时候都会疼得不能思考QAQ" , font2 , (100,100,255))
             openevent.print(self)
             openbag.print(self)
             refreshevent.print(self)
@@ -666,6 +758,7 @@ class Dormitory:
             if now_event.tipstime > 0:
                 word_print((500,10000,20,10000) , now_event.tipstr, tipsfont, (255,0,0))
                 now_event.tipstime -= 1
+
             
             #testpart
             buttons = pygame.mouse.get_pressed()

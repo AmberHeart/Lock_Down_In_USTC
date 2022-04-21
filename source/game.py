@@ -37,7 +37,7 @@ while True:
         Tutorial.Show(main_screen)
         continue
     else:
-        with open('../save1.txt', 'r') as f:
+        with open('save1.txt', 'r') as f:
             save1 = f.read()
         result[0] == -1
         ending = Dormitory.Game2(main_screen,result,save1)
