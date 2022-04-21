@@ -25,6 +25,8 @@ class Dormitory:
         #文本打印函数
         eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
         eventfont.antialiased = False
+        eventpfont = pygame.freetype.Font("../res/font/Pixel.ttf",25)
+        eventpfont.antialiased = False
         statefont = pygame.freetype.Font("../res/font/Pixel.ttf",15)
         statefont.antialiased = False
         gpafont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
@@ -307,7 +309,7 @@ class Dormitory:
         student = stu(10,10,10,2,10,32,3.0)
         day = 1
 
-        resteve = 1            
+        resteve = 0            
         eveshown = 0
         bagshown = 0
         now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0],[0]]
@@ -322,7 +324,8 @@ class Dormitory:
         #画面组件
         nextmove = choice_button("../res/image/选项.png", (850, 800), font1 , "确认" )
         nextday = choice_button("../res/image/选项.png", (630, 880), font1 , "上床睡觉！" )
-        openevent = choice_button("../res/image/事件余.png" , (900 , 800) , font1 , "事件余"+str(resteve))
+        openevent = choice_button("../res/image/事件余.png" , (900 , 750) , eventpfont , "事件余"+str(resteve))
+        refreshevent = choice_button("../res/image/事件余.png" , (900 , 850) , eventpfont , "刷新事件")
         openbag = choice_button("../res/image/背包.png" , (1100 , 800) , font1 , "背包")
         state_bar = []
         state_bar.append(state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57)))
@@ -514,6 +517,27 @@ class Dormitory:
                             student.updatestate(cons)
                                 
             if eveshown == 1:
+                if now_event.chosen != -1:
+
+                    if now_event_solved == 0:
+                        if len(message_queue) == 7:
+                            del message_queue[0]
+                            del day_queue[0]
+                            del time_queue[0]
+                        time_queue.append(student.state[5])
+                        day_queue.append(day)
+                        message_queue.append(EventList.message[now_event_id][now_event.chosen])
+                        student.updatestate(EventList.effect[now_event_id][now_event.chosen])
+                        
+                    now_event_solved = 1
+                    
+                    if now_event.update(student , now_event_id, pressed) == 1 or nextmove.update(pressed) == 1:
+                        eveshown = 0
+                        resteve -= 1
+                        te, now_event_id =spawn_event()
+                        now_event_solved = 0
+                        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                        
                 if now_event.update(student , now_event_id, pressed) == 1:
                     eveshown = 0
                     
@@ -523,39 +547,40 @@ class Dormitory:
                     if resteve == 0:
                         eveshown = 0
                         now_event.tipstime = 30
+                        now_event.tipstr = "当前没有事件哦"
+                    if student.state[5] >= 88 or student.state[5] < 32:
+                        eveshown = 0
+                        now_event.tipstime = 30
                         now_event.tipstr = "该去睡觉啦！！！"
+                    
                 if openbag.update(pressed) == 1:
                     bagshown = 1
-                    if resteve == 0:
+                    if student.state[5] >= 88 or student.state[5] < 32:
                         bagshown = 0
                         now_event.tipstime = 30
                         now_event.tipstr = "该去睡觉啦！！！"
-                        
-            if now_event.chosen != -1:
-
-                if now_event_solved == 0:
-                    if len(message_queue) == 7:
-                        del message_queue[0]
-                        del day_queue[0]
-                        del time_queue[0]
-                    time_queue.append(student.state[5])
-                    day_queue.append(day)
-                    message_queue.append(EventList.message[now_event_id][now_event.chosen])
-                    student.updatestate(EventList.effect[now_event_id][now_event.chosen])
+                if refreshevent.update(pressed) == 1:
+                    if student.state[5] >= 88 or student.state[5] < 32:
+                        bagshown = 0
+                        now_event.tipstime = 30
+                        now_event.tipstr = "该去睡觉啦！！！"
+                    else:
+                        resteve += 1
+                        if len(message_queue) == 7:
+                            del message_queue[0]
+                            del day_queue[0]
+                            del time_queue[0]
+                        time_queue.append(student.state[5])
+                        day_queue.append(day)
+                        message_queue.append("摸了半小时鱼，又有新事件要处理了")
+                        cons = [0,0,0,0,0,2]
+                        student.updatestate(cons)
                     
-                now_event_solved = 1
-                
-                if nextmove.update(pressed) == 1:
-                    #生成新事件
-                    eveshown = 0
-                    te, now_event_id =spawn_event()
-                    now_event_solved = 0
-                    now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                     
             if student.state[5] >= 88 or student.state[5] < 32:
                 if nextday.update(pressed) == 1:
+                    resteve = 0
                     day += 1
-                    resteve = 1
                     #睡觉动画maybe
                     tmpstate = []
                     for i in range(0,5):
@@ -571,7 +596,8 @@ class Dormitory:
                     tmpmessage = "一觉醒来，"
                     tmpmessage = tmpmessage + "饥饿值-" + str(tmpstate[0]-student.state[0]) + "，"
                     tmpmessage = tmpmessage + "口渴值-" + str(tmpstate[1]-student.state[1]) + "，"
-                    tmpmessage = tmpmessage + "清洁值-" +str(tmpstate[4]-student.state[4])
+                    tmpmessage = tmpmessage + "清洁值-" +str(tmpstate[4]-student.state[4]) + "，"
+                    tmpmessage = tmpmessage + "未处理的事件已清空"
                     message_queue.append(tmpmessage)
                     
             openevent.text = "事件余"+str(resteve)
@@ -593,10 +619,10 @@ class Dormitory:
             word_print((10 , 10000 , 10 , 10000), "第  "+str(day)+"  天" , gpafont , (255,255,0))
             openevent.print(self)
             openbag.print(self)
+            refreshevent.print(self)
 
             if student.state[5] >= 88 or student.state[5] < 32:
                 nextday.print(self)
-                resteve = 0
             if bagshown == 1:
                 now_bag.print_event()
             if eveshown == 1:
