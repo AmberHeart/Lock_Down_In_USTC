@@ -185,8 +185,6 @@ class Dormitory:
                 self.state = [hungry,thirsty,san,iq,clean,day_time]
                 #GPA
                 self.gpa = gpa
-                #buff or debuff
-                self.buff = []
                 #结局参数
                 self.too_low = [0,0,0,0,0]
                 self.without_fruit = 0
@@ -371,9 +369,33 @@ class Dormitory:
         
         if start_item[0] == -1:
             #继续游戏
-            continu = 1
+            save1 = save.split()
+            student = stu(int(save1[0]),int(save1[1]),int(save1[2]),int(save1[3]),int(save1[4]),int(save1[5]),float(save1[6]))
+            student.too_low = [int(save1[7]),int(save1[8]),int(save1[9]),int(save1[10]),int(save1[11])]
+            student.without_fruit = int(save1[12])
+            now_item = [[int(save1[13]),int(save1[14]),int(save1[15]),int(save1[16])],
+                        [int(save1[17]),int(save1[18]),int(save1[19]),int(save1[20])],
+                        [int(save1[21]),int(save1[22]),int(save1[23]),int(save1[24])],
+                        [int(save1[25]),int(save1[26]),int(save1[27]),int(save1[28])],
+                        int(save1[29]),int(save1[30])]
+            day = int(save1[31])
         else:
             now_item = Randdraw.getdraw(start_item)
+            with open('save1.txt', 'w') as f:
+                save = ""
+                for i in range(0,6):
+                    save = save + str(student.state[i])+" "
+                save = save + str(student.gpa)+" "
+                for i in range(0,5):
+                    save = save + str(student.too_low[i])+" "
+                save = save + str(student.without_fruit)+" "
+                for i in range(0,4):
+                    for j in range(0,4):
+                        save = save + str(now_item[i][j])+" "
+                save = save + str(now_item[4])+" "
+                save = save + str(now_item[5])+" "
+                save = save + str(day)
+                f.write(save)
 
         #画面组件
         nextmove = choice_button("../res/image/选项.png", (850, 800), font1 , "确认" )
@@ -666,6 +688,23 @@ class Dormitory:
                     tmpmessage = tmpmessage + "清洁值-" +str(tmpstate[4]-student.state[4]) + "，"
                     tmpmessage = tmpmessage + "未处理的事件已清空"
                     message_queue.append(tmpmessage)
+
+                    #存档
+                    with open('save1.txt', 'w') as f:
+                        save = ""
+                        for i in range(0,6):
+                            save = save + str(student.state[i])+" "
+                        save = save + str(student.gpa)+" "
+                        for i in range(0,5):
+                            save = save + str(student.too_low[i])+" "
+                        save = save + str(student.without_fruit)+" "
+                        for i in range(0,4):
+                            for j in range(0,4):
+                                save = save + str(now_item[i][j])+" "
+                        save = save + str(now_item[4])+" "
+                        save = save + str(now_item[5])+" "
+                        save = save + str(day)
+                        f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
             pressed[0] = 0
