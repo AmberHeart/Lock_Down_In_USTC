@@ -4,6 +4,7 @@ import pygame
 import random
 import pygame.freetype
 import os
+from supermarket import Supermarket
 from eventlist import EventList
 from pause import GamePause
 from randomdraw import Randdraw
@@ -424,7 +425,15 @@ class Dormitory:
                         now_item[x][y] += 5
                 now_item[4] += 5
                 now_item[5] += 5
-            
+            if eventid == 4 and chosen == 0:
+                result = Supermarket.Game1(self)
+                earned_item = Randdraw.getdraw(result)
+                for i in range(0,4):
+                    for j in range(0,4):
+                        now_item[i][j] += earned_item[i][j]
+                now_item[4] += earned_item[4]
+                now_item[5] += earned_item[5]
+                
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
         

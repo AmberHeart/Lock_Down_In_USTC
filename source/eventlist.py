@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
         
     #事件总数，每次加事件的时候记得改
-    event_num = 4
+    event_num = 5
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -51,4 +51,10 @@ class EventList:
     message.append(["开个小挂 不过分吧 全属性回满 全物品+5"])
     refreshneed.append([0,0,0,0,0,0,0])
     #4
+    evelist.append(eve("../res/image/test事件.png","采购时间！",1 ,["出发！"] , ["物资补充了！"]))
+    effect.append([[0,0,0,0,0,12]])
+    limit.append([[0,0,0,0,0]])
+    message.append(["去超市补充了物资"])
+    refreshneed.append([0,0,0,0,0,48,60])
+    #5
 
