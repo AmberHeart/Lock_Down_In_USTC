@@ -21,11 +21,12 @@ class Randdraw:
         
     def getdraw(start_item):
 
-        draw_result = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0],[0]]
+        draw_result = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],0,0]
 
         for i in range(0,4):
             for j in range(0,start_item[i]):
                 draw_result[i][Randdraw.spawn_item()] += 1
+
         draw_result[4] = start_item[4]
         draw_result[5] = start_item[5]
         return draw_result

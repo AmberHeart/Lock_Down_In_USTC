@@ -272,8 +272,20 @@ class Dormitory:
         
         #随机事件
         
-        def spawn_event():
+        def Check(eveid, state):
+            for i in range(0,5):
+                if EventList.refreshneed[eveid][i] > state[i]:
+                    return 0
+            if EventList.refreshneed[eveid][5] == 0 and EventList.refreshneed[eveid][6] == 0:
+                return 1
+            if EventList.refreshneed[eveid][5] <= state[5] and state[5] <= EventList.refreshneed[eveid][6]:
+                return 1
+            else:
+                return 0
+        def spawn_event(state):
             judge_num = random.randint(0,EventList.event_num - 1)
+            while Check(judge_num, state) == 0:
+                judge_num = random.randint(0,EventList.event_num - 1)
             return EventList.evelist[judge_num] , judge_num
 
         #属性类
@@ -338,22 +350,23 @@ class Dormitory:
                 for x in range(0,4):
                     for y in range(0,4):
                         self.item[x][y].print(self.screen)
+
                 
         #test        
         #testbutton = button("../res/image/退出游戏0.png","../res/image/退出游戏1.png",(640,585), "../res/sound/button.mp3", "../res/sound/press.wav")
         
         
         #开始
-        te , now_event_id= spawn_event()
+        student = stu(10,10,10,2,10,32,3.0)
+        te , now_event_id= spawn_event(student.state)
         now_event_solved = 0
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-        student = stu(10,10,10,2,10,32,3.0)
         day = 1
 
         resteve = 0            
         eveshown = 0
         bagshown = 0
-        now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0],[0]]
+        now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],0,0]
         now_bag = bag(self, now_item)
         
         if start_item[0] == -1:
@@ -379,7 +392,17 @@ class Dormitory:
         message_queue = []
         timeword_min = ["00","15","30","45"]
         timeword_hour = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
-        
+
+
+        #！！有特别效果的事件
+        def specialeffect(eventid , chosen):
+            if eventid == 3 and chosen == 0:
+                for x in range(0,4):
+                    for y in range(0,4):
+                        now_item[x][y] += 5
+                now_item[4] += 5
+                now_item[5] += 5
+            
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
         
@@ -570,13 +593,14 @@ class Dormitory:
                         day_queue.append(day)
                         message_queue.append(EventList.message[now_event_id][now_event.chosen])
                         student.updatestate(EventList.effect[now_event_id][now_event.chosen])
+                        specialeffect(now_event_id , now_event.chosen)
                         
                     now_event_solved = 1
                     
                     if now_event.update(student , now_event_id, pressed) == 1 or nextmove.update(pressed) == 1:
                         eveshown = 0
                         resteve -= 1
-                        te, now_event_id =spawn_event()
+                        te, now_event_id =spawn_event(student.state)
                         now_event_solved = 0
                         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                         
@@ -662,7 +686,7 @@ class Dormitory:
             word_print((10 , 10000 , 700 , 10000), "GPA  "+str(student.gpa) , gpafont , (255,0,0))
             word_print((10 , 10000 , 10 , 10000), "第  "+str(day)+"  天" , gpafont , (255,255,0))
             if student.without_fruit >= 10:
-                word_print((10 , 300 , 800 , 10000), "缺乏维生素，口腔溃疡了，每次吃东西的时候都会疼得不能思考QAQ" , font2 , (100,100,255))
+                word_print((10 , 280 , 800 , 10000), "缺乏维生素，口腔溃疡了，每次吃东西的时候都会疼得不能思考QAQ" , font2 , (100,100,255))
             openevent.print(self)
             openbag.print(self)
             refreshevent.print(self)
