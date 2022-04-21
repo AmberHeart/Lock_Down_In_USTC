@@ -15,6 +15,7 @@ class Dormitory:
         #设置背景
 
         bg = pygame.image.load("../res/image/寝室.png").convert()
+        message_bg = pygame.image.load("../res/image/状态栏背景.png").convert()
         
         #设置音效
         pygame.mixer.init()
@@ -23,11 +24,11 @@ class Dormitory:
         pygame.mixer.music.play(-1)
 
         #文本打印函数
-        eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
+        eventpFont = pygame.font.Font("../res/font/Pixel.ttf",25)
+        eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         eventfont.antialiased = False
         eventpfont = pygame.freetype.Font("../res/font/Pixel.ttf",25)
         eventpfont.antialiased = False
-        Font = pygame.font.Font("../res/font/Pixel.ttf",25)
         statefont = pygame.freetype.Font("../res/font/Pixel.ttf",15)
         statefont.antialiased = False
         gpafont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
@@ -137,11 +138,13 @@ class Dormitory:
                 rpos = self.rect.center[0] + self.image.get_width()/2
                 upos = self.rect.center[1] - self.image.get_height()/2
                 dpos = self.rect.center[1] + self.image.get_height()/2
-                word_print((lpos +10,rpos - 8 , upos -4 , dpos -8), self.text , self.font ,self.color)
-        
+                word_print((lpos +10,rpos - 8 , upos -4 , dpos -8), self.text , self.font ,self.color)                    
+
         def text_objects(text, font,color):
             textSurface = font.render(text, True, color)
-            return textSurface, textSurface.get_rect()         
+            return textSurface, textSurface.get_rect()
+                
+            #居中按钮
         class choice_button1(pygame.sprite.Sprite):
             def __init__(self,filename1,location,font,text):
                 pygame.sprite.Sprite.__init__(self)
@@ -173,6 +176,7 @@ class Dormitory:
                 TextSurf, TextRect = text_objects(self.text,self.font,self.color)
                 TextRect.center = self.rect.center
                 screen.blit(TextSurf, TextRect)
+                        
         #玩家类
         
         class stu:
@@ -185,9 +189,12 @@ class Dormitory:
                 self.buff = []
                 #结局参数
                 self.too_low = [0,0,0,0,0]
+                self.without_fruit = 0
 
             def updatestate(self,consume):
 
+                if consume[0] > 0 and self.without_fruit >= 10:
+                    consume[2] -= 1
                 for i in range(0,5):
                     self.state[i] += consume[i]
                     if self.state[i] < 0:
@@ -358,9 +365,9 @@ class Dormitory:
         #画面组件
         nextmove = choice_button("../res/image/选项.png", (850, 800), font1 , "确认" )
         nextday = choice_button("../res/image/选项.png", (630, 880), font1 , "上床睡觉！" )
-        openevent = choice_button1("../res/image/事件余.png" , (900 , 750) , Font , "事件余"+str(resteve))
-        refreshevent = choice_button1("../res/image/事件余.png" , (900 , 850) , Font , "刷新事件")
-        openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , Font , "背包")
+        openevent = choice_button1("../res/image/事件余.png" , (900 , 800) , eventpFont , "事件余"+str(resteve))
+        refreshevent = choice_button1("../res/image/事件余.png" , (370 , 800) , eventpFont , "刷新事件")
+        openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , eventpFont , "背包")
         state_bar = []
         state_bar.append(state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57)))
         state_bar.append(state("口渴值",(10 , 10000 , 300 , 10000) , (99,184,255)))
@@ -426,7 +433,7 @@ class Dormitory:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "喝不下啦！"
                             else:
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -449,7 +456,7 @@ class Dormitory:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "吃不下啦！"
                             else:
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -469,7 +476,7 @@ class Dormitory:
                                 
 
                         if crx == 2:
-                            if len(message_queue) == 7:
+                            if len(message_queue) == 6:
                                 del message_queue[0]
                                 del day_queue[0]
                                 del time_queue[0]
@@ -492,7 +499,7 @@ class Dormitory:
                                 now_event.tipstime = 30
                                 now_event.tipstr = "很干净啦！"
                             else:
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -512,7 +519,7 @@ class Dormitory:
 
                         if crx == 4:
                             if cry == 5:#喂猫 
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -525,7 +532,7 @@ class Dormitory:
                                 cons = [0,0,0,0,0,2]
                                 student.updatestate(cons)
                             if cry == 6: #吃鱼
-                                if len(message_queue) == 7:
+                                if len(message_queue) == 6:
                                     del message_queue[0]
                                     del day_queue[0]
                                     del time_queue[0]
@@ -538,7 +545,7 @@ class Dormitory:
                                 student.updatestate(cons)
 
                         if crx == 5:
-                            if len(message_queue) == 7:
+                            if len(message_queue) == 6:
                                 del message_queue[0]
                                 del day_queue[0]
                                 del time_queue[0]
@@ -549,12 +556,13 @@ class Dormitory:
                             bagshown = 0
                             cons = [2,2,0,0,0,2]
                             student.updatestate(cons)
-                                
+                            student.without_fruit = 0
+                            
             if eveshown == 1:
                 if now_event.chosen != -1:
 
                     if now_event_solved == 0:
-                        if len(message_queue) == 7:
+                        if len(message_queue) == 6:
                             del message_queue[0]
                             del day_queue[0]
                             del time_queue[0]
@@ -600,7 +608,7 @@ class Dormitory:
                         now_event.tipstr = "该去睡觉啦！！！"
                     else:
                         resteve += 1
-                        if len(message_queue) == 7:
+                        if len(message_queue) == 6:
                             del message_queue[0]
                             del day_queue[0]
                             del time_queue[0]
@@ -621,7 +629,8 @@ class Dormitory:
                         tmpstate.append(student.state[i])
                     student.updatestate([-2,-2,0,0,-2,0])
                     student.state[5] = 32
-                    if len(message_queue) == 7:
+                    student.without_fruit += 1
+                    if len(message_queue) == 6:
                         del message_queue[0]
                         del day_queue[0]
                         del time_queue[0]
@@ -639,11 +648,12 @@ class Dormitory:
             
         #打印图像
             self.blit(bg , (0,0))
-
+            self.blit(message_bg , (950,0))
+            
             message_cnt = 0
             for message in message_queue:
-                word_print((1000 , 1200 , message_cnt*100 , 30+message_cnt*100), "[Day"+str(day_queue[message_cnt])+"  "+str(timeword_hour[time_queue[message_cnt]//4])+":"+str(timeword_min[time_queue[message_cnt] % 4]+"]") , timefont2 , (0,255,255))
-                word_print((1000 , 1200 , 25+message_cnt*100 , 130+message_cnt*100), message , messagefont , (255 ,255 ,255))
+                word_print((1000 , 1200 , 40+message_cnt*100 , 70+message_cnt*100), "[Day"+str(day_queue[message_cnt])+"  "+str(timeword_hour[time_queue[message_cnt]//4])+":"+str(timeword_min[time_queue[message_cnt] % 4]+"]") , timefont2 , (0,255,255))
+                word_print((1000 , 1200 , 65+message_cnt*100 , 170+message_cnt*100), message , messagefont , (255 ,255 ,255))
                 message_cnt += 1
                 
             for i in range(0,5):
@@ -651,6 +661,8 @@ class Dormitory:
             word_print((10 , 10000 , 100 , 10000), "Time  "+str(timeword_hour[student.state[5]//4])+":"+str(timeword_min[student.state[5] % 4]) , timefont , (0,255,0))
             word_print((10 , 10000 , 700 , 10000), "GPA  "+str(student.gpa) , gpafont , (255,0,0))
             word_print((10 , 10000 , 10 , 10000), "第  "+str(day)+"  天" , gpafont , (255,255,0))
+            if student.without_fruit >= 10:
+                word_print((10 , 300 , 800 , 10000), "缺乏维生素，口腔溃疡了，每次吃东西的时候都会疼得不能思考QAQ" , font2 , (100,100,255))
             openevent.print(self)
             openbag.print(self)
             refreshevent.print(self)
@@ -666,6 +678,7 @@ class Dormitory:
             if now_event.tipstime > 0:
                 word_print((500,10000,20,10000) , now_event.tipstr, tipsfont, (255,0,0))
                 now_event.tipstime -= 1
+
             
             #testpart
             buttons = pygame.mouse.get_pressed()
