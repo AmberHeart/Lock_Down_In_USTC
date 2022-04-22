@@ -13,7 +13,6 @@ class Dormitory:
     
     def Game2(self,start_item,save):
         
-        cat_run = 0 #判断猫猫是否出动
         #设置背景
         message_bg = pygame.image.load("../res/image/状态栏背景.png").convert()
         
@@ -33,7 +32,7 @@ class Dormitory:
         statefont.antialiased = False
         gpafont = pygame.freetype.Font("../res/font/Pixel.ttf",40)
         gpafont.antialiased = False
-        tipsfont = pygame.freetype.Font("../res/font/Pixel.ttf",30)
+        tipsfont = pygame.freetype.Font("../res/font/Pixel.ttf",50)
         tipsfont.antialiased = False
         timefont = pygame.freetype.Font("../res/font/LCD.TTF",40)
         timefont.antialiased = False
@@ -356,12 +355,16 @@ class Dormitory:
         
         
         #开始
+        cat_run = 0 #判断猫猫是否出动
+        rolltimes = 0
+        hvrolled = 0
         student = stu(10,10,10,2,10,32,3.0)
         te , now_event_id= spawn_event(student.state)
         now_event_solved = 0
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
         day = 1
         cat_xinguan = 0
+        can_go = 0
         resteve = 0            
         eveshown = 0
         bagshown = 0
@@ -380,8 +383,11 @@ class Dormitory:
                         [int(save1[25]),int(save1[26]),int(save1[27]),int(save1[28])],
                         int(save1[29]),int(save1[30])]
             day = int(save1[31])
+            cat_run = int(save1[32])
+            rolltimes = int(save1[33])
         else:
             now_item = Randdraw.getdraw(start_item)
+            #读取
             with open('save1.txt', 'w') as f:
                 save = ""
                 for i in range(0,6):
@@ -395,7 +401,9 @@ class Dormitory:
                         save = save + str(now_item[i][j])+" "
                 save = save + str(now_item[4])+" "
                 save = save + str(now_item[5])+" "
-                save = save + str(day)
+                save = save + str(day)+" "
+                save = save + str(cat_run)+" "
+                save = save + str(rolltimes)+" "
                 f.write(save)
 
         #画面组件
@@ -403,6 +411,7 @@ class Dormitory:
         nextday = choice_button("../res/image/选项.png", (630, 880), font1 , "上床睡觉！" )
         openevent = choice_button1("../res/image/事件余.png" , (900 , 800) , eventpFont , "事件余"+str(resteve))
         refreshevent = choice_button1("../res/image/事件余.png" , (370 , 800) , eventpFont , "刷新事件")
+        marketroll = choice_button1("../res/image/超市摇号.png" , (880 , 72) , eventpFont , "摇号")
         openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , eventpFont , "背包")
         state_bar = []
         state_bar.append(state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57)))
@@ -425,16 +434,6 @@ class Dormitory:
                         now_item[x][y] += 5
                 now_item[4] += 5
                 now_item[5] += 5
-                
-            if eventid == 4 and chosen == 0:
-                self.fill((0,0,0))
-                result = Supermarket.Game1(self)
-                earned_item = Randdraw.getdraw(result)
-                for i in range(0,4):
-                    for j in range(0,4):
-                        now_item[i][j] += earned_item[i][j]
-                now_item[4] += earned_item[4]
-                now_item[5] += earned_item[5]
 
             if eventid == 5 and chosen == 1:
                 student.hesuan += 1
@@ -445,11 +444,6 @@ class Dormitory:
         #宿舍部分主循环
                 
         while True:
-        #更换寝室背景：
-            if cat_run == 0:
-                bg = pygame.image.load("../res/image/寝室.png").convert()
-            else:
-                bg = pygame.image.load("../res/image/寝室1.png").convert()  
         #锁60帧
             clock.tick(60)
         #处理事件
@@ -477,9 +471,15 @@ class Dormitory:
                 return 2
             if cat_xinguan == 1:
                 return 3
-                
+        
         #更新图像
 
+            #更换寝室背景：
+            if cat_run == 0:
+                bg = pygame.image.load("../res/image/寝室.png").convert()
+            else:
+                bg = pygame.image.load("../res/image/寝室1.png").convert()
+                
             now_bag = bag(self, now_item)
             #consume_result x , y
             if bagshown == 1:
@@ -674,11 +674,15 @@ class Dormitory:
                         bagshown = 0
                         now_event.tipstime = 30
                         now_event.tipstr = "该去睡觉啦！！！"
+                        
                 if refreshevent.update(pressed) == 1:
                     if student.state[5] >= 88 or student.state[5] < 32:
                         bagshown = 0
                         now_event.tipstime = 30
                         now_event.tipstr = "该去睡觉啦！！！"
+                    elif resteve == 3:
+                        now_event.tipstime = 30
+                        now_event.tipstr = "事件太多啦！！！"
                     else:
                         resteve += 1
                         if len(message_queue) == 6:
@@ -690,12 +694,56 @@ class Dormitory:
                         message_queue.append("摸了半小时鱼，又有新事件要处理了")
                         cons = [0,0,0,0,0,2]
                         student.updatestate(cons)
-                    
+                #事件超时
+                if resteve > 0:
+                    if EventList.refreshneed[now_event_id][5] != 0 or EventList.refreshneed[now_event_id][6] != 0:
+                        if EventList.refreshneed[now_event_id][5] > student.state[5] or student.state[5] > EventList.refreshneed[now_event_id][6]:
+                            resteve -= 1
+                            te, now_event_id =spawn_event(student.state)
+                            now_event_solved = 0
+                            now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                            if len(message_queue) == 6:
+                                del message_queue[0]
+                                del day_queue[0]
+                                del time_queue[0]
+                            time_queue.append(student.state[5])
+                            day_queue.append(day)
+                            message_queue.append("呀好像忘了啥，事件超时已消失")
+                
+                if marketroll.update(pressed) == 1:
+                    if hvrolled == 1:
+                        now_event.tipstime = 30
+                        now_event.tipstr = "今天摇过号了呢"
+                    else:   
+                        hvrolled = 1
+                        rollnum = random.randint(0,99)
+                        rolltimes += 1
+                        if rollnum > 95 or rolltimes >= 10:
+                            can_go = 1
+                            rolltimes = 0
+                            if len(message_queue) == 6:
+                                del message_queue[0]
+                                del day_queue[0]
+                                del time_queue[0]
+                            time_queue.append(student.state[5])
+                            day_queue.append(day)
+                            message_queue.append("中了！明天8点起床就可以去超市了！")
+                        else:
+                            if len(message_queue) == 6:
+                                del message_queue[0]
+                                del day_queue[0]
+                                del time_queue[0]
+                            time_queue.append(student.state[5])
+                            day_queue.append(day)
+                            message_queue.append("没中，可惜")
+                        cons = [0,0,0,0,0,2]
+                        student.updatestate(cons)
                     
             if student.state[5] >= 88 or student.state[5] < 32:
                 if nextday.update(pressed) == 1:
                     resteve = 0
                     day += 1
+                    hvrolled = 0
                     #睡觉动画maybe
                     tmpstate = []
                     for i in range(0,5):
@@ -737,6 +785,32 @@ class Dormitory:
                                 message_queue.append("猫猫带回来了不少物资，快去背包看看吧！")
                             else:
                                 cat_xinguan = 1
+                    if can_go == 1:
+                        can_go = 0
+                        self.fill((0,0,0))
+                        result = Supermarket.Game1(self)
+                        earned_item = Randdraw.getdraw(result)
+                        for i in range(0,4):
+                            for j in range(0,4):
+                                now_item[i][j] += earned_item[i][j]
+                        now_item[4] += earned_item[4]
+                        now_item[5] += earned_item[5]
+                        if len(message_queue) == 6:
+                            del message_queue[0]
+                            del day_queue[0]
+                            del time_queue[0]
+                        time_queue.append(student.state[5])
+                        day_queue.append(day)
+                        message_queue.append("出发去采购！")
+                        cons = [0,0,0,0,0,12]
+                        student.updatestate(cons)
+                        if len(message_queue) == 6:
+                            del message_queue[0]
+                            del day_queue[0]
+                            del time_queue[0]
+                        time_queue.append(student.state[5])
+                        day_queue.append(day)
+                        message_queue.append("采购结束，快去背包看看吧！")
 
                     #存档
                     with open('save1.txt', 'w') as f:
@@ -753,6 +827,8 @@ class Dormitory:
                         save = save + str(now_item[4])+" "
                         save = save + str(now_item[5])+" "
                         save = save + str(day)
+                        save = save + str(cat_run)
+                        save = save + str(rolltimes)
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
@@ -778,6 +854,7 @@ class Dormitory:
             openevent.print(self)
             openbag.print(self)
             refreshevent.print(self)
+            marketroll.print(self)
 
             if student.state[5] >= 88 or student.state[5] < 32:
                 nextday.print(self)
@@ -788,8 +865,8 @@ class Dormitory:
                 if now_event.chosen != -1:
                     nextmove.print(self)
             if now_event.tipstime > 0:
-                word_print((500,10000,20,10000) , now_event.tipstr, tipsfont, (255,0,0))
-                now_event.tipstime -= 1
+                word_print((400,10000,20,10000) , now_event.tipstr, tipsfont, (255,255,255))
+                now_event.tipstime -= 2
 
             
             #testpart

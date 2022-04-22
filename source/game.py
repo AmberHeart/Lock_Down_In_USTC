@@ -39,14 +39,16 @@ while True:
     else:
         with open('save1.txt', 'r') as f:
             save1 = f.read()
-        result[0] == -1
+        result = [-1]
         ending = Dormitory.Game2(main_screen,result,save1)
+            
     
     t1 = pygame.time.wait(100)
     if ending == -1:
         continue
     else:
         if Ending.print(main_screen, ending) != -1:
+            os.remove(save1.text)
             break
 
 #结束游戏

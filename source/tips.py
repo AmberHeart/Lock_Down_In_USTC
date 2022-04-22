@@ -11,7 +11,7 @@ class Tips:
         bg_y = 300
 
         #设置字体
-        font1 = pygame.freetype.Font("../res/font/Pixel.ttf",60)
+        font1 = pygame.freetype.Font("../res/font/Pixel.ttf",50)
         font1.antialiased = False
         font1.origin = True
 
@@ -73,8 +73,8 @@ class Tips:
                 word_print((lpos +20,rpos - 20 , upos +10 , dpos -10), self.text , self.font ,self.color)
 
 
-        nobutton = button("../res/image/否按钮.png" , (800 , 760) , font2 , "否" )
-        yesbutton = button("../res/image/是按钮.png" , (450 , 760) , font2 , "是" )
+        nobutton = button("../res/image/否按钮.png" , (790 , 730) , font2 , "否" )
+        yesbutton = button("../res/image/是按钮.png" , (490 , 730) , font2 , "是" )
 
         if stage == 1:
             text = "此时退出不会保存，是否继续？"

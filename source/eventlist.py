@@ -51,7 +51,7 @@ class EventList:
     limit.append([[0,0,0,0,0]])
     message.append(["开个小挂 不过分吧 全属性回满 全物品+5"])
     refreshneed.append([0,0,0,0,0,0,0])
-    #4
+    #4 记得替换掉
     evelist.append(eve("../res/image/test事件.png","采购时间！",1 ,["出发！"] , ["物资补充了！"]))
     effect.append([[0,0,0,0,0,12]])
     limit.append([[0,0,0,0,0]])
@@ -87,5 +87,4 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["读书收获 智商+1 签到失败 san值-1","暗自庆幸 san值+1"])
     refreshneed.append([0,0,0,0,0,48,88])
-
 

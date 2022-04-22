@@ -81,9 +81,9 @@ class GamePause:
                 word_print((lpos +20,rpos - 20 , upos +10 , dpos -10), self.text , self.font ,self.color)
 
 
-        continuebutton = button("../res/image/选项按钮.png" , (640 , 350) , font2 , "继续游戏" )
-        mainbutton = button("../res/image/选项按钮.png" , (640 , 500) , font2 , "返回主菜单" )
-        exitbutton = button("../res/image/选项按钮.png" , (640 , 650) , font2 , "退出游戏" )
+        continuebutton = button("../res/image/选项.png" , (640 , 420) , font2 , "继续游戏" )
+        mainbutton = button("../res/image/选项.png" , (640 , 570) , font2 , "返回主菜单" )
+        exitbutton = button("../res/image/选项.png" , (640 , 720) , font2 , "退出游戏" )
         
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()

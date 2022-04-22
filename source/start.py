@@ -1,7 +1,9 @@
 #导入模块
+import os
 import sys
 import pygame
 import math
+
 class Start:
     def Game0(self):
         #设置背景
@@ -71,13 +73,31 @@ class Start:
                     self.rect = self.image.get_rect()
                     self.rect.center = location
 
-        stage1 = stage("../res/image/游戏标题.png", (640,200))
-        stage2 = stage("../res/image/开始游戏0.png", (640,585))
-        stage3 = stage("../res/image/开始游戏1.png", (640,585))
-        stage4 = stage("../res/image/游戏教程.png", (640,685))
-        stage5 = stage("../res/image/游戏教程1.png", (640,685))
-        stage6 = stage("../res/image/退出游戏0.png", (640,785))
-        stage7 = stage("../res/image/退出游戏1.png", (640,785))
+
+        #检查存档是否存在
+        saveexist = 0
+        if os.path.exists("save1.txt"):
+            saveexist = 1
+        if saveexist == 1:
+            stage1 = stage("../res/image/游戏标题.png", (640,200))
+            stage2 = stage("../res/image/开始游戏0.png", (640,585))
+            stage3 = stage("../res/image/开始游戏1.png", (640,585))
+            stage8 = stage("../res/image/继续游戏0.png", (640,685))
+            stage9 = stage("../res/image/继续游戏.png", (640,685))
+            stage4 = stage("../res/image/游戏教程.png", (640,785))
+            stage5 = stage("../res/image/游戏教程1.png", (640,785))
+            stage6 = stage("../res/image/退出游戏0.png", (640,885))
+            stage7 = stage("../res/image/退出游戏1.png", (640,885))
+        else:
+            stage1 = stage("../res/image/游戏标题.png", (640,200))
+            stage2 = stage("../res/image/开始游戏0.png", (640,585))
+            stage3 = stage("../res/image/开始游戏1.png", (640,585))
+            stage4 = stage("../res/image/游戏教程.png", (640,685))
+            stage5 = stage("../res/image/游戏教程1.png", (640,685))
+            stage6 = stage("../res/image/退出游戏0.png", (640,785))
+            stage7 = stage("../res/image/退出游戏1.png", (640,785))
+        
+            
         #设置角色
                 
         buyer = player("../res/image/模糊人物.png", 12)
@@ -90,7 +110,7 @@ class Start:
         #计数器
 
         cnt = 0
-        button_flag = [0,0,0]
+        button_flag = [0,0,0,0]
 
         #开始界面主循环
                 
@@ -107,6 +127,8 @@ class Start:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+        #人物移动
+                    
             if cnt == 110 or cnt == 140:
                 buyer.towards -= 1
                 if buyer.towards == 0:
@@ -143,41 +165,92 @@ class Start:
             #     text0 += "  right button pressed"
             #text0_surface = font.render(text0, True, (255, 0, 0))
             #self.blit(text0_surface, (10, 50))
-            self.blit(stage1.image,stage1.rect)
-            self.blit(stage2.image,stage2.rect)
-            self.blit(stage4.image,stage4.rect)
-            self.blit(stage6.image,stage6.rect)
-            if pos[0] > 525 and pos[0] < 755 and pos[1] >550 and pos[1] < 620:
-                self.blit(stage3.image,stage3.rect)
-                if button_flag[0] == 0:
-                    button_sound.play()
-                    button_flag[0] = 1
-                if buttons[0]:
-                    press_sound.play()
-                    self.fill((0,0,0))
-                    return 0
+            if saveexist == 1:
+                self.blit(stage1.image,stage1.rect)
+                self.blit(stage2.image,stage2.rect)
+                self.blit(stage4.image,stage4.rect)
+                self.blit(stage6.image,stage6.rect)
+                self.blit(stage8.image,stage8.rect)
+                if pos[0] > 525 and pos[0] < 755 and pos[1] >550 and pos[1] < 620:
+                    self.blit(stage3.image,stage3.rect)
+                    if button_flag[0] == 0:
+                        button_sound.play()
+                        button_flag[0] = 1
+                    if buttons[0]:
+                        press_sound.play()
+                        self.fill((0,0,0))
+                        return 0
+                else:
+                    button_flag[0] = 0
+                if pos[0] > 525 and pos[0] < 755 and pos[1] >750 and pos[1] < 820:
+                    self.blit(stage5.image,stage5.rect)
+                    if button_flag[1] == 0:
+                        button_sound.play()
+                        button_flag[1] = 1
+                    if buttons[0]:
+                        press_sound.play()
+                        return 1
+                else:
+                    button_flag[1] = 0
+                if pos[0] > 525 and pos[0] < 755 and pos[1] >850 and pos[1] < 920:
+                    self.blit(stage7.image,stage7.rect)
+                    if button_flag[2] == 0:
+                        button_sound.play()
+                        button_flag[2] = 1
+                    if buttons[0]:
+                        press_sound.play()
+                        pygame.quit()
+                        sys.exit()
+                else:
+                    button_flag[2] = 0
+                if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
+                    self.blit(stage9.image,stage9.rect)
+                    if button_flag[3] == 0:
+                        button_sound.play()
+                        button_flag[3] = 1
+                    if buttons[0]:
+                        press_sound.play()
+                        return 2
+                else:
+                    button_flag[3] = 0
             else:
-                button_flag[0] = 0
-            if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
-                self.blit(stage5.image,stage5.rect)
-                if button_flag[1] == 0:
-                    button_sound.play()
-                    button_flag[1] = 1
-                if buttons[0]:
-                    press_sound.play()
-                    return 1
-            else:
-                button_flag[1] = 0
-            if pos[0] > 525 and pos[0] < 755 and pos[1] >750 and pos[1] < 820:
-                self.blit(stage7.image,stage7.rect)
-                if button_flag[2] == 0:
-                    button_sound.play()
-                    button_flag[2] = 1
-                if buttons[0]:
-                    press_sound.play()
-                    pygame.quit()
-                    sys.exit()
-            else:
-                button_flag[2] = 0
+                self.blit(stage1.image,stage1.rect)
+                self.blit(stage2.image,stage2.rect)
+                self.blit(stage4.image,stage4.rect)
+                self.blit(stage6.image,stage6.rect)
+                if pos[0] > 525 and pos[0] < 755 and pos[1] >550 and pos[1] < 620:
+                    self.blit(stage3.image,stage3.rect)
+                    if button_flag[0] == 0:
+                        button_sound.play()
+                        button_flag[0] = 1
+                    if buttons[0]:
+                        press_sound.play()
+                        self.fill((0,0,0))
+                        return 0
+                else:
+                    button_flag[0] = 0
+                if pos[0] > 525 and pos[0] < 755 and pos[1] >650 and pos[1] < 720:
+                    self.blit(stage5.image,stage5.rect)
+                    if button_flag[1] == 0:
+                        button_sound.play()
+                        button_flag[1] = 1
+                    if buttons[0]:
+                        press_sound.play()
+                        return 1
+                else:
+                    button_flag[1] = 0
+                if pos[0] > 525 and pos[0] < 755 and pos[1] >750 and pos[1] < 820:
+                    self.blit(stage7.image,stage7.rect)
+                    if button_flag[2] == 0:
+                        button_sound.play()
+                        button_flag[2] = 1
+                    if buttons[0]:
+                        press_sound.play()
+                        pygame.quit()
+                        sys.exit()
+                else:
+                    button_flag[2] = 0
+
+                
             pygame.display.flip()
         
