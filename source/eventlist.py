@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
         
     #事件总数，每次加事件的时候记得改
-    event_num = 6
+    event_num = 10
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -63,4 +63,29 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["排了一条从图书馆到操场超长大队，终于做了核酸","在宿舍舒适地卷卷，智商+2"])
     refreshneed.append([0,0,0,0,0,56,88])
+    #6 敲门 查卫生
+    evelist.append(eve("../res/image/test事件.png","叮叮当,有人敲门", 2 ,["开门","一定有鬼,不开"] , ["宿管查卫生,寄！","..."]))
+    effect.append([[0,0,-1,0,+1, 1],[0,0,0,0,0, 1]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["┭┮﹏┭┮ 被迫整理 san值-1 清洁值+1","不开门好像不太好"])
+    refreshneed.append([0,0,0,0,0,48,60])
+    #7敲门 送六个核桃
+    evelist.append(eve("../res/image/test事件.png","咚咚咚,有人敲门", 2 ,["开门","一定有鬼,不开"] , ["隔壁朋友送来六个核桃,提神醒脑","..."]))
+    effect.append([[0,0,0,+1,0, 1],[0,0,0,0,0, 1]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["喝了六个核桃 智商+1","不开门好像不太好"])
+    refreshneed.append([0,0,0,0,0,48,88])
+    #8砸门 恶作剧
+    evelist.append(eve("../res/image/test事件.png","哐哐哐,有人砸门", 2 ,["战战兢兢开门","这回真滴一定有鬼,坚决不开"] , ["门口空无一人","..."]))
+    effect.append([[0,0,-2,0,0, 1],[0,0,0,0,0, 1]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["没人。。。 san值-2","不应该开门"])
+    refreshneed.append([0,0,0,0,0,48,88])
+    #9二课读书 崩了
+    evelist.append(eve("../res/image/test事件.png","室友拉你去参加悦读二课", 2 ,["好耶","算了，万一二课又崩了"] , ["好书啊好书，不过二课果然崩了","还好没去，二课崩了"]))
+    effect.append([[0,0,-1,+1,0, 8],[0,0,0,+1,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["读书收获 智商+1 签到失败 san值-1","暗自庆幸 san值+1"])
+    refreshneed.append([0,0,0,0,0,48,88])
+
 
