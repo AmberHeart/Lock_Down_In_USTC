@@ -29,11 +29,12 @@ class Tutorial:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    cnt += 1
             
 
-            buttons = pygame.mouse.get_pressed()
             if cnt == 2:
                 return 
             self.blit(stage[cnt],(0,0))
-            if buttons[0] == 1:
-                cnt += 1
+                
+            pygame.display.flip()
