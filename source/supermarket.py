@@ -642,7 +642,7 @@ class Supermarket:
                 TextRect.center = (640, 380)
                 self.blit(TextSurf, TextRect)
         #绘制倒计时
-            clock_g = "距离封校隔离还有"+str(clock_)+"s"
+            clock_g = "距离采购结束还有"+str(clock_)+"s"
             TextSurf, TextRect = text_objects(clock_g, font, (255,0,0))
             TextRect.center = (640, 75)
             self.blit(TextSurf, TextRect)

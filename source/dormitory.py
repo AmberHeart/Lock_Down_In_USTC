@@ -826,9 +826,9 @@ class Dormitory:
                                 save = save + str(now_item[i][j])+" "
                         save = save + str(now_item[4])+" "
                         save = save + str(now_item[5])+" "
-                        save = save + str(day)
-                        save = save + str(cat_run)
-                        save = save + str(rolltimes)
+                        save = save + str(day)+" "
+                        save = save + str(cat_run)+" "
+                        save = save + str(rolltimes)+" "
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
@@ -869,12 +869,12 @@ class Dormitory:
                 now_event.tipstime -= 2
 
             
-            #testpart
-            buttons = pygame.mouse.get_pressed()
-            pos = pygame.mouse.get_pos()            
-            text0 = "mouse position: " + str(pos)
-            text0_surface = testfont.render(text0, True, (255, 0, 0))
-            self.blit(text0_surface, (10, 50))
+            # #testpart
+            # buttons = pygame.mouse.get_pressed()
+            # pos = pygame.mouse.get_pos()            
+            # text0 = "mouse position: " + str(pos)
+            # text0_surface = testfont.render(text0, True, (255, 0, 0))
+            # self.blit(text0_surface, (10, 50))
             
         #刷新屏幕
             pygame.display.flip()
