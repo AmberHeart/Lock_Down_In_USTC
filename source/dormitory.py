@@ -13,9 +13,8 @@ class Dormitory:
     
     def Game2(self,start_item,save):
         
+        cat_run = 0 #判断猫猫是否出动
         #设置背景
-
-        bg = pygame.image.load("../res/image/寝室.png").convert()
         message_bg = pygame.image.load("../res/image/状态栏背景.png").convert()
         
         #设置音效
@@ -362,7 +361,7 @@ class Dormitory:
         now_event_solved = 0
         now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
         day = 1
-
+        cat_xinguan = 0
         resteve = 0            
         eveshown = 0
         bagshown = 0
@@ -446,7 +445,11 @@ class Dormitory:
         #宿舍部分主循环
                 
         while True:
-
+        #更换寝室背景：
+            if cat_run == 0:
+                bg = pygame.image.load("../res/image/寝室.png").convert()
+            else:
+                bg = pygame.image.load("../res/image/寝室1.png").convert()  
         #锁60帧
             clock.tick(60)
         #处理事件
@@ -472,6 +475,8 @@ class Dormitory:
                 return 1
             if student.hesuan >= 3:
                 return 2
+            if cat_xinguan == 1:
+                return 3
                 
         #更新图像
 
@@ -581,18 +586,23 @@ class Dormitory:
 
                         if crx == 4:
                             if cry == 5:#喂猫 
-                                if len(message_queue) == 6:
-                                    del message_queue[0]
-                                    del day_queue[0]
-                                    del time_queue[0]
-                                time_queue.append(student.state[5])
-                                day_queue.append(day)
-                                message_queue.append("给猫猫喂鱼了，猫猫队出动")
-                                now_item[4] -= 1
-                                bagshown = 0
-                                #! 猫猫按钮还没做！！！！这里要加函数
-                                cons = [0,0,0,0,0,2]
-                                student.updatestate(cons)
+                                if cat_run != 0:
+                                    now_event.tipstime = 30
+                                    now_event.tipstr = "猫猫队已经出动辣！"
+                                else:
+                                    if len(message_queue) == 6:
+                                        del message_queue[0]
+                                        del day_queue[0]
+                                        del time_queue[0]
+                                    time_queue.append(student.state[5])
+                                    day_queue.append(day)
+                                    cat_run = 1
+                                    cat_day = random.randint(3,6)
+                                    message_queue.append("给猫猫喂鱼了，猫猫队出动,猫猫预计会在"+str(cat_day - 1)+"后归来")
+                                    now_item[4] -= 1
+                                    bagshown = 0
+                                    cons = [0,0,0,0,0,2]
+                                    student.updatestate(cons)
                             if cry == 6: #吃鱼
                                 if len(message_queue) == 6:
                                     del message_queue[0]
@@ -705,6 +715,28 @@ class Dormitory:
                     tmpmessage = tmpmessage + "清洁值-" +str(tmpstate[4]-student.state[4]) + "，"
                     tmpmessage = tmpmessage + "未处理的事件已清空"
                     message_queue.append(tmpmessage)
+                    if cat_run != 0:
+                        cat_run += 1
+                        if cat_run == cat_day:#猫猫归来
+                            cat_run = 0
+                            cat_level = random.randint(0,99)
+                            if cat_level < 97: #猫猫带回来物资
+                                cat_item = [random.randint(1,3),random.randint(1,3),random.randint(0,2),random.randint(0,2),random.randint(0,1),random.randint(0,1)]
+                                cat_item1 = Randdraw.getdraw(cat_item)
+                                for x in range(0,4):
+                                    for y in range(0,4):
+                                        now_item[x][y] += cat_item1[x][y]
+                                now_item[4] += cat_item1[4]
+                                now_item[5] += cat_item1[5]
+                                if len(message_queue) == 6:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("猫猫带回来了不少物资，快去背包看看吧！")
+                            else:
+                                cat_xinguan = 1
 
                     #存档
                     with open('save1.txt', 'w') as f:
