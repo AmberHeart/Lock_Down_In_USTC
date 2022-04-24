@@ -303,7 +303,7 @@ class Dormitory:
                 word_print(tmploca, str(num)+"/10" , statefont , self.color)
 
         #背包类
-        class bag: #!先用上事件的贴图了
+        class bag: 
             def __init__(self, screen, items):
                 self.screen = screen
                 self.bg_image = pygame.image.load("../res/image/箱子.png")

@@ -15,7 +15,7 @@ pygame.init()
 #设置主窗口
 
 main_screen = pygame.display.set_mode((1280,960))
-pygame.display.set_caption("这是一个标题")
+pygame.display.set_caption("LOCK-DOWN IN USTC")
 image_icon = pygame.image.load("../res/image/icon.png").convert()
 pygame.display.set_icon(image_icon)
 
