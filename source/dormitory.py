@@ -188,6 +188,7 @@ class Dormitory:
                 self.too_low = [0,0,0,0,0]
                 self.without_fruit = 0
                 self.hesuan = 0
+                wangwang = [0,0,0,0,0,0] #收集旺旺进度 雪饼，仙贝，牛奶糖，牛奶，挑豆，粟米条
 
             def updatestate(self,consume):
 
@@ -371,6 +372,7 @@ class Dormitory:
         now_item = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],0,0]
         now_bag = bag(self, now_item)
         
+
         if start_item[0] == -1:
             #继续游戏
             save1 = save.split()
@@ -437,7 +439,20 @@ class Dormitory:
 
             if eventid == 5 and chosen == 1:
                 student.hesuan += 1
-                
+            if eventid == 11 and chosen == 0 :
+                wangwang[0] = 1
+            if eventid == 11 and chosen == 1 :
+                wangwang[1] = 1  
+            if eventid == 11 and chosen == 2 :
+                wangwang[4] = 1 
+            if eventid == 11 and chosen == 1 :
+                wangwang[3] = 1  
+            if eventid == 11 and chosen == 2 :
+                wangwang[5] = 1
+            if wangwang[0] and wangwang[1] and wangwang[3] and wangwang[4] and wangwang[5] 
+                key_wangwang = 10
+            if eventid == 10 and chosen == 0 :
+                wangwang[2] = 1 
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
         
@@ -471,6 +486,8 @@ class Dormitory:
                 return 2
             if cat_xinguan == 1:
                 return 3
+            if wangwang[2] == 1:
+                return 4
         
         #更新图像
 
