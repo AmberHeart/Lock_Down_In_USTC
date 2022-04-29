@@ -24,6 +24,7 @@ class Dormitory:
 
         #文本打印函数
         eventpFont = pygame.font.Font("../res/font/Pixel.ttf",25)
+        eventpFont2 = pygame.font.Font("../res/font/Pixel.ttf",15)
         eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         eventfont.antialiased = False
         eventpfont = pygame.freetype.Font("../res/font/Pixel.ttf",25)
@@ -188,7 +189,8 @@ class Dormitory:
                 self.too_low = [0,0,0,0,0]
                 self.without_fruit = 0
                 self.hesuan = 0
-                wangwang = [0,0,0,0,0,0] #收集旺旺进度 雪饼，仙贝，牛奶糖，牛奶，挑豆，粟米条
+                self.wangwang = [0,0,0,0,0,0] #收集旺旺进度 雪饼，仙贝，牛奶糖，牛奶，挑豆，粟米条
+                self.exam = 0
 
             def updatestate(self,consume):
 
@@ -272,6 +274,9 @@ class Dormitory:
         #随机事件
         
         def Check(eveid, state):
+            if eveid == 10:
+                if student.wangwang[0] == 0 or student.wangwang[1] == 0 or student.wangwang[3] == 0 or student.wangwang[4] == 0 or student.wangwang[5] == 0:
+                    return 0
             for i in range(0,5):
                 if EventList.refreshneed[eveid][i] > state[i]:
                     return 0
@@ -387,9 +392,11 @@ class Dormitory:
             day = int(save1[31])
             cat_run = int(save1[32])
             rolltimes = int(save1[33])
+            student.wangwang = [int(save1[34]),int(save1[35]),int(save1[36]),int(save1[37]),int(save1[38]),int(save1[39])]
+            student.exam = int(save1[40])
         else:
             now_item = Randdraw.getdraw(start_item)
-            #读取
+            student.exam = random.randint(5,10)
             with open('save1.txt', 'w') as f:
                 save = ""
                 for i in range(0,6):
@@ -406,6 +413,9 @@ class Dormitory:
                 save = save + str(day)+" "
                 save = save + str(cat_run)+" "
                 save = save + str(rolltimes)+" "
+                for i in range(0,6):
+                    save = save + str(student.wangwang[i])+" "
+                save = save + str(student.exam)+" "
                 f.write(save)
 
         #画面组件
@@ -414,6 +424,7 @@ class Dormitory:
         openevent = choice_button1("../res/image/事件余.png" , (900 , 800) , eventpFont , "事件余"+str(resteve))
         refreshevent = choice_button1("../res/image/事件余.png" , (370 , 800) , eventpFont , "刷新事件")
         marketroll = choice_button1("../res/image/超市摇号.png" , (880 , 72) , eventpFont , "摇号")
+        examclock = choice_button1("../res/image/考试.png" , (880 , 216) , eventpFont2 , "还有"+str(student.exam)+"天考试")
         openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , eventpFont , "背包")
         state_bar = []
         state_bar.append(state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57)))
@@ -430,29 +441,24 @@ class Dormitory:
 
         #！！有特别效果的事件
         def specialeffect(eventid , chosen):
-            if eventid == 3 and chosen == 0:
-                for x in range(0,4):
-                    for y in range(0,4):
-                        now_item[x][y] += 5
-                now_item[4] += 5
-                now_item[5] += 5
-
+            
             if eventid == 5 and chosen == 1:
                 student.hesuan += 1
+                
             if eventid == 11 and chosen == 0 :
-                wangwang[0] = 1
+                student.wangwang[0] = 1
             if eventid == 11 and chosen == 1 :
-                wangwang[1] = 1  
+                student.wangwang[1] = 1  
             if eventid == 11 and chosen == 2 :
-                wangwang[4] = 1 
+                student.wangwang[4] = 1 
             if eventid == 11 and chosen == 1 :
-                wangwang[3] = 1  
+                student.wangwang[3] = 1  
             if eventid == 11 and chosen == 2 :
-                wangwang[5] = 1
-            if wangwang[0] and wangwang[1] and wangwang[3] and wangwang[4] and wangwang[5] 
-                key_wangwang = 10
+                student.wangwang[5] = 1
+                
             if eventid == 10 and chosen == 0 :
-                wangwang[2] = 1 
+                student.wangwang[2] = 1
+                
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
         
@@ -486,7 +492,7 @@ class Dormitory:
                 return 2
             if cat_xinguan == 1:
                 return 3
-            if wangwang[2] == 1:
+            if student.wangwang[2] == 1:
                 return 4
         
         #更新图像
@@ -684,6 +690,10 @@ class Dormitory:
                         eveshown = 0
                         now_event.tipstime = 30
                         now_event.tipstr = "该去睡觉啦！！！"
+                    if student.exam == 0:
+                        eveshown = 0
+                        now_event.tipstime = 30
+                        now_event.tipstr = "该去考试啦！！！"
                     
                 if openbag.update(pressed) == 1:
                     bagshown = 1
@@ -691,15 +701,21 @@ class Dormitory:
                         bagshown = 0
                         now_event.tipstime = 30
                         now_event.tipstr = "该去睡觉啦！！！"
+                    if student.exam == 0:
+                        bagshown = 0
+                        now_event.tipstime = 30
+                        now_event.tipstr = "该去考试啦！！！"
                         
                 if refreshevent.update(pressed) == 1:
                     if student.state[5] >= 88 or student.state[5] < 32:
-                        bagshown = 0
                         now_event.tipstime = 30
                         now_event.tipstr = "该去睡觉啦！！！"
                     elif resteve == 3:
                         now_event.tipstime = 30
                         now_event.tipstr = "事件太多啦！！！"
+                    elif student.exam == 0:
+                        now_event.tipstime = 30
+                        now_event.tipstr = "该去考试啦！！！"
                     else:
                         resteve += 1
                         if len(message_queue) == 6:
@@ -728,39 +744,70 @@ class Dormitory:
                             message_queue.append("呀好像忘了啥，事件超时已消失")
                 
                 if marketroll.update(pressed) == 1:
-                    if hvrolled == 1:
+                    if student.state[5] >= 88 or student.state[5] < 32:
                         now_event.tipstime = 30
-                        now_event.tipstr = "今天摇过号了呢"
-                    else:   
-                        hvrolled = 1
-                        rollnum = random.randint(0,99)
-                        rolltimes += 1
-                        if rollnum > 95 or rolltimes >= 10:
-                            can_go = 1
-                            rolltimes = 0
-                            if len(message_queue) == 6:
-                                del message_queue[0]
-                                del day_queue[0]
-                                del time_queue[0]
-                            time_queue.append(student.state[5])
-                            day_queue.append(day)
-                            message_queue.append("中了！明天8点起床就可以去超市了！")
+                        now_event.tipstr = "该去睡觉啦！！！"
+                    elif student.exam == 0:
+                        now_event.tipstime = 30
+                        now_event.tipstr = "该去考试啦！！！"
+                    else:
+                        if hvrolled == 1:
+                            now_event.tipstime = 30
+                            now_event.tipstr = "今天摇过号了呢"
+                        else:   
+                            hvrolled = 1
+                            rollnum = random.randint(0,99)
+                            rolltimes += 1
+                            if rollnum > 95 or rolltimes >= 10:
+                                can_go = 1
+                                rolltimes = 0
+                                if len(message_queue) == 6:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("中了！明天8点起床就可以去超市了！")
+                            else:
+                                if len(message_queue) == 6:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("没中，可惜")
+                            cons = [0,0,0,0,0,2]
+                            student.updatestate(cons)
+                        
+                if examclock.update(pressed) == 1:
+                    if student.exam == 0:
+                        if len(message_queue) == 6:
+                            del message_queue[0]
+                            del day_queue[0]
+                            del time_queue[0]
+                        time_queue.append(student.state[5])
+                        day_queue.append(day)
+                        if student.state[2] >= 9:
+                            student.gpa += 0.3
+                            message_queue.append("考试真简单，我还想多考点，GPA-")
+                        elif student.state[2] <= 5:
+                            student.gpa -= 0.5
+                            message_queue.append("糟了考砸了，GPA-")
                         else:
-                            if len(message_queue) == 6:
-                                del message_queue[0]
-                                del day_queue[0]
-                                del time_queue[0]
-                            time_queue.append(student.state[5])
-                            day_queue.append(day)
-                            message_queue.append("没中，可惜")
-                        cons = [0,0,0,0,0,2]
+                            message_queue.append("考的一般般，还好勉强及格了")
+                        cons = [0,0,0,0,0,10]
                         student.updatestate(cons)
+                        student.exam = random.randint(5,10)
+                    else:
+                        now_event.tipstime = 30
+                        now_event.tipstr = "还没到考试时间"
                     
             if student.state[5] >= 88 or student.state[5] < 32:
                 if nextday.update(pressed) == 1:
                     resteve = 0
                     day += 1
                     hvrolled = 0
+                    student.exam -= 1
                     #睡觉动画maybe
                     tmpstate = []
                     for i in range(0,5):
@@ -846,9 +893,15 @@ class Dormitory:
                         save = save + str(day)+" "
                         save = save + str(cat_run)+" "
                         save = save + str(rolltimes)+" "
+                        for i in range(0,6):
+                            save = save + str(student.wangwang[i])+" "
+                        save = save + str(student.exam)+" "
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
+            examclock.text = "还有"+str(student.exam)+"天考试"
+            if student.exam == 0:
+                examclock.text = "出发去考试"
             pressed[0] = 0
             
         #打印图像
@@ -864,7 +917,7 @@ class Dormitory:
             for i in range(0,5):
                 state_bar[i].print(self,student.state[i])
             word_print((10 , 10000 , 100 , 10000), "Time  "+str(timeword_hour[student.state[5]//4])+":"+str(timeword_min[student.state[5] % 4]) , timefont , (0,255,0))
-            word_print((10 , 10000 , 700 , 10000), "GPA  "+str(student.gpa) , gpafont , (255,0,0))
+            word_print((10 , 10000 , 700 , 10000), "GPA  "+str(round(student.gpa,1)) , gpafont , (255,0,0))
             word_print((10 , 10000 , 10 , 10000), "第  "+str(day)+"  天" , gpafont , (255,255,0))
             if student.without_fruit >= 10:
                 word_print((10 , 280 , 800 , 10000), "缺乏维生素，口腔溃疡了，每次吃东西的时候都会疼得不能思考QAQ" , font2 , (100,100,255))
@@ -872,7 +925,8 @@ class Dormitory:
             openbag.print(self)
             refreshevent.print(self)
             marketroll.print(self)
-
+            examclock.print(self)
+            
             if student.state[5] >= 88 or student.state[5] < 32:
                 nextday.print(self)
             if bagshown == 1:

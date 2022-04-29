@@ -10,7 +10,6 @@ class EventList:
             self.choice_text = choice_text
             self.resulttext = resulttext
 
-    key_wangwang = 1  
     #事件总数，每次加事件的时候记得改
     event_num = 13
     
@@ -40,24 +39,24 @@ class EventList:
     limit.append([[0,0,0,0,1],[0,0,0,0,0]])
     message.append(["吃了老坛酸菜牛肉面，饥饿值+1，清洁值-1","谢绝了隔壁老铁的老坛酸菜牛肉面"])
     refreshneed.append([0,0,0,0,0,0,0])
-    #2 test用 记得替换掉
+    #2
     evelist.append(eve("../res/image/睡觉.png","小咪亿下",1 ,["睡！"] , ["zzZZZZZZZZ..."]))
     effect.append([[0,0,0,0,0,36]])
     limit.append([[0,0,0,0,0]])
-    message.append(["小睡了亿下"])
+    message.append(["小睡了9个小时"])
     refreshneed.append([0,0,0,0,0,0,0])
-    #3 test用 记得替换掉
-    evelist.append(eve("../res/image/test事件.png","开挂！！！",1 ,["上上下下左右左右BA！"] , ["外挂已付费"]))
-    effect.append([[10,10,10,10,10,0]])
-    limit.append([[0,0,0,0,0]])
-    message.append(["开个小挂 不过分吧 全属性回满 全物品+5"])
-    refreshneed.append([0,0,0,0,0,0,0])
-    #4 记得替换掉
-    evelist.append(eve("../res/image/test事件.png","采购时间！",1 ,["出发！"] , ["物资补充了！"]))
-    effect.append([[0,0,0,0,0,12]])
-    limit.append([[0,0,0,0,0]])
-    message.append(["去超市补充了物资"])
-    refreshneed.append([0,0,0,0,0,48,60])
+    #3
+    evelist.append(eve("../res/image/夜间读书.png","要熄灯了，要不要偷偷读书呢",2 ,["偷偷读","直接睡觉了"] , ["拿着手电筒在被窝里读书，可惜效率不高","zzZZZZZZ"]))
+    effect.append([[0,0,-2,1,0,8],[0,0,0,0,1,4]])
+    limit.append([[0,0,2,0,0],[0,0,0,0,0]])
+    message.append(["秉灯夜读，san值-2，智商+1","刷牙洗脸睡咯，清洁值+1"])
+    refreshneed.append([0,0,0,0,0,84,88])
+    #4
+    evelist.append(eve("../res/image/自习室.png","好朋友邀你去自习室卷卷",2 ,["出发！","不去，在床上摆烂了"] , ["自习了好久，感觉学会了不少东西呢","摸鱼摸的好爽"]))
+    effect.append([[0,0,0,2,0,12],[0,0,2,-2,0,4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["自习了3个小时，智商+2","摸鱼摸了1个小时，非常快乐，san值+2，智商-2"])
+    refreshneed.append([0,0,0,0,0,32,88])
     #5 周常核酸检测
     evelist.append(eve("../res/image/核酸检测.png","核酸检测",2 ,["马上去做","叛逆！不去！"] , ["排了一条从图书馆到操场超长大队，终于做了核酸，嗓子好痛","在宿舍里边吃零食边卷卷，舒服了"]))
     effect.append([[0,0,0,0,0,24],[0,0,0,2,0,12]])
@@ -93,7 +92,7 @@ class EventList:
     effect.append([[1,0,10,0,0, 1],[0,0,0,0,0, 1]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["吃掉旺仔牛奶糖，美滋滋，san回满","不应该开门"])
-    refreshneed.append([0,0,0,0,0,320/key_wang,880/key_wang]) #条件解锁后，key_wangwang变为10，可以正常触发
+    refreshneed.append([0,0,0,0,0,32,88])
     #11旺旺1
     evelist.append(eve("../res/image/旺旺大礼包.jpg","好兄弟买了旺旺大礼包", 3 ,["好耶，来个雪饼","好耶，来个仙贝","好耶，来个挑豆"] , ["不错，还顶饱","不错，顶饱","不错，但是好像更饿了"]))
     effect.append([[1,0,0,+1,0, 1],[1,0,0,0,0, 1], [-1,0,0,0,0,1]])
