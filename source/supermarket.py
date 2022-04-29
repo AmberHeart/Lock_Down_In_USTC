@@ -334,7 +334,7 @@ class Supermarket:
                 upos = self.rect.center[1] - self.image.get_height()/2
                 dpos = self.rect.center[1] + self.image.get_height()/2
                 word_print((lpos +20,rpos - 20 , upos +10 , dpos -10), self.text , self.font ,self.color)
-        passbutton = button("../res/image/选项按钮.png" , (1100 , 750) , passfont , "跳过" )
+        passbutton = button("../res/image/选项.png" , (1100 , 750) , passfont , "跳过" )
 
 
         #创建时钟对象（控制游戏的FPS）
