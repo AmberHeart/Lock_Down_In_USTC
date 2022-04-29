@@ -9,9 +9,10 @@ class EventList:
             self.choice_num = choice_num
             self.choice_text = choice_text
             self.resulttext = resulttext
-        
+
+    key_wangwang = 1  
     #事件总数，每次加事件的时候记得改
-    event_num = 10
+    event_num = 13
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -77,9 +78,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,48,88])
     #8砸门 恶作剧
     evelist.append(eve("../res/image/砸门.png","哐哐哐,有人砸门", 2 ,["战战兢兢开门","这回真滴一定有鬼,坚决不开"] , ["门口空无一人","..."]))
-    effect.append([[0,0,-2,0,0, 1],[0,0,0,0,0, 1]])
+    effect.append([[0,0,-5,0,0, 1],[0,0,0,0,0, 1]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["没人。。。 san值-2","不应该开门"])
+    message.append(["没人。。。 san值-5","不应该开门"])
     refreshneed.append([0,0,0,0,0,48,88])
     #9二课读书 崩了
     evelist.append(eve("../res/image/二课.png","室友拉你去参加悦读二课", 2 ,["好耶","算了，万一二课又崩了"] , ["好书啊好书，不过二课果然崩了","还好没去，二课崩了"]))
@@ -87,4 +88,21 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["读书收获 智商+1 签到失败 san值-1","暗自庆幸 san值+1"])
     refreshneed.append([0,0,0,0,0,48,88])
-
+    #10旺旺（隐藏，特定条件触发，伪装成砸门）
+    evelist.append(eve("../res/image/砸门.png","哐哐哐,有人砸门", 2 ,["战战兢兢开门","这回真滴一定有鬼,坚决不开"] , ["有人送来旺仔牛奶糖！","..."]))
+    effect.append([[1,0,10,0,0, 1],[0,0,0,0,0, 1]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["吃掉旺仔牛奶糖，美滋滋，san回满","不应该开门"])
+    refreshneed.append([0,0,0,0,0,320/key_wang,880/key_wang]) #条件解锁后，key_wangwang变为10，可以正常触发
+    #11旺旺1
+    evelist.append(eve("../res/image/旺旺大礼包.jpg","好兄弟买了旺旺大礼包", 3 ,["好耶，来个雪饼","好耶，来个仙贝","好耶，来个挑豆"] , ["不错，还顶饱","不错，顶饱","不错，但是好像更饿了"]))
+    effect.append([[1,0,0,+1,0, 1],[1,0,0,0,0, 1], [-1,0,0,0,0,1]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["吃了个旺旺雪饼，饥饿值+1","吃了个旺旺仙贝，饥饿值+1","吃了挑豆，饥饿值-1"])
+    refreshneed.append([0,0,0,0,0,48,88])
+    #12旺旺2
+    evelist.append(eve("../res/image/旺旺大礼包.jpg","好兄弟买了旺旺大礼包", 2 ,["好耶，来罐旺仔牛奶","好耶，来包粟米条"] , ["不错，好喝","味不错，就是太甜"]))
+    effect.append([[0,1,0,0,0, 1],[0,-1,0,0,0, 1]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["喝了旺仔牛奶，口渴值+1","吃了旺旺粟米条，不管饱，口渴值-1"])
+    refreshneed.append([0,0,0,0,0,48,88])
