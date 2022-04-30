@@ -191,6 +191,7 @@ class Dormitory:
                 self.hesuan = 0
                 self.wangwang = [0,0,0,0,0,0] #收集旺旺进度 雪饼，仙贝，牛奶糖，牛奶，挑豆，粟米条
                 self.exam = 0
+                
 
             def updatestate(self,consume):
 
