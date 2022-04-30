@@ -124,7 +124,7 @@ class EventList:
     message.append(["饥饿值+1 口渴值+1 san值+1","过于气愤 智商-1 san值-1"])
     refreshneed.append([0,0,0,0,0,44,56])
     #16 静谧的夜1（带一个魔幻结局）
-    evelist.append(eve("../res/image/诡异的光.png","阳台有一束诡异的光", 2 ,["去看看吧","管他呢睡大觉"] , ["外星人来咯","无事发生..."]))
+    evelist.append(eve("../res/image/诡异的光.jpg","阳台有一束诡异的光", 2 ,["去看看吧","管他呢睡大觉"] , ["外星人来咯","无事发生..."]))
     effect.append([[0,0,0,0,0, 8],[0,0,0,0,0, 8]])
     limit.append([[0,0,7,7,0],[0,0,0,0,0]])  #san和智商均大于7才能触发该结局
     message.append(["已经结束咧","无事发生"])
