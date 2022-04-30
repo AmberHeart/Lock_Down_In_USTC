@@ -451,9 +451,9 @@ class Dormitory:
                 student.wangwang[1] = 1  
             if eventid == 11 and chosen == 2 :
                 student.wangwang[4] = 1 
-            if eventid == 11 and chosen == 1 :
+            if eventid == 12 and chosen == 0 :
                 student.wangwang[3] = 1  
-            if eventid == 11 and chosen == 2 :
+            if eventid == 12 and chosen == 1 :
                 student.wangwang[5] = 1
                 
             if eventid == 10 and chosen == 0 :
