@@ -10,7 +10,7 @@ class EventList:
             self.choice_text = choice_text
             self.resulttext = resulttext
 
-    #事件总数，每次加事件的时候记得改
+    #事件总数，每次加事件的时候记得改。
     event_num = 13
     
     evelist = []
