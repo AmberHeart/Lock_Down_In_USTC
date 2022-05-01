@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 16
+    event_num = 20
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -129,3 +129,21 @@ class EventList:
     limit.append([[0,0,7,7,0],[0,0,0,0,0]])  #san和智商均大于7才能触发该结局
     message.append(["已经结束咧","无事发生"])
     refreshneed.append([0,0,0,0,0,84,88])
+    #17 板子用 记得替换 连续事件开头
+    evelist.append(eve("../res/image/test事件.png","选择1或2", 2 ,["1","2"] , ["",""]))
+    effect.append([[0,0,0,0,0, 0],[0,0,0,0,0, 0]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["选择了1","选择了2"])
+    refreshneed.append([0,0,0,0,0,0,0])
+    #18 板子用 记得替换 连续事件开头时选1
+    evelist.append(eve("../res/image/test事件.png","选择1或2", 2 ,["1","2"] , ["",""]))
+    effect.append([[0,0,0,0,0, 0],[0,0,0,0,0, 0]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["选择了1-1","选择了1-2"])
+    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件
+    #19 板子用 记得替换 连续事件开头时选2
+    evelist.append(eve("../res/image/test事件.png","选择1或2", 2 ,["1","2"] , ["",""]))
+    effect.append([[0,0,0,0,0, 0],[0,0,0,0,0, 0]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["选择了2-1","选择了2-2"])
+    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件18的子事件

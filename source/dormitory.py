@@ -395,6 +395,10 @@ class Dormitory:
             rolltimes = int(save1[33])
             student.wangwang = [int(save1[34]),int(save1[35]),int(save1[36]),int(save1[37]),int(save1[38]),int(save1[39])]
             student.exam = int(save1[40])
+
+            te , now_event_id= spawn_event(student.state)
+            now_event_solved = 0
+            now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
         else:
             now_item = Randdraw.getdraw(start_item)
             student.exam = random.randint(5,10)
@@ -440,7 +444,7 @@ class Dormitory:
         timeword_hour = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
 
 
-        #！！有特别效果的事件
+        #！！有特别效果的事件 连续事件返回0 否则返回1
         def specialeffect(eventid , chosen):
             
             if eventid == 5 and chosen == 1:
@@ -459,7 +463,21 @@ class Dormitory:
                 
             if eventid == 10 and chosen == 0 :
                 student.wangwang[2] = 1
-                
+
+            if eventid == 17 and chosen == 0:#跳转至18
+                te = EventList.evelist[18]
+                now_event_id = 18
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
+
+            if eventid == 17 and chosen == 1:#跳转至19
+                te = EventList.evelist[19]
+                now_event_id = 19
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
+            
+            return now_event , eventid , 1
+            
         #创建时钟对象（控制游戏的FPS）
         clock = pygame.time.Clock()
         
@@ -656,7 +674,7 @@ class Dormitory:
                             
             if eveshown == 1:
                 if now_event.chosen != -1:
-
+                        
                     if now_event_solved == 0:
                         if len(message_queue) == 6:
                             del message_queue[0]
@@ -666,17 +684,16 @@ class Dormitory:
                         day_queue.append(day)
                         message_queue.append(EventList.message[now_event_id][now_event.chosen])
                         student.updatestate(EventList.effect[now_event_id][now_event.chosen])
-                        specialeffect(now_event_id , now_event.chosen)
+                        now_event , now_event_id , now_event_solved = specialeffect(now_event_id , now_event.chosen)
                         
-                    now_event_solved = 1
+                    if now_event_solved == 1:
+                        if now_event.update(student , now_event_id, pressed) == 1 or nextmove.update(pressed) == 1:
+                            eveshown = 0
+                            resteve -= 1
+                            te, now_event_id =spawn_event(student.state)
+                            now_event_solved = 0
+                            now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                     
-                    if now_event.update(student , now_event_id, pressed) == 1 or nextmove.update(pressed) == 1:
-                        eveshown = 0
-                        resteve -= 1
-                        te, now_event_id =spawn_event(student.state)
-                        now_event_solved = 0
-                        now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-                        
                 if now_event.update(student , now_event_id, pressed) == 1:
                     eveshown = 0
                     
@@ -876,6 +893,9 @@ class Dormitory:
                         time_queue.append(student.state[5])
                         day_queue.append(day)
                         message_queue.append("采购结束，快去背包看看吧！")
+                    te, now_event_id =spawn_event(student.state)
+                    now_event_solved = 0
+                    now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
 
                     #存档
                     with open('save1.txt', 'w') as f:
