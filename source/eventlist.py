@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 20
+    event_num = 21
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -147,3 +147,21 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["选择了2-1","选择了2-2"])
     refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件
+    #20 沉迷学习
+    evelist.append(eve("../res/image/沉迷学习.jpg","早早起来精神抖擞可以去图书馆大卷一天",2 ,["出发！","不去，在床上摆烂了"] , ["卷了一天，忘了吃饭","摸鱼摸的好爽"]))
+    effect.append([[-3,0,-3,5,0,40],[0,0,+2,-2,0,4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["废寝忘食连续了10个小时，饥饿-3，san值-3，智商+5","摸鱼摸了1个小时，非常快乐，san值+2，智商-2"])
+    refreshneed.append([0,0,0,0,0,32,36])
+    #21 疲惫学习
+    evelist.append(eve("../res/image/沉迷学习.jpg","早早被室友闹钟叫醒，好困，要不要去图书馆",2 ,["出发！","不去，还没睡醒"] , ["好困，早知道不出来了","好睡！"]))
+    effect.append([[0,0,-3,1,0,8],[0,0,+2,0,0,8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["很困的学习，效率很低，san值-3，智商+1","又睡了2个小时，感觉好多了，san值+2"])
+    refreshneed.append([0,0,0,0,0,32,36])
+    #22 出去玩
+    evelist.append(eve("../res/image/出去玩.jpg","最近心情很不好（真滴么。。），偷偷出去嗨一下吧",2 ,["出发！","算了算了，防疫要紧"] , ["玩爽了","无事发生"]))
+    effect.append([[0,0,3,-5,0,28],[0,0,0,0,0,8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["玩嗨了，san值+3，智商-5","无事发生"])
+    refreshneed.append([0,0,0,0,0,40,48])

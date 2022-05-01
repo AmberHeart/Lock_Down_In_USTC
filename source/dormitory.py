@@ -1,4 +1,5 @@
 #导入模块
+from subprocess import STARTF_USESTDHANDLES
 import sys
 import pygame
 import random
@@ -191,6 +192,8 @@ class Dormitory:
                 self.hesuan = 0
                 self.wangwang = [0,0,0,0,0,0] #收集旺旺进度 雪饼，仙贝，牛奶糖，牛奶，挑豆，粟米条
                 self.exam = 0
+                self.ET = 0
+                self.go_out = 0
                 
 
             def updatestate(self,consume):
@@ -464,6 +467,9 @@ class Dormitory:
             if eventid == 10 and chosen == 0 :
                 student.wangwang[2] = 1
 
+            if evemtid == 16 and chosen == 0:
+                student.ET = 1
+
             if eventid == 17 and chosen == 0:#跳转至18
                 te = EventList.evelist[18]
                 now_event_id = 18
@@ -475,6 +481,9 @@ class Dormitory:
                 now_event_id = 19
                 tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                 return tnow_event , now_event_id , 0
+
+            if eventid == 22 and chosen == 0:
+                student.go_out += 1
             
             return now_event , eventid , 1
             
@@ -513,7 +522,10 @@ class Dormitory:
                 return 3
             if student.wangwang[2] == 1:
                 return 4
-        
+            if student.ET == 1:
+                return 5
+            if student.go_out == 2:
+                return 6
         #更新图像
 
             #更换寝室背景：
