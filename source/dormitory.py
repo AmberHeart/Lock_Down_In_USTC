@@ -430,6 +430,7 @@ class Dormitory:
             rolltimes = int(save1[33])
             student.wangwang = [int(save1[34]),int(save1[35]),int(save1[36]),int(save1[37]),int(save1[38]),int(save1[39])]
             student.exam = int(save1[40])
+            student.go_out = int(save1[41])
 
             te , now_event_id= spawn_event(student.state)
             now_event_solved = 0
@@ -456,6 +457,7 @@ class Dormitory:
                 for i in range(0,6):
                     save = save + str(student.wangwang[i])+" "
                 save = save + str(student.exam)+" "
+                save = save + str(student.go_out)+" "
                 f.write(save)
 
         #画面组件
@@ -791,19 +793,20 @@ class Dormitory:
                         student.updatestate(cons)
                 #事件超时
                 if resteve > 0:
-                    if EventList.refreshneed[now_event_id][5] != 0 or EventList.refreshneed[now_event_id][6] != 0:
-                        if EventList.refreshneed[now_event_id][5] > student.state[5] or student.state[5] > EventList.refreshneed[now_event_id][6]:
-                            resteve -= 1
-                            te, now_event_id =spawn_event(student.state)
-                            now_event_solved = 0
-                            now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
-                            if len(message_queue) == 6:
-                                del message_queue[0]
-                                del day_queue[0]
-                                del time_queue[0]
-                            time_queue.append(student.state[5])
-                            day_queue.append(day)
-                            message_queue.append("呀好像忘了啥，事件超时已消失")
+                    if EventList.refreshneed[now_event_id][5] != 10000 and EventList.refreshneed[now_event_id][6] != 10000:
+                        if EventList.refreshneed[now_event_id][5] != 0 or EventList.refreshneed[now_event_id][6] != 0:
+                            if EventList.refreshneed[now_event_id][5] > student.state[5] or student.state[5] > EventList.refreshneed[now_event_id][6]:
+                                resteve -= 1
+                                te, now_event_id =spawn_event(student.state)
+                                now_event_solved = 0
+                                now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                                if len(message_queue) == 6:
+                                    del message_queue[0]
+                                    del day_queue[0]
+                                    del time_queue[0]
+                                time_queue.append(student.state[5])
+                                day_queue.append(day)
+                                message_queue.append("呀好像忘了啥，事件超时已消失")
                 
                 if marketroll.update(pressed) == 1:
                     if student.state[5] >= 88 or student.state[5] < 32:
@@ -849,12 +852,13 @@ class Dormitory:
                             del time_queue[0]
                         time_queue.append(student.state[5])
                         day_queue.append(day)
-                        if student.state[2] >= 9:
+                        examscore = random.randint(0,100) + 2*student.state[2]
+                        if examscore >= 70:
                             student.gpa += 0.3
-                            message_queue.append("考试真简单，我还想多考点，GPA++")
-                        elif student.state[2] <= 5:
-                            student.gpa -= 0.5
-                            message_queue.append("糟了考砸了，GPA--")
+                            message_queue.append("考试真简单，我还想多考点，GPA+0.3")
+                        elif examscore <= 20:
+                            student.gpa -= 1
+                            message_queue.append("糟了考砸了，GPA-1.0")
                         else:
                             message_queue.append("考的一般般，还好勉强及格了")
                         cons = [0,0,0,0,0,10]
@@ -961,6 +965,7 @@ class Dormitory:
                         for i in range(0,6):
                             save = save + str(student.wangwang[i])+" "
                         save = save + str(student.exam)+" "
+                        save = save + str(student.go_out)+" "
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
