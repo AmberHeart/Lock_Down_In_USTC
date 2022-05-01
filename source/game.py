@@ -48,7 +48,7 @@ while True:
         continue
     else:
         if Ending.print(main_screen, ending) != -1:
-            os.remove("save1.txt")
+            os.remove(save1.text)
             break
 
 #结束游戏

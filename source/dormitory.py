@@ -26,6 +26,7 @@ class Dormitory:
         #文本打印函数
         eventpFont = pygame.font.Font("../res/font/Pixel.ttf",25)
         eventpFont2 = pygame.font.Font("../res/font/Pixel.ttf",15)
+        eventpFont3 = pygame.font.Font("../res/font/Pixel.ttf",20)
         eventfont = pygame.freetype.Font("../res/font/Pixel.ttf",20)
         eventfont.antialiased = False
         eventpfont = pygame.freetype.Font("../res/font/Pixel.ttf",25)
@@ -178,6 +179,37 @@ class Dormitory:
                 TextRect.center = self.rect.center
                 screen.blit(TextSurf, TextRect)
                         
+        class choice_button2(pygame.sprite.Sprite):
+            def __init__(self,filename1,location,font,text):
+                pygame.sprite.Sprite.__init__(self)
+                self.image = (pygame.image.load(filename1))
+                self.rect = self.image.get_rect()
+                self.rect.center = location
+                self.text = text
+                self.font = font
+                self.color = (0,0,0)
+            def update(self,pressed):
+                pos = pygame.mouse.get_pos()
+                lpos = self.rect.center[0] - self.image.get_width()/2
+                rpos = self.rect.center[0] + self.image.get_width()/2
+                upos = self.rect.center[1] - self.image.get_height()/2
+                dpos = self.rect.center[1] + self.image.get_height()/2
+                if pos[0] > lpos and pos[0] < rpos and pos[1] > upos and pos[1] < dpos:
+                    if self.color == (0,0,0):
+                        self.color = (255,0,0)
+                    buttons = pygame.mouse.get_pressed()
+                    if buttons[0] and pressed[0] == 1:
+                        pressed[0] = 0
+                        return 1
+                    else:
+                        return 0
+                else:
+                    self.color = (0,0,0)
+            def print(self,screen):
+                screen.blit(self.image, self.rect)
+                TextSurf, TextRect = text_objects(self.text,self.font,self.color)
+                TextRect.center = self.rect.center
+                screen.blit(TextSurf, TextRect)
         #玩家类
         
         class stu:
@@ -432,7 +464,7 @@ class Dormitory:
         openevent = choice_button1("../res/image/事件余.png" , (900 , 800) , eventpFont , "事件余"+str(resteve))
         refreshevent = choice_button1("../res/image/事件余.png" , (370 , 800) , eventpFont , "刷新事件")
         marketroll = choice_button1("../res/image/超市摇号.png" , (880 , 72) , eventpFont , "摇号")
-        examclock = choice_button1("../res/image/考试.png" , (880 , 216) , eventpFont2 , "还有"+str(student.exam)+"天考试")
+        examclock = choice_button2("../res/image/考试.png" , (880 , 216) , eventpFont3 , "还有"+str(student.exam)+"天考试")
         openbag = choice_button1("../res/image/背包.png" , (1100 , 800) , eventpFont , "背包")
         state_bar = []
         state_bar.append(state("饥饿值",(10 , 10000 , 200 , 10000) , (205,104,57)))
@@ -819,10 +851,10 @@ class Dormitory:
                         day_queue.append(day)
                         if student.state[2] >= 9:
                             student.gpa += 0.3
-                            message_queue.append("考试真简单，我还想多考点，GPA-")
+                            message_queue.append("考试真简单，我还想多考点，GPA++")
                         elif student.state[2] <= 5:
                             student.gpa -= 0.5
-                            message_queue.append("糟了考砸了，GPA-")
+                            message_queue.append("糟了考砸了，GPA--")
                         else:
                             message_queue.append("考的一般般，还好勉强及格了")
                         cons = [0,0,0,0,0,10]

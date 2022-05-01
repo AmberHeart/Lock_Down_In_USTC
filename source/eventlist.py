@@ -41,10 +41,10 @@ class EventList:
     refreshneed.append([0,0,0,0,0,50,80])  #小改了一下时间，老坛频率太高有点掉SAN
     #2 零星小睡
     evelist.append(eve("../res/image/睡觉.png","小咪亿下",1 ,["睡！"] , ["zzZZZZZZZZ..."]))
-    effect.append([[0,0,0,0,0,36]])
+    effect.append([[0,0,0,0,0,12]])
     limit.append([[0,0,0,0,0]])
-    message.append(["小睡了9个小时"])
-    refreshneed.append([0,0,0,0,0,0,0])
+    message.append(["小睡了3个小时"])
+    refreshneed.append([0,0,0,0,0,48,56])
     #3 夜间读书
     evelist.append(eve("../res/image/夜间读书.png","要熄灯了，要不要偷偷读书呢",2 ,["偷偷读","直接睡觉了"] , ["拿着手电筒在被窝里读书，可惜效率不高","zzZZZZZZ"]))
     effect.append([[0,0,-2,1,0,8],[0,0,0,0,1,4]])
