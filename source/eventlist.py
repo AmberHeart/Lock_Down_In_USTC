@@ -146,4 +146,4 @@ class EventList:
     effect.append([[0,0,0,0,0, 0],[0,0,0,0,0, 0]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["选择了2-1","选择了2-2"])
-    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件18的子事件
+    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件
