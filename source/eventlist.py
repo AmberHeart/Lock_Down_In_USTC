@@ -116,7 +116,7 @@ class EventList:
     effect.append([[0,0,0,-1,0, 12],[0,0,-1,0,0, 12]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["好困啊 智商-1","有点愧疚 san值-1"])
-    refreshneed.append([0,0,0,0,0,0,0])
+    refreshneed.append([0,0,0,0,0,84,88])
     #15 额外食品供应事件
     evelist.append(eve("../res/image/额外食品.png","今天有额外食物供应，你的到了", 2 ,["立刻去取","这题还没做完，等会再去吧"] , ["饱餐一顿","被人拿走了QAQ"]))
     effect.append([[+1,+1,+1,0,0, 2],[0,0,-1,-1,0, 4]])
