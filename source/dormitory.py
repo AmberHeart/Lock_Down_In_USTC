@@ -467,7 +467,7 @@ class Dormitory:
             if eventid == 10 and chosen == 0 :
                 student.wangwang[2] = 1
 
-            if evemtid == 16 and chosen == 0:
+            if eventid == 16 and chosen == 0:
                 student.ET = 1
 
             if eventid == 17 and chosen == 0:#跳转至18
