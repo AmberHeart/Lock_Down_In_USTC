@@ -547,6 +547,19 @@ class Dormitory:
             if eventid == 35 and chosen == 1 :
                 now_item[0][1] += 1
                 now_item[1][1] += 1
+
+            #连续事件
+            if eventid == 37 and chosen == 0:#跳转至38
+                te = EventList.evelist[38]
+                now_event_id = 38
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
+
+            if eventid == 37 and chosen == 1:#跳转至39
+                te = EventList.evelist[39]
+                now_event_id = 39
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
             
             return now_event , eventid , 1
             
