@@ -540,11 +540,11 @@ class Dormitory:
             if eventid == 23 and chosen == 0 :
                 student.quality[4] += 1
 
-            if evnetid == 35 and chosen == 0 :   #背包物品增加
+            if eventid == 35 and chosen == 0 :   #背包物品增加
                 now_item[0][1] += 2
                 now_item[1][1] += 2
             
-            if evnetid == 35 and chosen == 1 :
+            if eventid == 35 and chosen == 1 :
                 now_item[0][1] += 1
                 now_item[1][1] += 1
             
