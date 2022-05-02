@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 34
+    event_num = 37
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -129,24 +129,24 @@ class EventList:
     limit.append([[0,0,7,7,0],[0,0,0,0,0]])  #san和智商均大于7才能触发该结局
     message.append(["已经结束咧","无事发生"])
     refreshneed.append([0,0,0,0,0,84,88])
-    #17 板子用  连续事件开头
-    evelist.append(eve("../res/image/test事件.png","选择1或2", 2 ,["1","2"] , ["",""]))
-    effect.append([[0,0,0,0,0, 0],[0,0,0,0,0, 0]])
+    #17 （板子用）  连续事件开头   好友申请
+    evelist.append(eve("../res/image/好友申请.jpg","收到一条好友申请", 2 ,["有什么事吗？同意","这谁啊？拒绝"] , ["同意","拒绝"]))
+    effect.append([[0,0,0,0,0, 2],[0,0,0,0,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["选择了1","选择了2"])
-    refreshneed.append([0,0,0,0,0,0,0])
-    #18 板子用 记得替换 连续事件开头时选1
-    evelist.append(eve("../res/image/test事件.png","选择1或2", 2 ,["1","2"] , ["",""]))
-    effect.append([[0,0,0,0,0, 0],[0,0,0,0,0, 0]])
+    message.append(["同意","拒绝"])
+    refreshneed.append([0,0,0,0,0,80,84])
+    #18 （板子用 记得替换） 卖茶事件
+    evelist.append(eve("../res/image/卖茶.jpg","交流了一会儿...", 2 ,["没什么吧","速删了"] , ["没删","删除"]))
+    effect.append([[0,0,-1,-1,0, 2],[0,0,-1,-1,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["选择了1-1","选择了1-2"])
-    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件
-    #19 板子用 记得替换 连续事件开头时选2
-    evelist.append(eve("../res/image/test事件.png","选择1或2", 2 ,["1","2"] , ["",""]))
-    effect.append([[0,0,0,0,0, 0],[0,0,0,0,0, 0]])
+    message.append(["被诈骗 智商-1 san值-1","删后遭到持续申请很烦 san值-1 智商-1"])
+    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件1
+    #19 （板子用 记得替换） 警察来咯
+    evelist.append(eve("../res/image/警察.jpg","不久后一个电话自称警察...", 2 ,["积极反映了事件","普通配合就好"] , ["",""]))
+    effect.append([[0,0,0,-1,0, 2],[0,0,0,+1,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["选择了2-1","选择了2-2"])
-    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件
+    message.append(["过于积极遭遇怀疑 智商-1","接受了反诈教育 智商+1"])
+    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件2
     #20 沉迷学习
     evelist.append(eve("../res/image/沉迷学习.jpg","早早起来精神抖擞可以去图书馆大卷一天",2 ,["出发！","不去，在床上摆烂了"] , ["卷了一天，忘了吃饭","摸鱼摸的好爽"]))
     effect.append([[-3,0,-3,5,0,40],[0,0,+2,-2,0,4]])
