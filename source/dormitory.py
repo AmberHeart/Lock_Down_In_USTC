@@ -226,6 +226,7 @@ class Dormitory:
                 self.exam = 0
                 self.ET = 0
                 self.go_out = 0
+                self.quality = [0,0,0,0,0] #德智体美劳五个指标
                 
 
             def updatestate(self,consume):
@@ -518,6 +519,21 @@ class Dormitory:
 
             if eventid == 22 and chosen == 0:
                 student.go_out += 1
+
+            if eventid == 24 and chosen == 0 or eventid == 34 and chosen == 0 :
+                student.quality[0] += 1
+            
+            if eventid == 31 and chosen == 0 :
+                student.quality[1] += 1
+
+            if eventid == 29 and chosen == 0 :
+                student.quality[2] += 1
+            
+            if eventid == 33 and chosen == 0 :
+                student.quality[3] += 1
+             
+            if eventid == 23 and chosen == 0 :
+                student.quality[4] += 1
             
             return now_event , eventid , 1
             
@@ -560,6 +576,8 @@ class Dormitory:
                 return 5
             if student.go_out == 2:
                 return 6
+            if student.quality[0] >= 1 and student.quality[1] >= 1 and student.quality[2] >= 1 and student.quality[3] >= 1 and student.quality[4] >= 1 : 
+                return 7
         #更新图像
 
             #更换寝室背景：
