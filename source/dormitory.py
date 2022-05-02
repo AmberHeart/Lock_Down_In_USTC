@@ -505,6 +505,7 @@ class Dormitory:
             if eventid == 16 and chosen == 0:
                 student.ET = 1
 
+            #连续事件
             if eventid == 17 and chosen == 0:#跳转至18
                 te = EventList.evelist[18]
                 now_event_id = 18
@@ -534,6 +535,14 @@ class Dormitory:
              
             if eventid == 23 and chosen == 0 :
                 student.quality[4] += 1
+
+            if evnetid == 35 and chosen == 0 :   #背包物品增加
+                now_item[0][1] += 2
+                now_item[1][1] += 2
+            
+            if evnetid == 35 and chosen == 1 :
+                now_item[0][1] += 1
+                now_item[1][1] += 1
             
             return now_event , eventid , 1
             
