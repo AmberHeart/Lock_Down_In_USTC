@@ -432,6 +432,8 @@ class Dormitory:
             student.wangwang = [int(save1[34]),int(save1[35]),int(save1[36]),int(save1[37]),int(save1[38]),int(save1[39])]
             student.exam = int(save1[40])
             student.go_out = int(save1[41])
+            for i in range(0,5):
+                student.quality[i] = int(save1[42 + i])
 
             te , now_event_id= spawn_event(student.state)
             now_event_solved = 0
@@ -459,6 +461,8 @@ class Dormitory:
                     save = save + str(student.wangwang[i])+" "
                 save = save + str(student.exam)+" "
                 save = save + str(student.go_out)+" "
+                for i in range(0,5):
+                    save = save + str(student.quality[i])+" "
                 f.write(save)
 
         #画面组件
@@ -984,6 +988,8 @@ class Dormitory:
                             save = save + str(student.wangwang[i])+" "
                         save = save + str(student.exam)+" "
                         save = save + str(student.go_out)+" "
+                        for i in range(0,5):
+                            save = save + str(student.quality[i])+" "
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
