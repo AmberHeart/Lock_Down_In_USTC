@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 37
+    event_num = 41
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -267,3 +267,9 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["一言难尽的发型 san值-1 清洁+1","没事自己乱来啥 智商-1"])
     refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件38的子事件2
+    #40 数分习题事件
+    evelist.append(eve("../res/image/数分习题.jpg","这是一道数分习题", 2 ,["答案4PI","答案是2PI"] , ["回答正确","回答错误"]))
+    effect.append([[0,0,0,+1,0, 4],[0,0,0,-2,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["恭喜答对 智商+1","答错了很可惜 智商-2"])
+    refreshneed.append([0,0,0,0,0,48,80])
