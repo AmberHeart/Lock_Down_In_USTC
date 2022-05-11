@@ -618,9 +618,9 @@ class Dormitory:
                 return 6
             if student.quality[0] >= 1 and student.quality[1] >= 1 and student.quality[2] >= 1 and student.quality[3] >= 1 and student.quality[4] >= 1 : 
                 return 7
-            if student.skiphomework > 2:
+            if student.skiphomework > 10:
                 return 8
-            if student.too_tired > 1:
+            if student.too_tired > 3:
                 return 9
         #更新图像
 
