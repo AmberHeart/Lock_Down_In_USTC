@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 41
+    event_num = 44
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -272,4 +272,28 @@ class EventList:
     effect.append([[0,0,0,+1,0, 4],[0,0,0,-2,0, 4]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
     message.append(["恭喜答对 智商+1","答错了很可惜 智商-2"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #41 ddl过多造成抑郁
+    evelist.append(eve("../res/image/补作业.jpg","盘点最近积攒的作业", 2 ,["狂补！","先休息一下吧"] , ["终于完成了","早晚还是要写的"]))
+    effect.append([[0,0,0,-2,0, 8],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["写了好久，好累...","慢慢做吧，细水长流"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #42 ddl前置 数学
+    evelist.append(eve("../res/image/数学.png","数学作业太多了", 2 ,["写作业！","摆！"] , ["终于完成了","舒服了"]))
+    effect.append([[0,0,0,0,0, 4],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["完成了数学作业","没完成数学作业"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #43 ddl前置 物理
+    evelist.append(eve("../res/image/物理.jpg","物理作业好难", 2 ,["写作业！","摆！"] , ["终于完成了","舒服了"]))
+    effect.append([[0,0,0,0,0, 4],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["完成了物理作业","没完成物理作业"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #44 ddl前置 英语
+    evelist.append(eve("../res/image/英语.jpg","英语作业好麻烦", 2 ,["写作业！","摆！"] , ["终于完成了","舒服了"]))
+    effect.append([[0,0,0,0,0, 4],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["完成了英语作业","没完成英语作业"])
     refreshneed.append([0,0,0,0,0,48,80])

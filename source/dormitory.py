@@ -227,6 +227,8 @@ class Dormitory:
                 self.ET = 0
                 self.go_out = 0
                 self.quality = [0,0,0,0,0] #德智体美劳五个指标
+                self.skiphomework = 0
+                self.too_tired = 0
                 
 
             def updatestate(self,consume):
@@ -434,6 +436,8 @@ class Dormitory:
             student.go_out = int(save1[41])
             for i in range(0,5):
                 student.quality[i] = int(save1[42 + i])
+            student.skiphomework = int(save1[47])
+            student.too_tired = int(save1[48])
 
             te , now_event_id= spawn_event(student.state)
             now_event_solved = 0
@@ -463,6 +467,7 @@ class Dormitory:
                 save = save + str(student.go_out)+" "
                 for i in range(0,5):
                     save = save + str(student.quality[i])+" "
+                save = save + str(student.skiphomework)+" "
                 f.write(save)
 
         #画面组件
@@ -560,6 +565,15 @@ class Dormitory:
                 now_event_id = 39
                 tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                 return tnow_event , now_event_id , 0
+
+            if eventid == 42 and chosen == 1 or eventid == 43 and chosen == 1 or eventid == 44 and chosen == 1:
+                student.skiphomework += 1
+
+            if eventid == 41 and chosen == 0:
+                if  student.skiphomework >= 3:
+                    student.too_tired += 1
+                student.skiphomework = 0
+
             
             return now_event , eventid , 1
             
@@ -604,6 +618,10 @@ class Dormitory:
                 return 6
             if student.quality[0] >= 1 and student.quality[1] >= 1 and student.quality[2] >= 1 and student.quality[3] >= 1 and student.quality[4] >= 1 : 
                 return 7
+            if student.skiphomework > 2:
+                return 8
+            if student.too_tired > 1:
+                return 9
         #更新图像
 
             #更换寝室背景：
