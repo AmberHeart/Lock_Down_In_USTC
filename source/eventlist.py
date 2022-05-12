@@ -326,4 +326,4 @@ class EventList:
     effect.append([[0,0,0,0,0, 4],[0,0,0,0,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["自己找一个测吧ヽ(*´з｀*)ﾉ","无事发生"])
-    refreshneed.append([0,0,0,0,0,52,60])
+    refreshneed.append([0,0,0,0,0,56,68])
