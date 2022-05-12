@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 44
+    event_num = 46
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -297,3 +297,8 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
     message.append(["完成了英语作业","没完成英语作业"])
     refreshneed.append([0,0,0,0,0,48,80])
+    #45 本草纲目
+    evelist.append(eve("../res/image/本草纲目.jpg","刘畊宏邀请你一起健身", 2 ,["健身","开躺！"] , ["很累但是很快乐","想躺就躺"]))
+    effect.append([[0,0,+1,0,-1, 8],[0,0,0,-1,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["一言难尽的发型 san值+1 清洁-1","没事自己乱来啥 智商-1"])
