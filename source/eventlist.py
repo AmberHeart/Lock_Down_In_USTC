@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 46
+    event_num = 50
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -299,6 +299,31 @@ class EventList:
     refreshneed.append([0,0,0,0,0,48,80])
     #45 本草纲目
     evelist.append(eve("../res/image/本草纲目.jpg","刘畊宏邀请你一起健身", 2 ,["健身","开躺！"] , ["很累但是很快乐","想躺就躺"]))
-    effect.append([[0,0,+1,0,-1, 8],[0,0,0,-1,0, 8]])
+    effect.append([[0,0,+1,0,-1, 8],[0,0,0,-2,0, 8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["一言难尽的发型 san值+1 清洁-1","没事自己乱来啥 智商-1"])
+    message.append(["一言难尽的发型 san值+1 清洁-1","没事自己乱来啥 智商-2"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #46 大物实验
+    evelist.append(eve("../res/image/大物实验.jpg","大物实验将进行实验报告评讲", 2 ,["去听听吧","开躺！"] , ["听了但没完全听","想躺就躺"]))
+    effect.append([[0,0,0,+1,0, 8],[0,0,0,-2,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["没完全懂但有所收获 智商+1","好躺！ 智商-2"])
+    refreshneed.append([0,0,0,0,0,72,80])
+    #47 发呆
+    evelist.append(eve("../res/image/发呆.jpg","突然好想发呆捏", 2 ,["发呆...","不发，开卷！"] , ["满足了捏","完全没用"]))
+    effect.append([[0,0,+1,0,0, 8],[0,0,0,-1,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["发呆两小时 san值+1","卷了，但是没卷 智商-1"])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #48 青年大学习（夹带私货）
+    evelist.append(eve("../res/image/青年大学习.jpg","新一期的青年大学习来咯", 2 ,["学学我的","好麻烦，不学了"] , ["学的好","快点去学"]))
+    effect.append([[0,0,0,+1,0, 8],[0,0,0,-2,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["学的好 智商+1","快点去学 智商-2"])
+    refreshneed.append([0,0,0,0,0,52,60])
+    #49 MBTI测试事件
+    evelist.append(eve("../res/image/MBTI.jpg","有人推荐你做MBTI测试", 2 ,["测一下试试","不测了"] , ["自己找一个测吧ヽ(*´з｀*)ﾉ","无事发生"]))
+    effect.append([[0,0,0,0,0, 4],[0,0,0,0,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["自己找一个测吧ヽ(*´з｀*)ﾉ","无事发生"])
+    refreshneed.append([0,0,0,0,0,52,60])
