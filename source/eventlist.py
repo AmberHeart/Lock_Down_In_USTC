@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 50
+    event_num = 60
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -341,13 +341,13 @@ class EventList:
     refreshneed.append([0,0,0,0,0,76,88])
     #52 研讨课
     evelist.append(eve("../res/image/研讨课.jpg","组长又来催研讨课进度了", 2 ,["开做","我摆"] , ["众人拾柴火焰高","摸鱼爽，一直模一直爽"]))
-    effect.append([[0,0,+1,+1,0, 8],[0,0,0,+1,0, 8]])
+    effect.append([[0,0,+1,+1,0, 8],[0,0,+1,0,0, 8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["在研讨课中成长，协作中感受个人价值 智商+1 san值+1","摸鱼真舒服 san值+1"])
     refreshneed.append([0,0,0,0,0,32,84])
     #53 研讨课（摸鱼被逮）
     evelist.append(eve("../res/image/研讨课.jpg","组长又来催研讨课进度了", 2 ,["开做","我摆"] , ["众人拾柴火焰高","坏，摸鱼被组长发现"]))
-    effect.append([[0,0,+1,+1,0, 8],[0,0,0,-2,0, 8]])
+    effect.append([[0,0,+1,+1,0, 8],[0,0,-2,0,0, 8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["在研讨课中成长，协作中感受个人价值 智商+1 san值+1","摸鱼被逮了 san值-2"])
     refreshneed.append([0,0,0,0,0,32,84])
@@ -357,3 +357,33 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["原来已经减少过了..QAQ","只好学了QAQ","emm"])
     refreshneed.append([0,0,0,0,0,32,50])
+    #55 上课（网课？）
+    evelist.append(eve("../res/image/网课.jpg","该上课啦，但是懒得动", 2 ,["去上课吧","寝室看bb平台算了"] , ["挣扎爬到教学楼","寝室上课舒服"]))
+    effect.append([[0,0,0,0,0, 8],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["上课是个体力活","寝室上课舒服捏"])
+    refreshneed.append([0,0,0,0,0,32,80])
+    #56 上课被点名
+    evelist.append(eve("../res/image/网课.jpg","该上课啦，但是懒得动", 2 ,["去上课吧","寝室看bb平台算了"] , ["点名了，还好去了","坏了，点名了，成翘课人了"]))
+    effect.append([[0,0,0,0,0, 8],[0,0,-2,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["上课是个体力活","被点名点中 san值-2"])
+    refreshneed.append([0,0,0,0,0,32,80])
+    #57 心情不好听音乐
+    evelist.append(eve("../res/image/听音乐.jpg","有些emo，听听音乐吧", 2 ,["听点轻音乐","听听高燃神曲"] , ["有点忧伤..","燃起来了！！！"]))
+    effect.append([[0,0,-1,0,0, 8],[0,0,1,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["音乐让人忧伤 san值-1","音乐让失意者振奋 san值+1"])
+    refreshneed.append([0,0,0,0,0,32,80])
+    #58 心情好听音乐
+    evelist.append(eve("../res/image/听音乐2.jpg","有点无聊，听听音乐吧", 2 ,["听点轻音乐","听听高燃神曲"] , ["心如止水","燃起来了！！！"]))
+    effect.append([[0,0,1,0,0, 8],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["音乐让人清醒 san值+1","音乐让人振奋"])
+    refreshneed.append([0,0,0,0,0,32,80])
+    #59 大雾实验报告
+    evelist.append(eve("../res/image/大雾实验.jpg","做完大物实验了，去写实验报告吧", 2 ,["写","还是写"] , ["写..写完了","写..完了"]))
+    effect.append([[0,0,0,0,0, 40],[0,0,0,0,0, 40]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["累！","累！"])
+    refreshneed.append([0,0,0,0,0,32,40])
