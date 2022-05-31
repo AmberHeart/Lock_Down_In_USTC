@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 60
+    event_num = 66
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -383,7 +383,44 @@ class EventList:
     refreshneed.append([0,0,0,0,0,32,80])
     #59 大雾实验报告
     evelist.append(eve("../res/image/大雾实验.jpg","做完大物实验了，去写实验报告吧", 2 ,["写","还是写"] , ["写..写完了","写..完了"]))
-    effect.append([[0,0,0,0,0, 40],[0,0,0,0,0, 40]])
+    effect.append([[0,0,0,0,0, 12],[0,0,0,0,0, 12]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["累！","累！"])
-    refreshneed.append([0,0,0,0,0,32,40])
+    refreshneed.append([0,0,0,0,0,32,60])
+    #60 Ta邀请约会
+    evelist.append(eve("../res/image/情侣.jpg","Ta约你出去", 2 ,["好耶！","不去，专注学业"] , ["开心","智者不如爱河.."]))
+    effect.append([[0,0,1,0,0, 12],[0,0,0,0,0, 12]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["和Ta出去玩 san值+1","学习，不过不知为什么今天效率好低"])
+    refreshneed.append([0,0,0,0,0,32,60])
+    #61 Ta邀请去学习
+    evelist.append(eve("../res/image/情侣学习.jpg","Ta约你去学习", 2 ,["好耶！","不去，还是自己学习"] , ["开心","寡王直通硕博.."]))
+    effect.append([[0,0,1,0,0, 12],[0,0,-1,1,0, 12]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["和Ta去学习，开心，但是心里都是Ta，学不进去 san值+1","学习，但是好失落，san值-1，智商+1"])
+    refreshneed.append([0,0,0,0,0,32,72])
+    #62 Ta邀请去学习2
+    evelist.append(eve("../res/image/情侣学习.jpg","Ta约你去学习", 2 ,["好耶！","不去，还是自己学习"] , ["开心，学习变得快乐","智者不如爱河.."]))
+    effect.append([[0,0,1,1,0, 12],[0,0,-1,1,0, 12]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["和Ta去学习，开心，学习效率倍增 san值+1 智商+1","学习，但是好失落，san值-1，智商+1"])
+    refreshneed.append([0,0,0,0,0,32,72])
+    #63 Ta邀请打游戏
+    evelist.append(eve("../res/image/情侣玩游戏.jpg","Ta约你打游戏", 2 ,["好耶！","不去，专注学业"] , ["被Ta吐槽打得菜TAT","我选择学习"]))
+    effect.append([[0,0,-1,0,0, 8],[0,0,0,1,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["和Ta玩崩了.. san值-1","下次找我学习 智商+1"])
+    refreshneed.append([0,0,0,0,0,32,60])
+    #64 Ta邀请打游戏2
+    evelist.append(eve("../res/image/情侣玩游戏.jpg","Ta约你打游戏", 2 ,["好耶！","不去，自己打"] , ["直接带飞(*^▽^*)","孤独上分"]))
+    effect.append([[0,0,+1,0,0, 8],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["和Ta玩崩了.. san值+1","无聊上（掉）分ing"])
+    refreshneed.append([0,0,0,0,0,32,60])
+    #65 大学生创业
+    evelist.append(eve("../res/image/大学生创业.jpg","学长传授创业知识", 2 ,["去了解","好像和现在的我无关"] , ["收获很大","前途茫茫"]))
+    effect.append([[0,0,0,0,0, 8],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["早晚会走出校门，应该提前准备","早晚会走出校门，应该提前准备"])
+    refreshneed.append([0,0,0,0,0,32,72])
+    
