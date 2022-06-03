@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 82
+    event_num = 86
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -525,4 +525,21 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["运气不错 san值+1","欸嘿，抓不到我"])
     refreshneed.append([0,0,0,0,0,36,52])
-    
+    #83 刷单诈骗
+    evelist.append(eve("../res/image/刷单.jpg","疫情期间有同学通过网络刷单赚钱", 2 ,["要不也试试","啥玩意儿啊"] , ["谢谢你，大聪明","不理会就好了"]))
+    effect.append([[0,0,-1,-2,0, 8],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["需谨慎 san值-1 智商-2","独自美丽"])
+    refreshneed.append([0,0,0,0,0,40,60])
+    #84 健康上报（吃）
+    evelist.append(eve("../res/image/健康上报.jpg","在床上突然想起还没健康上报", 2 ,["立即赶去上报","算了，明天再说"] , ["无事发生","第二天忘记了，导致没时间吃早餐"]))
+    effect.append([[0,0,0,0,0, 8],[-1,0,-1,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["无事发生","第二天没吃早餐 san值-1 饥饿-1"])
+    refreshneed.append([0,0,0,0,0,84,88])
+    #85 健康上报（课）
+    evelist.append(eve("../res/image/健康上报.jpg","在床上突然想起还没健康上报", 2 ,["立即赶去上报","算了，明天再说"] , ["无事发生","忘记了，上课迟到了一大截"]))
+    effect.append([[0,0,0,0,0, 8],[0,0,0,-2,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["无事发生","迟到了捏 智商-2"])
+    refreshneed.append([0,0,0,0,0,84,88])
