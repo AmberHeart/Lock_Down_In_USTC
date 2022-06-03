@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 76
+    event_num = 82
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -507,3 +507,22 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["给了饮品 饮品-2","无事发生"])
     refreshneed.append([0,0,0,0,0,48,72])
+    #80 上厕所没带纸
+    evelist.append(eve("../res/image/一团乱麻.png","在厕所的你没有带纸，你会选择？", 2 ,["试试用口罩？？？","等室友来了向其求救"] , ["不愧是你@~@","等了很久，人麻了"]))
+    effect.append([[0,0,-2,0,-2, 4],[-1,-1,-1,0,0, 12]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["真亏你能啊 san值-2 清洁-2","饥饿-1 口渴-1 san值-1"])
+    refreshneed.append([0,0,0,0,0,72,80])
+    #81 口罩用尽（要带）
+    evelist.append(eve("../res/image/口罩.png","突然发现没有多的口罩可用", 2 ,["从...里翻个旧的吧","不戴了！"] , ["这...至少防疫意识值得表扬","让你不带口罩！受到批评教育"]))
+    effect.append([[0,0,-1,0,-1, 2],[0,0,0,-2,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["有点不太好吧 san值-1 清洁-1","让你不带口罩！ 智商-2"])
+    refreshneed.append([0,0,0,0,0,36,52])
+    #82 口罩用尽（可不带但带了更好）
+    evelist.append(eve("../res/image/口罩.png","突然发现没有多的口罩可用", 2 ,["从...里翻个旧的吧","不戴了！"] , ["突然发现书包里还剩一个","欸嘿，抓不到我"]))
+    effect.append([[0,0,+1,0,0, 2],[0,0,0,-2,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["运气不错 san值+1","欸嘿，抓不到我"])
+    refreshneed.append([0,0,0,0,0,36,52])
+    
