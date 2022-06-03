@@ -622,6 +622,12 @@ class Dormitory:
                 return 8
             if student.too_tired > 3:
                 return 9
+            if student.gpa <= 1:
+                return 10
+            if student.too_low[2] >= 2:
+                return 11
+            if student.too_low[4] >= 5:
+                return 12
         #更新图像
 
             #更换寝室背景：

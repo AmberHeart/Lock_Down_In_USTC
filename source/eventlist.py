@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 66
+    event_num = 76
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -77,9 +77,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,48,88])
     #8砸门 恶作剧
     evelist.append(eve("../res/image/砸门.png","哐哐哐,有人砸门", 2 ,["战战兢兢开门","这回真滴一定有鬼,坚决不开"] , ["门口空无一人","..."]))
-    effect.append([[0,0,-5,0,0, 1],[0,0,0,0,0, 1]])
+    effect.append([[0,0,-3,0,0, 1],[0,0,0,0,0, 1]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["没人。。。 san值-5","不应该开门"])
+    message.append(["没人。。。 san值-3","不应该开门"])
     refreshneed.append([0,0,0,0,0,48,88])
     #9二课读书 崩了
     evelist.append(eve("../res/image/二课.png","室友拉你去参加悦读二课", 2 ,["好耶","算了，万一二课又崩了"] , ["好书啊好书，不过二课果然崩了","还好没去，二课崩了"]))
@@ -149,9 +149,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件17的子事件2
     #20 沉迷学习
     evelist.append(eve("../res/image/沉迷学习.jpg","早早起来精神抖擞可以去图书馆大卷一天",2 ,["出发！","不去，在床上摆烂了"] , ["卷了一天，忘了吃饭","摸鱼摸的好爽"]))
-    effect.append([[-3,0,-3,5,0,40],[0,0,+2,-2,0,4]])
+    effect.append([[-3,0,-3,5,0,32],[0,0,+2,-2,0,4]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["废寝忘食连续了10个小时，饥饿-3，san值-3，智商+5","摸鱼摸了1个小时，非常快乐，san值+2，智商-2"])
+    message.append(["废寝忘食连续了8个小时，饥饿-3，san值-3，智商+5","摸鱼摸了1个小时，非常快乐，san值+2，智商-2"])
     refreshneed.append([0,0,0,0,0,32,36])
     #21 疲惫学习
     evelist.append(eve("../res/image/沉迷学习.jpg","早早被室友闹钟叫醒，好困，要不要去图书馆",2 ,["出发！","不去，还没睡醒"] , ["好困，早知道不出来了","好睡！"]))
@@ -168,13 +168,13 @@ class EventList:
     #23 志愿者
     evelist.append(eve("../res/image/志愿者.png","芳草社招防疫志愿者咯",2 ,["马上参加","算了算了，还是在寝室睡大觉"] , ["为同学们服务，感觉真好","..."]))
     effect.append([[0,0,3,0,0,20],[0,0,0,0,0,8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
     message.append(["参加志愿服务，san值+3","无事发生"])
     refreshneed.append([0,0,0,0,0,32,60])
     #24 讲座
     evelist.append(eve("../res/image/讲座.png","老一辈科学家来讲座咯",2 ,["马上参加","算了算了，还是在寝室睡大觉"] , ["学习了老一辈科学家精神","..."]))
     effect.append([[0,0,0,0,0,20],[0,0,0,0,0,8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
     message.append(["参加老科学家讲座，提升道德素质","无事发生"])
     refreshneed.append([0,0,0,0,0,32,60])
     #25 讲座忘记出校报备
@@ -186,26 +186,26 @@ class EventList:
     #26 习题课
     evelist.append(eve("../res/image/习题课.jpg","晚上有习题课",2 ,["去上课","不去了，估计没什么人去吧"] , ["有所收获","有点后悔，会不会错过重要内容。"]))
     effect.append([[0,0,+2,0,0,8],[0,0,-1,0,0,8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,5,5,0],[0,0,0,0,0]])
     message.append(["习题课有所收获，智商+2","后悔ing，san值-1"])
     refreshneed.append([0,0,0,0,0,72,76])
     #27 习题课，但没听懂
     evelist.append(eve("../res/image/习题课.jpg","晚上有习题课",2 ,["去上课","不去了，估计没什么人去吧"] , ["有所收获，但好多没听懂","估计去了也听不懂"]))
-    effect.append([[0,0,+1,-1,0,8],[0,0,0,0,0,8]])
+    effect.append([[0,0,+1,-2,0,8],[0,0,0,0,0,8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["习题课有所收获，但心情低落，智商+1，san值-1","无事发生"])
+    message.append(["习题课有所收获，但心情低落，智商+1，san值-2","无事发生"])
     refreshneed.append([0,0,0,0,0,72,76])
     #28 去健身
     evelist.append(eve("../res/image/健身.png","好久没活动身体，去健身吧",2 ,["走起","不去了，累= ="] , ["浑身是汗，爽了","窝里蹲"]))
-    effect.append([[0,0,0,+1,-1,8],[0,0,0,0,0,8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["运动带来好心情，不过出了好多汗，san值+1，清洁值-1","无事发生"])
+    effect.append([[-1,-1,0,+1,-1,8],[0,0,0,0,0,8]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
+    message.append(["运动带来好心情，不过出了好多汗，饥饿-1，口渴-1，san值+1，清洁值-1","无事发生"])
     refreshneed.append([0,0,0,0,0,50,80])
     #29 线上运动会
     evelist.append(eve("../res/image/线上运动会.png","疫情期间开展线上运动会小活动",2 ,["有点意思，参加一下","看看热闹算了"] , ["取得了好成绩！","体育活动与我无缘"]))
-    effect.append([[0,0,0,+2,-1,20],[0,0,0,0,0,8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["成绩不错美滋滋，不过出了好多汗，san值+2，清洁值-1","emm，下次参加吧"])
+    effect.append([[-1,-1,0,+2,-1,20],[0,0,0,0,0,8]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
+    message.append(["成绩不错美滋滋，不过出了好多汗，饥饿-1，口渴-1，san值+2，清洁值-1","emm，下次参加吧"])
     refreshneed.append([0,0,0,0,0,50,80])
     #30 线上运动会，未取得成绩
     evelist.append(eve("../res/image/线上运动会.png","疫情期间开展线上运动会小活动",2 ,["有点意思，参加一下","看看热闹算了"] , ["成绩一般，不过重在参与","体育活动与我无缘"]))
@@ -216,7 +216,7 @@ class EventList:
     #31 竞赛（赢）
     evelist.append(eve("../res/image/竞赛.png","学院举办XX竞赛咯",2 ,["火速报名","不去了，估计没什么人去吧"] , ["成绩不错哟","竞赛不是我能伸的上手的"]))
     effect.append([[0,0,+2,0,0,16],[0,0,0,0,0,8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
     message.append(["参加竞赛学会了新知识，智商+2","摆就完了"])
     refreshneed.append([0,0,0,0,0,32,48])
     #32 竞赛（输）
@@ -228,7 +228,7 @@ class EventList:
     #33 诗歌鉴赏
     evelist.append(eve("../res/image/诗歌鉴赏.png","星云诗社开展诗歌鉴赏活动",2 ,["火速报名","没文化鉴赏不得，还是学数理"] , ["能探风雅无穷意，始是乾坤绝妙词","我莫得文化"]))
     effect.append([[0,0,0,0,0,16],[0,0,+2,0,0,16]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
     message.append(["陶冶了情操","还是打好数理基础，智商+2"])
     refreshneed.append([0,0,0,0,0,32,72])
     #34 学习党史
@@ -282,19 +282,19 @@ class EventList:
     #42 ddl前置 数学
     evelist.append(eve("../res/image/数学.png","数学作业太多了", 2 ,["写作业！","摆！"] , ["终于完成了","舒服了"]))
     effect.append([[0,0,0,0,0, 4],[0,0,+1,0,0, 4]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    limit.append([[0,0,0,8,0],[0,0,0,0,0]])  
     message.append(["完成了数学作业","没完成数学作业"])
     refreshneed.append([0,0,0,0,0,48,80])
     #43 ddl前置 物理
     evelist.append(eve("../res/image/物理.jpg","物理作业好难", 2 ,["写作业！","摆！"] , ["终于完成了","舒服了"]))
     effect.append([[0,0,0,0,0, 4],[0,0,+1,0,0, 4]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    limit.append([[0,0,0,6,0],[0,0,0,0,0]])  
     message.append(["完成了物理作业","没完成物理作业"])
     refreshneed.append([0,0,0,0,0,48,80])
     #44 ddl前置 英语
     evelist.append(eve("../res/image/英语.jpg","英语作业好麻烦", 2 ,["写作业！","摆！"] , ["终于完成了","舒服了"]))
     effect.append([[0,0,0,0,0, 4],[0,0,+1,0,0, 4]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    limit.append([[0,0,0,5,0],[0,0,0,0,0]])  
     message.append(["完成了英语作业","没完成英语作业"])
     refreshneed.append([0,0,0,0,0,48,80])
     #45 本草纲目
@@ -318,13 +318,13 @@ class EventList:
     #48 青年大学习（夹带私货）
     evelist.append(eve("../res/image/青年大学习.jpg","新一期的青年大学习来咯", 2 ,["学学我的","好麻烦，不学了"] , ["学的好","快点去学"]))
     effect.append([[0,0,0,+1,0, 8],[0,0,0,-2,0, 8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
     message.append(["学的好 智商+1","快点去学 智商-2"])
     refreshneed.append([0,0,0,0,0,52,60])
     #49 MBTI测试事件
     evelist.append(eve("../res/image/MBTI.jpg","有人推荐你做MBTI测试", 2 ,["测一下试试","不测了"] , ["自己找一个测吧ヽ(*´з｀*)ﾉ","无事发生"]))
     effect.append([[0,0,0,0,0, 4],[0,0,0,0,0, 2]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,8,0,0],[0,0,0,0,0]])
     message.append(["自己找一个测吧ヽ(*´з｀*)ﾉ","无事发生"])
     refreshneed.append([0,0,0,0,0,56,68])
     #50 大物实验预习测
@@ -332,17 +332,17 @@ class EventList:
     effect.append([[0,0,0,0,0, 8],[0,0,-2,0,0, 8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["预习测完成","忘做预习测血亏，san值-2"])
-    refreshneed.append([0,0,0,0,0,50,76])
+    refreshneed.append([0,0,0,5,0,50,76])
     #51 大物实验出门测
     evelist.append(eve("../res/image/大物实验.jpg","大物实验做完了，赶快做一下出门测？", 2 ,["开做","过会在做"] , ["完成了出门测","坏了，本来想过会做结果忘了"]))
     effect.append([[0,0,0,0,0, 8],[0,0,-2,0,0, 8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["出门测完成","忘做出门测血亏，san值-2"])
-    refreshneed.append([0,0,0,0,0,76,88])
+    refreshneed.append([0,0,0,5,0,76,88])
     #52 研讨课
     evelist.append(eve("../res/image/研讨课.jpg","组长又来催研讨课进度了", 2 ,["开做","我摆"] , ["众人拾柴火焰高","摸鱼爽，一直模一直爽"]))
     effect.append([[0,0,+1,+1,0, 8],[0,0,+1,0,0, 8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,5,0,0],[0,0,0,0,0]])
     message.append(["在研讨课中成长，协作中感受个人价值 智商+1 san值+1","摸鱼真舒服 san值+1"])
     refreshneed.append([0,0,0,0,0,32,84])
     #53 研讨课（摸鱼被逮）
@@ -390,19 +390,19 @@ class EventList:
     #60 Ta邀请约会
     evelist.append(eve("../res/image/情侣.jpg","Ta约你出去", 2 ,["好耶！","不去，专注学业"] , ["开心","智者不如爱河.."]))
     effect.append([[0,0,1,0,0, 12],[0,0,0,0,0, 12]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,0,0,8],[0,0,0,0,0]])
     message.append(["和Ta出去玩 san值+1","学习，不过不知为什么今天效率好低"])
     refreshneed.append([0,0,0,0,0,32,60])
     #61 Ta邀请去学习
     evelist.append(eve("../res/image/情侣学习.jpg","Ta约你去学习", 2 ,["好耶！","不去，还是自己学习"] , ["开心","寡王直通硕博.."]))
     effect.append([[0,0,1,0,0, 12],[0,0,-1,1,0, 12]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,0,0,8],[0,0,0,0,0]])
     message.append(["和Ta去学习，开心，但是心里都是Ta，学不进去 san值+1","学习，但是好失落，san值-1，智商+1"])
     refreshneed.append([0,0,0,0,0,32,72])
     #62 Ta邀请去学习2
     evelist.append(eve("../res/image/情侣学习.jpg","Ta约你去学习", 2 ,["好耶！","不去，还是自己学习"] , ["开心，学习变得快乐","智者不如爱河.."]))
     effect.append([[0,0,1,1,0, 12],[0,0,-1,1,0, 12]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    limit.append([[0,0,0,0,8],[0,0,0,0,0]])
     message.append(["和Ta去学习，开心，学习效率倍增 san值+1 智商+1","学习，但是好失落，san值-1，智商+1"])
     refreshneed.append([0,0,0,0,0,32,72])
     #63 Ta邀请打游戏
@@ -414,8 +414,8 @@ class EventList:
     #64 Ta邀请打游戏2
     evelist.append(eve("../res/image/情侣玩游戏.jpg","Ta约你打游戏", 2 ,["好耶！","不去，自己打"] , ["直接带飞(*^▽^*)","孤独上分"]))
     effect.append([[0,0,+1,0,0, 8],[0,0,0,0,0, 8]])
-    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["和Ta玩崩了.. san值+1","无聊上（掉）分ing"])
+    limit.append([[0,0,0,7,0],[0,0,0,0,0]])
+    message.append(["打的不错，san值+1","无聊上（掉）分ing"])
     refreshneed.append([0,0,0,0,0,32,60])
     #65 大学生创业
     evelist.append(eve("../res/image/大学生创业.jpg","学长传授创业知识", 2 ,["去了解","好像和现在的我无关"] , ["收获很大","前途茫茫"]))
@@ -423,4 +423,63 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["早晚会走出校门，应该提前准备","早晚会走出校门，应该提前准备"])
     refreshneed.append([0,0,0,0,0,32,72])
-    
+    #66 大物实验预习测(负效果)
+    evelist.append(eve("../res/image/大物实验.jpg","大物实验要来了，先做一下预习测？", 2 ,["开做","过会在做"] , ["完成了预习测","坏了，本来想过会做结果忘了"]))
+    effect.append([[0,0,-1,0,0, 8],[0,0,-2,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["预习测完成，但是错了一堆，san值-1","忘做预习测血亏，san值-2"])
+    refreshneed.append([0,0,0,0,0,50,76])
+    #67 大物实验出门测（负效果）
+    evelist.append(eve("../res/image/大物实验.jpg","大物实验做完了，赶快做一下出门测？", 2 ,["开做","过会在做"] , ["完成了出门测","坏了，本来想过会做结果忘了"]))
+    effect.append([[0,0,-1,0,0, 8],[0,0,-2,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["出门测完成，但是错了一堆，san值-1","忘做出门测血亏，san值-2"])
+    refreshneed.append([0,0,0,0,0,76,88])
+    #68 研讨课（负效果）
+    evelist.append(eve("../res/image/研讨课.jpg","组长又来催研讨课进度了", 2 ,["开做","我摆"] , ["太难了","坏，摸鱼被组长发现"]))
+    effect.append([[0,0,-2,-1,0, 8],[0,0,-2,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["完全没头绪 智商-2 san值-1","摸鱼被逮了 san值-2"])
+    refreshneed.append([0,0,0,0,0,32,84])
+    #69 发呆（负效果）
+    evelist.append(eve("../res/image/发呆.jpg","突然好想发呆捏", 2 ,["发呆...","不发，开卷！"] , ["做有意义的事情不好吗","完全没用"]))
+    effect.append([[0,0,-2,0,0, 8],[0,0,0,-1,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["发呆两小时，痛恨自己浪费时间 san值-2","卷了，但是没卷 智商-1"])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #70 ddl前置 英语（负效果）
+    evelist.append(eve("../res/image/英语.jpg","英语作业好麻烦", 2 ,["写作业！","摆！"] , ["单词认识我，我不认识它","舒服了"]))
+    effect.append([[0,0,-1,0,0, 4],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["我咋啥也看不懂？san值-1","没完成英语作业"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #71 ddl前置 数学（负效果）
+    evelist.append(eve("../res/image/数学.png","数学作业太多了", 2 ,["写作业！","摆！"] , ["这啥证明题？？这也要证？这也能证？","舒服了"]))
+    effect.append([[0,0,-1,-1,0, 4],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["受到数学作业摧残 san值-1 智商-1","没完成数学作业"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #72 ddl前置 物理（负效果）
+    evelist.append(eve("../res/image/物理.jpg","物理作业好难", 2 ,["写作业！","摆！"] , ["这公式好像都用不到题里","舒服了"]))
+    effect.append([[0,0,-1,-1,0, 4],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
+    message.append(["受到物理作业摧残 san值-1 智商-1","没完成物理作业"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #73 MBTI测试事件（负效果）
+    evelist.append(eve("../res/image/MBTI.jpg","有人推荐你做MBTI测试", 2 ,["测一下试试","不测了"] , ["自己找一个测吧ヽ(*´з｀*)ﾉ","无事发生"]))
+    effect.append([[0,0,-3,0,0, 4],[0,0,0,0,0, 2]])
+    limit.append([[0,0,8,0,0],[0,0,0,0,0]])
+    message.append(["发现自己疑似抑郁，很难受 san值-3","无事发生"])
+    refreshneed.append([0,0,0,0,0,56,68])
+    #74 周常核酸检测（负效果）
+    evelist.append(eve("../res/image/核酸检测.png","核酸检测",2 ,["马上去做","叛逆！不去！"] , ["发现今天没有核酸检测","在宿舍里边吃零食边卷卷，但是还是担心出问题"]))
+    effect.append([[0,0,-2,0,0,24],[0,0,-2,1,0,12]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["白去了 san值-2","在宿舍卷卷却没学会啥，san值-2"])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #75 自习室事件
+    evelist.append(eve("../res/image/自习室.png","好朋友邀你去自习室卷卷",2 ,["出发！","不去，在床上摆烂了"] , ["自习了好久，却没学会","摸鱼了但是好不安，应该学习的"]))
+    effect.append([[0,0,-2,0,0,12],[0,0,-1,-2,0,4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["自习了3个小时，却没学会什么 san值-2","摸鱼摸了1个小时，非常快乐，san值-1，智商-2"])
+    refreshneed.append([0,0,0,0,0,32,88])
