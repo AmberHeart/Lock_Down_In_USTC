@@ -496,7 +496,7 @@ class Dormitory:
             
             if eventid == 5 and chosen == 1:
                 student.hesuan += 1
-                
+            
             if eventid == 11 and chosen == 0 :
                 student.wangwang[0] = 1
             if eventid == 11 and chosen == 1 :
@@ -552,6 +552,20 @@ class Dormitory:
             if eventid == 35 and chosen == 1 :
                 now_item[0][1] += 1
                 now_item[1][1] += 1
+
+            if eventid == 76 and chosen == 0 :
+                now_item[1][1] += -2
+
+            if eventid == 77 and chosen == 0 :
+                now_item[1][1] += -2
+
+            if eventid == 78 and chosen == 0 :
+                now_item[0][1] += -2
+
+            if eventid == 79 and chosen == 0 :
+                now_item[0][1] += -2
+
+            
 
             #连续事件
             if eventid == 37 and chosen == 0:#跳转至38
