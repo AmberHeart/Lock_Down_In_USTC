@@ -565,6 +565,18 @@ class Dormitory:
             if eventid == 79 and chosen == 0 :
                 now_item[0][1] += -2
 
+            if eventid == 90 and chosen == 0 :
+                now_item[3][1] += 2
+
+            if eventid == 91 and chosen == 1 :
+                now_item[3][1] += 1
+
+            if eventid == 92 and chosen == 0 :
+                now_item[3][1] += -1
+
+            if eventid == 93 and chosen == 0 :
+                now_item[3][1] += -1
+            
             
 
             #连续事件
