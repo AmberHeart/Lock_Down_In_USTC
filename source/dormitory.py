@@ -248,7 +248,35 @@ class Dormitory:
                 if student.state[5] >= 96:
                     student.state[5] -= 96
 
+        #！！有特别要求的事件 满足返回0 不满足返回1
+        def specialrequest(eventid , chosen):
+            if eventid == 76 and chosen == 0 :
+                if now_item[1][1] < 2 :
+                    return "优秀食物" , 1
+            if eventid == 77 and chosen == 0 :
+                if now_item[1][1] < 2 :
+                    return "优秀食物" , 1
+
+            if eventid == 78 and chosen == 0 :
+                if now_item[0][1] < 2 :
+                    return "优秀饮料" , 1
+
+            if eventid == 79 and chosen == 0 :
+                if now_item[0][1] < 2 :
+                    return "优秀饮料" , 1
+                
+            if eventid == 92 and chosen == 0 :
+                if now_item[0][1] < 1 :
+                    return "优秀杂项" , 1
+
+            if eventid == 93 and chosen == 0 :
+                if now_item[0][1] < 1 :
+                    return "优秀杂项" , 1
+                
+            return "" , 0
+            
         #事件类
+        
         class choose_event:
             
             def __init__(self, screen ,filename2 , font, text1, choice_num, texts , resulttexts):
@@ -278,8 +306,7 @@ class Dormitory:
                 if self.chosen == -1:
                     for choice_button in self.buttons:
                         if choice_button.update(pressed) == 1:
-                            flag = 0
-                            self.tipstr = ""
+                            self.tipstr , flag = specialrequest(eveid , cnt)
                             for i in range(0,5):
                                 if EventList.limit[eveid][cnt][i] > student.state[i]:
                                     if flag == 0:
