@@ -592,7 +592,7 @@ class Dormitory:
                 tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                 return tnow_event , now_event_id , 0
 
-            if eventid == 42 and chosen == 1 or eventid == 43 and chosen == 1 or eventid == 44 and chosen == 1:
+            if eventid == 42 and chosen == 1 or eventid == 43 and chosen == 1 or eventid == 44 and chosen == 1 or eventid == 70 and chosen == 1 or eventid == 71 and chosen == 1 or eventid == 72 and chosen == 1:
                 student.skiphomework += 1
 
             if eventid == 41 and chosen == 0:
