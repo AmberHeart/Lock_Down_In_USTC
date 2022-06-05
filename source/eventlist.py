@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 102
+    event_num = 104
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -645,5 +645,15 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["网吧烟味好重 清洁-2","无事发生，但有点不安 san值-1"])
     refreshneed.append([0,0,0,0,0,60,88])
-
-
+    #102 室友衣服堆积
+    evelist.append(eve("../res/image/脏衣服.png","室友的脏衣服已经堆了不少时间，略散发出味道...", 2 ,["提醒他洗衣服","算了，我帮他洗了"] , ["室友紧急进行一个衣服的洗","洗完但是有点累"]))
+    effect.append([[0,0,0,0,0, 4],[-1,-1,0,0,+1, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["室友紧急进行了一个衣服的洗","洗得有些累 饥饿-1 口渴-1 清洁+1"])
+    refreshneed.append([0,0,0,0,0,36,72])
+    #103 室友过生日
+    evelist.append(eve("../res/image/过生日.png","室友过生日，你们决定...", 2 ,["就在学校里过好了","偷偷出去庆祝？"] , ["毕竟是疫情，还是这样吧","小遛一手生日的眷顾 无事发生 玩得很开心"]))
+    effect.append([[0,0,0,0,0, 8],[0,0,0,0,0, 12]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["在校内也可以过生日哦 不要忘记防疫捏","生日的眷顾 无事发生 玩得很开心"])
+    refreshneed.append([0,0,0,0,0,48,68])
