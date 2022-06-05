@@ -251,27 +251,27 @@ class Dormitory:
         #！！有特别要求的事件 满足返回0 不满足返回1
         def specialrequest(eventid , chosen):
             if eventid == 76 and chosen == 0 :
-                if now_item[1][1] < 2 :
-                    return "优秀食物" , 1
+                if now_item[1][1] < 1 and now_item[1][0] < 1 and now_item[1][2] < 1 and now_item[1][3] < 1:
+                    return "食物" , 1
             if eventid == 77 and chosen == 0 :
-                if now_item[1][1] < 2 :
-                    return "优秀食物" , 1
+                if now_item[1][1] < 1 and now_item[1][0] < 1 and now_item[1][2] < 1 and now_item[1][3] < 1 :
+                    return "食物" , 1
 
             if eventid == 78 and chosen == 0 :
-                if now_item[0][1] < 2 :
-                    return "优秀饮料" , 1
+                if now_item[0][1] < 1 and now_item[0][0] < 1 and now_item[0][2] < 1 and now_item[0][3] < 1 :
+                    return "饮料" , 1
 
             if eventid == 79 and chosen == 0 :
-                if now_item[0][1] < 2 :
-                    return "优秀饮料" , 1
+                if now_item[0][1] < 1 and now_item[0][0] < 1 and now_item[0][2] < 1 and now_item[0][3] < 1 :
+                    return "饮料" , 1
                 
             if eventid == 92 and chosen == 0 :
-                if now_item[0][1] < 1 :
-                    return "优秀杂项" , 1
+                if now_item[3][1] < 1 and now_item[3][0] < 1 and now_item[3][2] < 1 and now_item[3][3] < 1:
+                    return "杂项" , 1
 
             if eventid == 93 and chosen == 0 :
-                if now_item[0][1] < 1 :
-                    return "优秀杂项" , 1
+                if now_item[3][1] < 1 and now_item[3][0] < 1 and now_item[3][2] < 1 and now_item[3][3] < 1 :
+                    return "杂项" , 1
                 
             return "" , 0
             
@@ -581,16 +581,44 @@ class Dormitory:
                 now_item[1][1] += 1
 
             if eventid == 76 and chosen == 0 :
-                now_item[1][1] += -2
+                if now_item[1][3] > 0:
+                    now_item[1][3] += -1
+                elif now_item[1][2] > 0:
+                    now_item[1][2] += -1
+                elif now_item[1][1] > 0:
+                    now_item[1][1] += -1
+                elif now_item[1][0] > 0:
+                    now_item[1][0] += -1
 
             if eventid == 77 and chosen == 0 :
-                now_item[1][1] += -2
+                if now_item[1][3] > 0:
+                    now_item[1][3] += -1
+                elif now_item[1][2] > 0:
+                    now_item[1][2] += -1
+                elif now_item[1][1] > 0:
+                    now_item[1][1] += -1
+                elif now_item[1][0] > 0:
+                    now_item[1][0] += -1
 
             if eventid == 78 and chosen == 0 :
-                now_item[0][1] += -2
+                if now_item[0][3] > 0:
+                    now_item[0][3] += -1
+                elif now_item[0][2] > 0:
+                    now_item[0][2] += -1
+                elif now_item[0][1] > 0:
+                    now_item[0][1] += -1
+                elif now_item[0][0] > 0:
+                    now_item[0][0] += -1
 
             if eventid == 79 and chosen == 0 :
-                now_item[0][1] += -2
+                if now_item[0][3] > 0:
+                    now_item[0][3] += -1
+                elif now_item[0][2] > 0:
+                    now_item[0][2] += -1
+                elif now_item[0][1] > 0:
+                    now_item[0][1] += -1
+                elif now_item[0][0] > 0:
+                    now_item[0][0] += -1
 
             if eventid == 90 and chosen == 0 :
                 now_item[3][1] += 2
@@ -599,10 +627,24 @@ class Dormitory:
                 now_item[3][1] += 1
 
             if eventid == 92 and chosen == 0 :
-                now_item[3][1] += -1
+                if now_item[3][3] > 0:
+                    now_item[3][3] += -1
+                elif now_item[3][2] > 0:
+                    now_item[3][2] += -1
+                elif now_item[3][1] > 0:
+                    now_item[3][1] += -1
+                elif now_item[3][0] > 0:
+                    now_item[3][0] += -1
 
             if eventid == 93 and chosen == 0 :
-                now_item[3][1] += -1
+                if now_item[3][3] > 0:
+                    now_item[3][3] += -1
+                elif now_item[3][2] > 0:
+                    now_item[3][2] += -1
+                elif now_item[3][1] > 0:
+                    now_item[3][1] += -1
+                elif now_item[3][0] > 0:
+                    now_item[3][0] += -1
             
             
 
