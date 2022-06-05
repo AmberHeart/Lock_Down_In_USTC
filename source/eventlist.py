@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 99
+    event_num = 102
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -627,5 +627,23 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["卷卷 智商+1","小测寄了 智商-2"])
     refreshneed.append([0,0,0,0,0,36,60])
-    
+    #99 隔壁寝室要偷偷去网吧（举报）
+    evelist.append(eve("../res/image/网吧.png","隔壁寝室的兄弟说要偷偷去网吧", 2 ,["？？？已举报","关我啥事"] , ["已举报","无事发生"]))
+    effect.append([[0,0,0,0,0, 8],[0,0,-1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["已举报，守护防疫","无事发生，但有点不安 san值-1"])
+    refreshneed.append([0,0,0,0,0,60,88])
+    #100 隔壁寝室要偷偷去网吧（一起去被抓）
+    evelist.append(eve("../res/image/网吧.png","隔壁寝室的兄弟说要偷偷去网吧", 2 ,["带带我","与我无瓜"] , ["一起去被发现了","无事发生"]))
+    effect.append([[0,0,0,-2,0, 12],[0,0,-1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["被发现了，受到防疫教育 智商-2","无事发生，但有点不安 san值-1"])
+    refreshneed.append([0,0,0,0,0,60,88])
+    #101 隔壁寝室要偷偷去网吧（一起去吸二手烟）
+    evelist.append(eve("../res/image/网吧.png","隔壁寝室的兄弟说要偷偷去网吧", 2 ,["带带我","与我无瓜"] , ["一起去了，但是网吧烟味好重","无事发生"]))
+    effect.append([[0,0,0,0,-2, 12],[0,0,-1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["网吧烟味好重 清洁-2","无事发生，但有点不安 san值-1"])
+    refreshneed.append([0,0,0,0,0,60,88])
+
 
