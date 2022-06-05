@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 95
+    event_num = 99
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -597,4 +597,35 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["不许摆 智商-2","完成实验 智商+1 清洁-1"])
     refreshneed.append([0,0,0,0,0,48,72])
+    #95 心理活动月
+    evelist.append(eve("../res/image/心理活动月.png","为了为疫情期间的生活添彩，学校开展心理活动月，心理委员请你帮忙", 2 ,["当然要帮捏","算了，关我啥事啊"] , ["赠人玫瑰，手有余香","无事发生...但是..."]))
+    effect.append([[0,0,+2,0,0, 12],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["真不戳 san值+2","无事发生...但是..."])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #96 最近可以点外卖（点）
+    evelist.append(eve("../res/image/可点外卖.png","最近防控稍松，似乎可以点外卖了", 2 ,["开点！","算了，防疫要紧"] , ["饱餐一顿","无事发生"]))
+    effect.append([[+2,0,0,0,0, 8],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["饱餐一顿 饥饿+2","无事发生 但san值+1"])
+    refreshneed.append([0,0,0,0,0,44,72])
+    #97 最近可以点外卖（不点）
+    evelist.append(eve("../res/image/可点外卖.png","最近防控稍松，似乎可以点外卖了", 2 ,["开点！","算了，防疫要紧"] , ["是假的，还被教育了一番","无事发生"]))
+    effect.append([[0,0,-1,-1,0, 8],[0,0,+1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["被教育了 智商-1 san值-1","无事发生 但san值+1"])
+    refreshneed.append([0,0,0,0,0,44,72])
+    #98 上节网课（可不听）
+    evelist.append(eve("../res/image/上节网课.png","授课老师突然黄码，这节课改为网课", 2 ,["认真听课","网课还是摸鱼好了"] , ["努力卷卷捏","小摸一下"]))
+    effect.append([[0,0,0,+1,0, 8],[0,0,0,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["卷卷 智商+1","小摸一下"])
+    refreshneed.append([0,0,0,0,0,36,60])
+    #98 上节网课（必须听）
+    evelist.append(eve("../res/image/上节网课.png","授课老师突然黄码，这节课改为网课", 2 ,["认真听课","网课还是摸鱼好了"] , ["努力卷卷捏","坏，下节课的小测寄了"]))
+    effect.append([[0,0,0,+1,0, 8],[0,0,0,-2,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["卷卷 智商+1","小测寄了 智商-2"])
+    refreshneed.append([0,0,0,0,0,36,60])
+    
 
