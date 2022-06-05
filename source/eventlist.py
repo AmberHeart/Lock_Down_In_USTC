@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 94
+    event_num = 95
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -591,3 +591,10 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["给了消毒液，杂项-1","清洁值+2"])
     refreshneed.append([0,0,0,0,0,32,80])
+    #94 居寝实验
+    evelist.append(eve("../res/image/实验室.png","由于疫情缘故，突然实验室不能使用，需要居寝实验", 2 ,["摆！","想办法努努力"] , ["不许摆！不许摆！","完成了实验但把寝室弄得有点脏"]))
+    effect.append([[0,0,0,-2,0, 4],[0,0,0,+1,-1, 10]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["不许摆 智商-2","完成实验 智商+1 清洁-1"])
+    refreshneed.append([0,0,0,0,0,48,72])
+
