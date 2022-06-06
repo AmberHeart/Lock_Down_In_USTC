@@ -167,9 +167,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,40,48])
     #23 志愿者
     evelist.append(eve("../res/image/志愿者.png","芳草社招防疫志愿者咯",2 ,["马上参加","算了算了，还是在寝室睡大觉"] , ["为同学们服务，感觉真好","..."]))
-    effect.append([[0,0,3,0,0,20],[0,0,0,0,0,8]])
+    effect.append([[0,0,2,0,0,20],[0,0,0,0,0,8]])
     limit.append([[0,0,5,0,0],[0,0,0,0,0]])
-    message.append(["参加志愿服务，san值+3","无事发生"])
+    message.append(["参加志愿服务，san值+2","无事发生"])
     refreshneed.append([0,0,0,0,0,32,60])
     #24 讲座
     evelist.append(eve("../res/image/讲座.png","老一辈科学家来讲座咯（注意间隔就座，这边建议有条件线上听讲捏）",2 ,["马上参加","算了算了，还是在寝室睡大觉"] , ["学习了老一辈科学家精神","..."]))
@@ -215,13 +215,13 @@ class EventList:
     refreshneed.append([0,0,0,0,0,50,80])
     #31 竞赛（赢）
     evelist.append(eve("../res/image/竞赛.png","学院举办XX竞赛咯",2 ,["火速报名","不去了，估计没什么人去吧"] , ["成绩不错哟","竞赛不是我能伸的上手的"]))
-    effect.append([[0,0,+2,0,0,16],[0,0,0,0,0,8]])
+    effect.append([[0,0,0,2,0,16],[0,0,0,0,0,8]])
     limit.append([[0,0,5,0,0],[0,0,0,0,0]])
     message.append(["参加竞赛学会了新知识，智商+2","摆就完了"])
     refreshneed.append([0,0,0,0,0,32,48])
     #32 竞赛（输）
     evelist.append(eve("../res/image/竞赛.png","学院举办XX竞赛咯",2 ,["火速报名","不去了，估计没什么人去吧"] , ["参加后才发现自己这么菜","竞赛不是我能伸的上手的"]))
-    effect.append([[0,0,0,-2,0,16],[0,0,0,0,0,8]])
+    effect.append([[0,0,-2,0,0,16],[0,0,0,0,0,8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["我好弱，好难过，san值-2","摆就完了"])
     refreshneed.append([0,0,0,0,0,32,48])
@@ -277,7 +277,7 @@ class EventList:
     evelist.append(eve("../res/image/补作业.jpg","盘点最近积攒的作业", 2 ,["狂补！","先休息一下吧"] , ["终于完成了","早晚还是要写的"]))
     effect.append([[0,0,0,-2,0, 8],[0,0,+1,0,0, 4]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])  
-    message.append(["写了好久，好累...","慢慢做吧，细水长流"])
+    message.append(["写了好久，好累...,san值 -2","慢慢做吧，细水长流"])
     refreshneed.append([0,0,0,0,0,48,80])
     #42 ddl前置 数学
     evelist.append(eve("../res/image/数学.png","数学作业太多了", 2 ,["写作业！","摆！"] , ["终于完成了","舒服了"]))
@@ -473,7 +473,7 @@ class EventList:
     refreshneed.append([0,0,0,0,0,56,68])
     #74 周常核酸检测（负效果）
     evelist.append(eve("../res/image/核酸检测.png","核酸检测",2 ,["马上去做","叛逆！不去！"] , ["发现今天没有核酸检测","在宿舍里边吃零食边卷卷，但是还是担心出问题"]))
-    effect.append([[0,0,-2,0,0,24],[0,0,-2,1,0,12]])
+    effect.append([[0,0,-2,0,0,24],[0,0,-2,0,0,12]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["白去了 san值-2","在宿舍卷卷却没学会啥，san值-2"])
     refreshneed.append([0,0,0,0,0,48,72])
