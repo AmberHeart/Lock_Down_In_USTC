@@ -248,7 +248,35 @@ class Dormitory:
                 if student.state[5] >= 96:
                     student.state[5] -= 96
 
+        #！！有特别要求的事件 满足返回0 不满足返回1
+        def specialrequest(eventid , chosen):
+            if eventid == 76 and chosen == 0 :
+                if now_item[1][1] < 1 and now_item[1][0] < 1 and now_item[1][2] < 1 and now_item[1][3] < 1:
+                    return "食物" , 1
+            if eventid == 77 and chosen == 0 :
+                if now_item[1][1] < 1 and now_item[1][0] < 1 and now_item[1][2] < 1 and now_item[1][3] < 1 :
+                    return "食物" , 1
+
+            if eventid == 78 and chosen == 0 :
+                if now_item[0][1] < 1 and now_item[0][0] < 1 and now_item[0][2] < 1 and now_item[0][3] < 1 :
+                    return "饮料" , 1
+
+            if eventid == 79 and chosen == 0 :
+                if now_item[0][1] < 1 and now_item[0][0] < 1 and now_item[0][2] < 1 and now_item[0][3] < 1 :
+                    return "饮料" , 1
+                
+            if eventid == 92 and chosen == 0 :
+                if now_item[3][1] < 1 and now_item[3][0] < 1 and now_item[3][2] < 1 and now_item[3][3] < 1:
+                    return "杂项" , 1
+
+            if eventid == 93 and chosen == 0 :
+                if now_item[3][1] < 1 and now_item[3][0] < 1 and now_item[3][2] < 1 and now_item[3][3] < 1 :
+                    return "杂项" , 1
+                
+            return "" , 0
+            
         #事件类
+        
         class choose_event:
             
             def __init__(self, screen ,filename2 , font, text1, choice_num, texts , resulttexts):
@@ -278,8 +306,7 @@ class Dormitory:
                 if self.chosen == -1:
                     for choice_button in self.buttons:
                         if choice_button.update(pressed) == 1:
-                            flag = 0
-                            self.tipstr = ""
+                            self.tipstr , flag = specialrequest(eveid , cnt)
                             for i in range(0,5):
                                 if EventList.limit[eveid][cnt][i] > student.state[i]:
                                     if flag == 0:
@@ -496,7 +523,7 @@ class Dormitory:
             
             if eventid == 5 and chosen == 1:
                 student.hesuan += 1
-                
+            
             if eventid == 11 and chosen == 0 :
                 student.wangwang[0] = 1
             if eventid == 11 and chosen == 1 :
@@ -553,6 +580,74 @@ class Dormitory:
                 now_item[0][1] += 1
                 now_item[1][1] += 1
 
+            if eventid == 76 and chosen == 0 :
+                if now_item[1][3] > 0:
+                    now_item[1][3] += -1
+                elif now_item[1][2] > 0:
+                    now_item[1][2] += -1
+                elif now_item[1][1] > 0:
+                    now_item[1][1] += -1
+                elif now_item[1][0] > 0:
+                    now_item[1][0] += -1
+
+            if eventid == 77 and chosen == 0 :
+                if now_item[1][3] > 0:
+                    now_item[1][3] += -1
+                elif now_item[1][2] > 0:
+                    now_item[1][2] += -1
+                elif now_item[1][1] > 0:
+                    now_item[1][1] += -1
+                elif now_item[1][0] > 0:
+                    now_item[1][0] += -1
+
+            if eventid == 78 and chosen == 0 :
+                if now_item[0][3] > 0:
+                    now_item[0][3] += -1
+                elif now_item[0][2] > 0:
+                    now_item[0][2] += -1
+                elif now_item[0][1] > 0:
+                    now_item[0][1] += -1
+                elif now_item[0][0] > 0:
+                    now_item[0][0] += -1
+
+            if eventid == 79 and chosen == 0 :
+                if now_item[0][3] > 0:
+                    now_item[0][3] += -1
+                elif now_item[0][2] > 0:
+                    now_item[0][2] += -1
+                elif now_item[0][1] > 0:
+                    now_item[0][1] += -1
+                elif now_item[0][0] > 0:
+                    now_item[0][0] += -1
+
+            if eventid == 90 and chosen == 0 :
+                now_item[3][1] += 2
+
+            if eventid == 91 and chosen == 1 :
+                now_item[3][1] += 1
+
+            if eventid == 92 and chosen == 0 :
+                if now_item[3][3] > 0:
+                    now_item[3][3] += -1
+                elif now_item[3][2] > 0:
+                    now_item[3][2] += -1
+                elif now_item[3][1] > 0:
+                    now_item[3][1] += -1
+                elif now_item[3][0] > 0:
+                    now_item[3][0] += -1
+
+            if eventid == 93 and chosen == 0 :
+                if now_item[3][3] > 0:
+                    now_item[3][3] += -1
+                elif now_item[3][2] > 0:
+                    now_item[3][2] += -1
+                elif now_item[3][1] > 0:
+                    now_item[3][1] += -1
+                elif now_item[3][0] > 0:
+                    now_item[3][0] += -1
+            
+            
+
             #连续事件
             if eventid == 37 and chosen == 0:#跳转至38
                 te = EventList.evelist[38]
@@ -566,7 +661,7 @@ class Dormitory:
                 tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                 return tnow_event , now_event_id , 0
 
-            if eventid == 42 and chosen == 1 or eventid == 43 and chosen == 1 or eventid == 44 and chosen == 1:
+            if eventid == 42 and chosen == 1 or eventid == 43 and chosen == 1 or eventid == 44 and chosen == 1 or eventid == 70 and chosen == 1 or eventid == 71 and chosen == 1 or eventid == 72 and chosen == 1:
                 student.skiphomework += 1
 
             if eventid == 41 and chosen == 0:
@@ -622,6 +717,12 @@ class Dormitory:
                 return 8
             if student.too_tired > 3:
                 return 9
+            if student.gpa <= 1:
+                return 10
+            if student.too_low[2] >= 2:
+                return 11
+            if student.too_low[4] >= 5:
+                return 12
         #更新图像
 
             #更换寝室背景：
