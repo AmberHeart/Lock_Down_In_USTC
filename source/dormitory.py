@@ -495,6 +495,7 @@ class Dormitory:
                 for i in range(0,5):
                     save = save + str(student.quality[i])+" "
                 save = save + str(student.skiphomework)+" "
+                save = save + str(student.too_tired)+" "
                 f.write(save)
 
         #画面组件
@@ -1132,6 +1133,8 @@ class Dormitory:
                         save = save + str(student.go_out)+" "
                         for i in range(0,5):
                             save = save + str(student.quality[i])+" "
+                        save = save + str(student.skiphomework)+" "
+                        save = save + str(student.too_tired)+" "
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
