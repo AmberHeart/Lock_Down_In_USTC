@@ -899,9 +899,10 @@ class Dormitory:
                         if now_event.update(student , now_event_id, pressed) == 1 or nextmove.update(pressed) == 1:
                             eveshown = 0
                             resteve -= 1
-                            te, now_event_id =spawn_event(student.state)
-                            now_event_solved = 0
-                            now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                            if student.state[5] < 88 and student.state[5] >= 32 :
+                                te, now_event_id = spawn_event(student.state)
+                                now_event_solved = 0
+                                now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
                     
                 if now_event.update(student , now_event_id, pressed) == 1:
                     eveshown = 0
@@ -955,7 +956,7 @@ class Dormitory:
                         cons = [0,0,0,0,0,2]
                         student.updatestate(cons)
                 #事件超时
-                if resteve > 0:
+                if resteve > 0 and student.state[5] < 88 and student.state[5] >= 32:
                     if EventList.refreshneed[now_event_id][5] != 10000 and EventList.refreshneed[now_event_id][6] != 10000:
                         if EventList.refreshneed[now_event_id][5] != 0 or EventList.refreshneed[now_event_id][6] != 0:
                             if EventList.refreshneed[now_event_id][5] > student.state[5] or student.state[5] > EventList.refreshneed[now_event_id][6]:
