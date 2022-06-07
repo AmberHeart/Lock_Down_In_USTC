@@ -724,6 +724,8 @@ class Dormitory:
                 return 11
             if student.too_low[4] >= 5:
                 return 12
+            if day >= 30 :
+                return 13
         #更新图像
 
             #更换寝室背景：
