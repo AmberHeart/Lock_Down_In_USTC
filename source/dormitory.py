@@ -650,8 +650,20 @@ class Dormitory:
 
             if eventid == 76 and chosen == 0 or eventid == 77 and chosen == 0 or eventid == 78 and chosen == 0 or eventid == 79 and chosen == 0 or eventid == 88 and chosen == 0 or eventid == 89 and chosen == 0 or eventid == 92 and chosen == 0 or eventid == 93 and chosen == 0:
                 student.harmony += 1
-            
-            
+
+            #连续事件
+            if eventid == 108 and chosen == 0:#跳转至109
+                te = EventList.evelist[109]
+                now_event_id = 109
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
+
+            if eventid == 108 and chosen == 1:#跳转至110
+                te = EventList.evelist[110]
+                now_event_id = 110
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
+    
 
             #连续事件
             if eventid == 37 and chosen == 0:#跳转至38

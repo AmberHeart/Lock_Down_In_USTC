@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 106
+    event_num = 111
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -681,5 +681,23 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["无事发生 san值+1","得意忘形 san值-1 智商-1"])
     refreshneed.append([0,0,0,0,0,48,80])
+    #108 看到同学很多天没洗衣服（连续）
+    evelist.append(eve("../res/image/脏衣服.png","看到有同学很久没洗衣服", 2 ,["提醒他试试","不关我事吧"] , ["提醒","不管"]))
+    effect.append([[0,0,0,0,0, 2],[0,0,0,0,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["提醒","不管"])
+    refreshneed.append([0,0,0,0,0,40,64])
+    #109 洗衣服（子事件1）
+    evelist.append(eve("../res/image/脏衣服.png","他听了决定去洗", 2 ,["让他洗呗","去帮帮他"] , ["他洗完了","助人为乐捏"]))
+    effect.append([[0,0,0,0,+1, 2],[0,0,+1,0,+1, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["清洁+1","助人为乐 san值+1 清洁+1"])
+    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件108的子事件1
+    #110 洗衣服（子事件2）
+    evelist.append(eve("../res/image/脏衣服.png","真的不管吗", 2 ,["不管了","算了还是提醒一下吧"] , ["一段时间后蟑螂泛滥","完成清洁"]))
+    effect.append([[0,0,0,0,-2, 2],[0,0,0,0,+1, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]])
+    message.append(["蟑螂泛滥 清洁-2","完成清洁 清洁+1"])
+    refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件108的子事件2
 
 
