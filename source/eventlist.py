@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 111
+    event_num = 112
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -699,5 +699,12 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
     message.append(["蟑螂泛滥 清洁-2","完成清洁 清洁+1"])
     refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件108的子事件2
+    #111 爆肝小组作业
+    evelist.append(eve("../res/image/爆肝.png","小组作业报告在即，却发现组员没完成任务", 2 ,["自己肝完","一起开摆"] , ["好累啊","报告的时候大寄"]))
+    effect.append([[0,0,-2,0,0, 8],[0,0,-1,-2,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["好累 san值-2","寄 san值-1 智商-2"])
+    refreshneed.append([0,0,0,0,0,72,80])
+
 
 
