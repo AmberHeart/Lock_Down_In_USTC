@@ -730,7 +730,7 @@ class Dormitory:
                 return 12
             if day >= 30 :
                 return 13
-            if student.harmony >= 1 :
+            if student.harmony >= 10 :
                 return 14
         #更新图像
 
