@@ -669,5 +669,17 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["大晚上唱歌扰民了 san值-1 智商-1","无事发生 san值-1"])
     refreshneed.append([0,0,0,0,0,78,84])
+    #106 网络冲突（对线输了）
+    evelist.append(eve("../res/image/舆论.png","上网又看到有人在争论", 2 ,["理智看待，不妄加评论","我也要来"] , ["无事发生","和人对线输了，越想越气"]))
+    effect.append([[0,0,+1,0,0, 4],[0,0,-1,-1,0, 6]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["无事发生 san值+1","越想越气 san值-1 智商-1"])
+    refreshneed.append([0,0,0,0,0,48,80])
+    #107 网络冲突（对线赢了）
+    evelist.append(eve("../res/image/舆论.png","上网又看到有人在争论", 2 ,["理智看待，不妄加评论","我也要来"] , ["无事发生","对线赢了，得意忘形"]))
+    effect.append([[0,0,+1,0,0, 4],[0,0,-1,-1,0, 6]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["无事发生 san值+1","得意忘形 san值-1 智商-1"])
+    refreshneed.append([0,0,0,0,0,48,80])
 
 
