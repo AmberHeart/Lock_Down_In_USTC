@@ -719,7 +719,7 @@ class EventList:
     refreshneed.append([0,0,0,0,0,40,72])
     #114 分发食品（中饱私囊）
     evelist.append(eve("../res/image/食品物资.png","学校发了一批食品，这次是你领取", 2 ,["刚好自己缺着，留点","照常分发给同学"] , ["被发现了","无事发生"]))
-    effect.append([-1,0,-1,-1,0, 8],[+1,0,0,0,0, 2]])
+    effect.append([-1,0,-1,-1,0, 8],[+1,0,0,0,0, 2])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["被发现了 san值-1 智商-1 饥饿值-1","无事发生 饥饿值+1"])
     refreshneed.append([0,0,0,0,0,40,72])
@@ -729,3 +729,15 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["被发现了 san值-1 智商-1 口渴值-1","无事发生 口渴值+1"])
     refreshneed.append([0,0,0,0,0,40,72])
+    #116 一场话剧（疫情期间限制人数）
+    evelist.append(eve("../res/image/话剧.png","社团有一场话剧表演，可是疫情期间限制人数", 2 ,["线下抢着试试","线上看吧"] , ["没抢到，甚至再看线上错过了开头","线上观看吧"]))
+    effect.append([[0,0,-1,0,0, 8],[0,0,+1,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["下次一定线上 san值-1","疫情期间就好好看线上吧 san值+1"])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #117 毕业典礼（可我没毕业欸）筹备
+    evelist.append(eve("../res/image/毕业.png","临近毕业季，学长邀请你帮忙准备毕业典礼", 2 ,["帮帮","太懒了"] , ["帮帮吧","躺躺更舒服"]))
+    effect.append([[0,0,+1,+1,-1, 8],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["帮帮 san值+1 智商+1 清洁-1","躺躺"])
+    refreshneed.append([0,0,0,0,0,48,72])
