@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 112
+    event_num = 114
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -705,6 +705,15 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["好累 san值-2","寄 san值-1 智商-2"])
     refreshneed.append([0,0,0,0,0,72,80])
-
-
-
+    #112 防护用品（电商版）
+    evelist.append(eve("../res/image/防护用品.png","在网上看到可以购进一批低价防疫用品", 2 ,["财富自由近在眼前","算了吧"] , ["被骗了","无事发生"]))
+    effect.append([[0,0,-1,-2,0, 8],[0,0,0,0,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["被骗了 san值-1 智商-2","无事发生"])
+    refreshneed.append([0,0,0,0,0,40,72])
+    #113 防护用品（中饱私囊版）
+    evelist.append(eve("../res/image/防护用品.png","学校发了一批防疫用品，这次是你领取", 2 ,["刚好自己缺着，留点","照常分发给同学"] , ["被发现了","无事发生"]))
+    effect.append([[0,0,-2,-1,0, 8],[0,0,0,0,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["被发现了 san值-2 智商-1","无事发生"])
+    refreshneed.append([0,0,0,0,0,40,72])
