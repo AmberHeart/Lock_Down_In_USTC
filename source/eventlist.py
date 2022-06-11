@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 114
+    event_num = 116
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -716,4 +716,16 @@ class EventList:
     effect.append([[0,0,-2,-1,0, 8],[0,0,0,0,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["被发现了 san值-2 智商-1","无事发生"])
+    refreshneed.append([0,0,0,0,0,40,72])
+    #114 分发食品（中饱私囊）
+    evelist.append(eve("../res/image/食品物资.png","学校发了一批食品，这次是你领取", 2 ,["刚好自己缺着，留点","照常分发给同学"] , ["被发现了","无事发生"]))
+    effect.append([-1,0,-1,-1,0, 8],[+1,0,0,0,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["被发现了 san值-1 智商-1 饥饿值-1","无事发生 饥饿值+1"])
+    refreshneed.append([0,0,0,0,0,40,72])
+    #115 分发饮品（中饱私囊）
+    evelist.append(eve("../res/image/食品物资.png","学校发了一批饮品，这次是你领取", 2 ,["刚好自己缺着，留点","照常分发给同学"] , ["被发现了","无事发生"]))
+    effect.append([[0,-1,-1,-1,0, 8],[0,+1,0,0,0, 2]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["被发现了 san值-1 智商-1 口渴值-1","无事发生 口渴值+1"])
     refreshneed.append([0,0,0,0,0,40,72])
