@@ -741,3 +741,22 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["帮帮 san值+1 智商+1 清洁-1","躺躺"])
     refreshneed.append([0,0,0,0,0,48,72])
+    #118 线上招生
+    evelist.append(eve("../res/image/中科大.jpg","到招生季啦，参加线上招生？", 2 ,["去捞学弟学妹咯","太懒了"] , ["捞学弟学妹0v0","躺躺更舒服"]))
+    effect.append([[0,0,+1,+1,0, 8],[0,0,0,0,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["去捞学弟学妹 san值+1 智商+1 ","躺躺"])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #119 LPL（赢了）
+    evelist.append(eve("../res/image/LPL.jpg","今晚有电竞比赛，去看看？", 2 ,["去看去看！","还是去卷卷"] , ["支持的战队所向披靡","卷卷了捏"]))
+    effect.append([[0,0,+2,0,0, 8],[0,0,0,1,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["我们是冠军！ san值+2  ","小卷一下 智商+1"])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #120 LPL（输了）
+    evelist.append(eve("../res/image/LPL.jpg","今晚有电竞比赛，去看看？", 2 ,["去看去看！","还是去卷卷"] , ["支持的战队一败涂地..","卷卷了捏"]))
+    effect.append([[0,0,-2,0,0, 8],[0,0,0,1,0, 8]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["呜呜呜~输了~~ san值-2  ","小卷一下 智商+1"])
+    refreshneed.append([0,0,0,0,0,48,72])
+
