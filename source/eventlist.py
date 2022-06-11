@@ -11,7 +11,7 @@ class EventList:
             self.resulttext = resulttext
 
     #事件总数，每次加事件的时候记得改
-    event_num = 104
+    event_num = 106
     
     evelist = []
     #属性增减 饥饿值 口渴值 san值 智商 清洁值 时间(单位15min) (单个事件的时间不要超过37)
@@ -657,3 +657,17 @@ class EventList:
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["在校内也可以过生日哦 不要忘记防疫捏","生日的眷顾 无事发生 但有点不安 san值-1"])
     refreshneed.append([0,0,0,0,0,48,68])
+    #104 放声歌唱（唱）
+    evelist.append(eve("../res/image/唱歌.png","疫情封了许久，突然很想唱歌", 2 ,["想唱就唱","算了吧，这可是学校"] , ["唱完心情不错","无事发生"]))
+    effect.append([[0,0,+1,0,0, 8],[0,0,-1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["释放自我 san值+1","无事发生 san值-1"])
+    refreshneed.append([0,0,0,0,0,48,72])
+    #105 放声歌唱（晚上）
+    evelist.append(eve("../res/image/唱歌.png","疫情封了许久，突然很想唱歌", 2 ,["想唱就唱","算了吧，这可是学校"] , ["太晚了哦","无事发生"]))
+    effect.append([[0,0,-1,-1,0, 4],[0,0,-1,0,0, 4]])
+    limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
+    message.append(["大晚上唱歌扰民了 san值-1 智商-1","无事发生 san值-1"])
+    refreshneed.append([0,0,0,0,0,78,84])
+
+
