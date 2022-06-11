@@ -719,7 +719,7 @@ class EventList:
     refreshneed.append([0,0,0,0,0,40,72])
     #114 分发食品（中饱私囊）
     evelist.append(eve("../res/image/食品物资.png","学校发了一批食品，这次是你领取", 2 ,["刚好自己缺着，留点","照常分发给同学"] , ["被发现了","无事发生"]))
-    effect.append([-1,0,-1,-1,0, 8],[+1,0,0,0,0, 2])
+    effect.append([[-1,0,-1,-1,0, 8],[+1,0,0,0,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
     message.append(["被发现了 san值-1 智商-1 饥饿值-1","无事发生 饥饿值+1"])
     refreshneed.append([0,0,0,0,0,40,72])
