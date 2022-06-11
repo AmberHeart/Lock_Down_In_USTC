@@ -466,6 +466,7 @@ class Dormitory:
                 student.quality[i] = int(save1[42 + i])
             student.skiphomework = int(save1[47])
             student.too_tired = int(save1[48])
+            student.harmony = int(save1[49])
 
             te , now_event_id= spawn_event(student.state)
             now_event_solved = 0
@@ -497,6 +498,7 @@ class Dormitory:
                     save = save + str(student.quality[i])+" "
                 save = save + str(student.skiphomework)+" "
                 save = save + str(student.too_tired)+" "
+                save = save + str(student.harmony)+" "
                 f.write(save)
 
         #画面组件
@@ -1155,6 +1157,7 @@ class Dormitory:
                             save = save + str(student.quality[i])+" "
                         save = save + str(student.skiphomework)+" "
                         save = save + str(student.too_tired)+" "
+                        save = save + str(student.harmony)+" "
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
