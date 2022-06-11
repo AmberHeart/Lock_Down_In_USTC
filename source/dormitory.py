@@ -229,6 +229,7 @@ class Dormitory:
                 self.quality = [0,0,0,0,0] #德智体美劳五个指标
                 self.skiphomework = 0
                 self.too_tired = 0
+                self.harmony = 0
                 
 
             def updatestate(self,consume):
@@ -646,6 +647,9 @@ class Dormitory:
                     now_item[3][1] += -1
                 elif now_item[3][0] > 0:
                     now_item[3][0] += -1
+
+            if eventid == 76 and chosen == 0 or eventid == 77 and chosen == 0 or eventid == 78 and chosen == 0 or eventid == 79 and chosen == 0 or eventid == 88 and chosen == 0 or eventid == 89 and chosen == 0 or eventid == 92 and chosen == 0 or eventid == 93 and chosen == 0:
+                student.harmony += 1
             
             
 
@@ -726,6 +730,8 @@ class Dormitory:
                 return 12
             if day >= 30 :
                 return 13
+            if student.harmony >= 1 :
+                return 14
         #更新图像
 
             #更换寝室背景：
