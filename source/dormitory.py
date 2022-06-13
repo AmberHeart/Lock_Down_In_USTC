@@ -746,6 +746,8 @@ class Dormitory:
                 return 13
             if student.harmony >= 10 :
                 return 14
+            if student.gpa >= 4 :
+                return 15
         #更新图像
 
             #更换寝室背景：
