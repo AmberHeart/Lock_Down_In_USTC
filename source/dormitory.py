@@ -746,7 +746,7 @@ class Dormitory:
                 return 13
             if student.harmony >= 10 :
                 return 14
-            if student.gpa >= 4 :
+            if student.gpa > 4 :
                 return 15
         #更新图像
 
@@ -1043,9 +1043,9 @@ class Dormitory:
                         day_queue.append(day)
                         examscore = random.randint(0,100) + 2*student.state[2]
                         if examscore >= 70:
-                            student.gpa += 0.3
-                            message_queue.append("考试真简单，我还想多考点，GPA+0.3")
-                        elif examscore <= 20:
+                            student.gpa += 0.5
+                            message_queue.append("考试真简单，我还想多考点，GPA+0.5")
+                        elif examscore <= 30:
                             student.gpa -= 1
                             message_queue.append("糟了考砸了，GPA-1.0")
                         else:
