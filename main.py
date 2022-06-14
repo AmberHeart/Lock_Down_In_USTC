@@ -1,3 +1,5 @@
-import source.supermarket
+import source.game
+
+source.game.Game()
 
 
