@@ -229,6 +229,7 @@ class Dormitory:
                 self.quality = [0,0,0,0,0] #德智体美劳五个指标
                 self.skiphomework = 0
                 self.too_tired = 0
+                self.harmony = 0
                 
 
             def updatestate(self,consume):
@@ -465,6 +466,7 @@ class Dormitory:
                 student.quality[i] = int(save1[42 + i])
             student.skiphomework = int(save1[47])
             student.too_tired = int(save1[48])
+            student.harmony = int(save1[49])
 
             te , now_event_id= spawn_event(student.state)
             now_event_solved = 0
@@ -496,6 +498,7 @@ class Dormitory:
                     save = save + str(student.quality[i])+" "
                 save = save + str(student.skiphomework)+" "
                 save = save + str(student.too_tired)+" "
+                save = save + str(student.harmony)+" "
                 f.write(save)
 
         #画面组件
@@ -646,8 +649,23 @@ class Dormitory:
                     now_item[3][1] += -1
                 elif now_item[3][0] > 0:
                     now_item[3][0] += -1
-            
-            
+
+            if eventid == 76 and chosen == 0 or eventid == 77 and chosen == 0 or eventid == 78 and chosen == 0 or eventid == 79 and chosen == 0 or eventid == 88 and chosen == 0 or eventid == 89 and chosen == 0 or eventid == 92 and chosen == 0 or eventid == 93 and chosen == 0:
+                student.harmony += 1
+
+            #连续事件
+            if eventid == 108 and chosen == 0:#跳转至109
+                te = EventList.evelist[109]
+                now_event_id = 109
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
+
+            if eventid == 108 and chosen == 1:#跳转至110
+                te = EventList.evelist[110]
+                now_event_id = 110
+                tnow_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
+                return tnow_event , now_event_id , 0
+    
 
             #连续事件
             if eventid == 37 and chosen == 0:#跳转至38
@@ -724,6 +742,12 @@ class Dormitory:
                 return 11
             if student.too_low[4] >= 5:
                 return 12
+            if day >= 30 :
+                return 13
+            if student.harmony >= 10 :
+                return 14
+            if student.gpa > 4 :
+                return 15
         #更新图像
 
             #更换寝室背景：
@@ -1019,9 +1043,9 @@ class Dormitory:
                         day_queue.append(day)
                         examscore = random.randint(0,100) + 2*student.state[2]
                         if examscore >= 70:
-                            student.gpa += 0.3
-                            message_queue.append("考试真简单，我还想多考点，GPA+0.3")
-                        elif examscore <= 20:
+                            student.gpa += 0.5
+                            message_queue.append("考试真简单，我还想多考点，GPA+0.5")
+                        elif examscore <= 30:
                             student.gpa -= 1
                             message_queue.append("糟了考砸了，GPA-1.0")
                         else:
@@ -1135,6 +1159,7 @@ class Dormitory:
                             save = save + str(student.quality[i])+" "
                         save = save + str(student.skiphomework)+" "
                         save = save + str(student.too_tired)+" "
+                        save = save + str(student.harmony)+" "
                         f.write(save)
                     
             openevent.text = "事件余"+str(resteve)
