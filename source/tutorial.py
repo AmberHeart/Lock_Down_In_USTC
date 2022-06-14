@@ -14,6 +14,10 @@ class Tutorial:
         stage = []
         stage.append (pygame.image.load("../res/image/教程0.png").convert())
         stage.append (pygame.image.load("../res/image/教程1.png").convert())
+        stage.append (pygame.image.load("../res/image/教程2.png").convert())
+        stage.append (pygame.image.load("../res/image/教程3.png").convert())
+        stage.append (pygame.image.load("../res/image/教程4.png").convert())
+        stage.append (pygame.image.load("../res/image/教程5.png").convert())
         #创建时钟对象（控制游戏的FPS）
 
         clock = pygame.time.Clock()
@@ -33,7 +37,7 @@ class Tutorial:
                     cnt += 1
             
 
-            if cnt == 2:
+            if cnt == 6:
                 return 
             self.blit(stage[cnt],(0,0))
                 

@@ -38,7 +38,7 @@ class Tips:
                 x += bounds.width + space.width
 
         #按钮类
-        
+        pressed = [0]
         class button(pygame.sprite.Sprite):
             def __init__(self,filename1,location,font,text):
                 pygame.sprite.Sprite.__init__(self)
@@ -58,7 +58,8 @@ class Tips:
                     if self.color == (0,0,0):
                         self.color = (255,255,255)
                     buttons = pygame.mouse.get_pressed()
-                    if buttons[0]:
+                    if buttons[0] and pressed[0]:
+                        pressed[0] = 0
                         return 1
                     else:
                         return 0
@@ -99,6 +100,8 @@ class Tips:
                 if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             return 0
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pressed = [1]
         #更新按钮
             if nobutton.update() == 1:
                 return 0
