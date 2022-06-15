@@ -337,7 +337,7 @@ class EventList:
     evelist.append(eve("../res/image/大物实验.jpg","大物实验做完了，赶快做一下出门测？", 2 ,["开做","过会在做"] , ["完成了出门测","坏了，本来想过会做结果忘了"]))
     effect.append([[0,0,0,0,0, 8],[0,0,-2,0,0, 8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["出门测完成","忘做出门测血亏，san值-2"])
+    message.append(["出门测完成","忘做出门测血亏，san值-1"])
     refreshneed.append([0,0,0,5,0,76,88])
     #52 研讨课
     evelist.append(eve("../res/image/研讨课.jpg","组长又来催研讨课进度了，疫情不是摸鱼的理由", 2 ,["开做","我摆"] , ["众人拾柴火焰高","摸鱼爽，一直模一直爽"]))
