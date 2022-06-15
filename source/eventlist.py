@@ -388,7 +388,7 @@ class EventList:
     message.append(["累！","累！"])
     refreshneed.append([0,0,0,0,0,32,60])
     #60 Ta邀请约会
-    evelist.append(eve("../res/image/情侣.jpg","Ta约你到一教赏花", 2 ,["好耶！","不去，专注学业"] , ["开心","智者不如爱河.."]))
+    evelist.append(eve("../res/image/情侣.jpg","Ta约你到一教赏花", 2 ,["好耶！","不去，专注学业"] , ["开心","智者不入爱河.."]))
     effect.append([[0,0,1,0,0, 12],[0,0,0,0,0, 12]])
     limit.append([[0,0,0,0,8],[0,0,0,0,0]])
     message.append(["和Ta去玩 san值+1","学习，不过不知为什么今天效率好低"])
@@ -400,7 +400,7 @@ class EventList:
     message.append(["和Ta去学习，开心，但是心里都是Ta，学不进去 san值+1","学习，但是好失落，san值-1，智商+1"])
     refreshneed.append([0,0,0,0,0,32,72])
     #62 Ta邀请去学习2
-    evelist.append(eve("../res/image/情侣学习.jpg","Ta约你去学习", 2 ,["好耶！","不去，还是自己学习"] , ["开心，学习变得快乐","智者不如爱河.."]))
+    evelist.append(eve("../res/image/情侣学习.jpg","Ta约你去学习", 2 ,["好耶！","不去，还是自己学习"] , ["开心，学习变得快乐","智者不入爱河.."]))
     effect.append([[0,0,1,1,0, 12],[0,0,-1,1,0, 12]])
     limit.append([[0,0,0,0,8],[0,0,0,0,0]])
     message.append(["和Ta去学习，开心，学习效率倍增 san值+1 智商+1","学习，但是好失落，san值-1，智商+1"])
