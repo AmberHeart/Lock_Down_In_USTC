@@ -34,9 +34,13 @@ class Tutorial:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    cnt += 1
+                    if event.button == 1:
+                        cnt += 1
+                    if event.button == 3:
+                        cnt -= 1
             
-
+            if cnt == -1:
+                return
             if cnt == 6:
                 return 
             self.blit(stage[cnt],(0,0))

@@ -1012,7 +1012,7 @@ class Dormitory:
                             hvrolled = 1
                             rollnum = random.randint(0,99)
                             rolltimes += 1
-                            if rollnum > 95 - rolltimes*10:
+                            if rollnum > 95 - rolltimes*3:
                                 can_go = 1
                                 rolltimes = 0
                                 if len(message_queue) == 6:
