@@ -234,7 +234,7 @@ class Dormitory:
 
             def updatestate(self,consume):
 
-                if consume[0] > 0 and self.without_fruit >= 10:
+                if consume[0] > 0 and self.without_fruit >= 7:
                     consume[2] -= 1
                 for i in range(0,5):
                     self.state[i] += consume[i]
@@ -468,7 +468,9 @@ class Dormitory:
             student.too_tired = int(save1[48])
             student.harmony = int(save1[49])
 
-            te , now_event_id= spawn_event(student.state)
+            tempstate = student.state
+            tempstate[5] += 2
+            te , now_event_id= spawn_event(tempstate)
             now_event_solved = 0
             now_event = choose_event(self , te.image , font1 , te.text , te.choice_num , te.choice_text, te.resulttext)
         else:
@@ -738,7 +740,7 @@ class Dormitory:
                 return 9
             if student.gpa <= 1:
                 return 10
-            if student.too_low[2] >= 3:
+            if student.too_low[2] >= 2:
                 return 11
             if student.too_low[4] >= 5:
                 return 12
@@ -995,7 +997,7 @@ class Dormitory:
                                     del time_queue[0]
                                 time_queue.append(student.state[5])
                                 day_queue.append(day)
-                                message_queue.append("呀好像忘了啥，事件超时已消失")
+                                message_queue.append("真不巧，事件超时已过期")
                 
                 if marketroll.update(pressed) == 1:
                     if student.state[5] >= 88 or student.state[5] < 32:
@@ -1012,7 +1014,7 @@ class Dormitory:
                             hvrolled = 1
                             rollnum = random.randint(0,99)
                             rolltimes += 1
-                            if rollnum > 95 - rolltimes*3:
+                            if rollnum > 95 - rolltimes*1 or rolltimes == 8:
                                 can_go = 1
                                 rolltimes = 0
                                 if len(message_queue) == 6:
@@ -1068,7 +1070,7 @@ class Dormitory:
                     for i in range(0,5):
                         tmpstate.append(student.state[i])
                     #状态更新
-                    student.updatestate([-2,-2,2,0,-2,0])
+                    student.updatestate([-2,-2,1,0,-2,0])
                     student.state[5] = 32
                     student.without_fruit += 1
                     if len(message_queue) == 6:
@@ -1081,7 +1083,7 @@ class Dormitory:
                     tmpmessage = tmpmessage + "饥饿值-" + str(tmpstate[0]-student.state[0]) + "，"
                     tmpmessage = tmpmessage + "口渴值-" + str(tmpstate[1]-student.state[1]) + "，"
                     tmpmessage = tmpmessage + "清洁值-" +str(tmpstate[4]-student.state[4]) + "，"
-                    tmpmessage = tmpmessage + "san值+" +str(tmpstate[2]-student.state[2]) + "，"
+                    tmpmessage = tmpmessage + "san值+" +str(student.state[2] - tmpstate[2]) + "，"
                     tmpmessage = tmpmessage + "未处理的事件已清空"
                     message_queue.append(tmpmessage)
                     if cat_run != 0:
