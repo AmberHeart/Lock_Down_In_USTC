@@ -738,7 +738,7 @@ class Dormitory:
                 return 9
             if student.gpa <= 1:
                 return 10
-            if student.too_low[2] >= 2:
+            if student.too_low[2] >= 3:
                 return 11
             if student.too_low[4] >= 5:
                 return 12
@@ -1067,7 +1067,8 @@ class Dormitory:
                     tmpstate = []
                     for i in range(0,5):
                         tmpstate.append(student.state[i])
-                    student.updatestate([-2,-2,0,0,-2,0])
+                    #状态更新
+                    student.updatestate([-2,-2,2,0,-2,0])
                     student.state[5] = 32
                     student.without_fruit += 1
                     if len(message_queue) == 6:
@@ -1080,6 +1081,7 @@ class Dormitory:
                     tmpmessage = tmpmessage + "饥饿值-" + str(tmpstate[0]-student.state[0]) + "，"
                     tmpmessage = tmpmessage + "口渴值-" + str(tmpstate[1]-student.state[1]) + "，"
                     tmpmessage = tmpmessage + "清洁值-" +str(tmpstate[4]-student.state[4]) + "，"
+                    tmpmessage = tmpmessage + "san值+" +str(tmpstate[2]-student.state[2]) + "，"
                     tmpmessage = tmpmessage + "未处理的事件已清空"
                     message_queue.append(tmpmessage)
                     if cat_run != 0:
