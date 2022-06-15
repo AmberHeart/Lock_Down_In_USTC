@@ -509,9 +509,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,48,72])
     #80 上厕所没带纸
     evelist.append(eve("../res/image/一团乱麻.png","在厕所的你没有带纸，你会选择？", 2 ,["试试用口罩？？？","等室友来了向其求救"] , ["不愧是你@~@","等了很久，人麻了"]))
-    effect.append([[0,0,-2,0,-2, 4],[-1,-1,-1,0,0, 12]])
+    effect.append([[0,0,-1,0,-2, 4],[-1,-1,-1,0,0, 12]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
-    message.append(["真亏你能啊 san值-2 清洁-2","饥饿-1 口渴-1 san值-1"])
+    message.append(["真亏你能啊 san值-1 清洁-2","饥饿-1 口渴-1 san值-1"])
     refreshneed.append([0,0,0,0,0,72,80])
     #81 口罩用尽（要带）
     evelist.append(eve("../res/image/口罩.png","突然发现没有多的口罩可用", 2 ,["从...里翻个旧的吧","不戴了！"] , ["这...至少防疫意识值得表扬","让你不带口罩！受到批评教育"]))
@@ -533,9 +533,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,40,60])
     #84 健康上报（吃）
     evelist.append(eve("../res/image/健康上报.jpg","在床上突然想起还没健康上报", 2 ,["立即赶去上报","算了，明天再说"] , ["无事发生","第二天忘记了，导致没时间吃早餐"]))
-    effect.append([[0,0,0,0,0, 4],[-1,0,-1,0,0, 4]])
+    effect.append([[0,0,0,0,0, 4],[-1,0,0,0,0, 4]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
-    message.append(["无事发生","第二天没吃早餐 san值-1 饥饿-1"])
+    message.append(["无事发生","第二天没吃早餐  饥饿-1"])
     refreshneed.append([0,0,0,0,0,80,88])
     #85 健康上报（课）
     evelist.append(eve("../res/image/健康上报.jpg","在床上突然想起还没健康上报", 2 ,["立即赶去上报","算了，明天再说"] , ["无事发生","忘记了，上课迟到了一大截"]))
@@ -545,9 +545,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,80,88])
     #86 志愿者（负效果）
     evelist.append(eve("../res/image/志愿者.png","芳草社招防疫志愿者咯",2 ,["马上参加","算了算了，还是在寝室睡大觉"] , ["监督防疫时与人发生冲突","听说有志愿者防疫时和人发生冲突，为之难过"]))
-    effect.append([[0,0,-2,0,0,20],[0,0,-1,0,0,8]])
+    effect.append([[0,0,0,-1,0,20],[0,0,-1,0,0,8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["防疫工作过程与人冲突，san值-2","心情不好，san值-1"])
+    message.append(["防疫工作过程与人冲突 智商-1","心情不好，san值-1"])
     refreshneed.append([0,0,0,0,0,32,60])
     #87 消杀
     evelist.append(eve("../res/image/消杀.jpg","参与校园消杀工作？",2 ,["马上参加","算了算了，还是在寝室睡大觉"] , ["消杀到位","....."]))
@@ -563,9 +563,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,32,60])
     #89 心理咨询2
     evelist.append(eve("../res/image/舍友心理问题.jpg","因为被关在学校里，每天想出去玩的舍友抑郁了",2 ,["找心理委员帮忙","我没办法.."] , ["经过友好沟通，你也抑郁了","放着不管好像不好"]))
-    effect.append([[0,0,+1,0,0,20],[0,0,-2,0,0,8]])
+    effect.append([[0,0,+1,0,0,20],[0,0,-1,0,0,8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]])
-    message.append(["室友心情变好了，你很开心，san值+1","没有管室友，san值-2"])
+    message.append(["室友心情变好了，你很开心，san值+1","没有管室友，san值-1"])
     refreshneed.append([0,0,0,0,0,32,60])
     #90 消毒水和酒精
     evelist.append(eve("../res/image/消毒液.jpg","消毒液用完了",2 ,["找生活委员领取","找安全委员领取"] , ["领到了消毒液","安全委员让你找生活委员QAQ"]))
@@ -665,9 +665,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,48,72])
     #105 放声歌唱（晚上）
     evelist.append(eve("../res/image/唱歌.png","疫情封了许久，突然很想唱歌", 2 ,["想唱就唱","算了吧，这可是学校"] , ["太晚了哦","无事发生"]))
-    effect.append([[0,0,-1,-1,0, 4],[0,0,-1,0,0, 4]])
+    effect.append([[0,0,-1,-1,0, 4],[0,0,0,0,0, 4]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
-    message.append(["大晚上唱歌扰民了 san值-1 智商-1","无事发生 san值-1"])
+    message.append(["大晚上唱歌扰民了 san值-1 智商-1","无事发生"])
     refreshneed.append([0,0,0,0,0,78,84])
     #106 网络冲突（对线输了）
     evelist.append(eve("../res/image/舆论.png","上网又看到有人在争论", 2 ,["理智看待，不妄加评论","我也要来"] , ["无事发生","和人对线输了，越想越气"]))
@@ -701,9 +701,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,10000,10000])#标记为无法自然刷出 作为事件108的子事件2
     #111 爆肝小组作业
     evelist.append(eve("../res/image/爆肝.png","小组作业报告在即，却发现组员没完成任务", 2 ,["自己肝完","一起开摆"] , ["好累啊","报告的时候大寄"]))
-    effect.append([[0,0,-2,0,0, 8],[0,0,-1,-2,0, 2]])
+    effect.append([[0,0,0,0,0, 8],[0,0,-1,-1,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
-    message.append(["好累 san值-2","寄 san值-1 智商-2"])
+    message.append(["好累","寄 san值-1 智商-1"])
     refreshneed.append([0,0,0,0,0,72,80])
     #112 防护用品（电商版）
     evelist.append(eve("../res/image/防护用品.png","在网上看到可以购进一批低价防疫用品", 2 ,["财富自由近在眼前","算了吧"] , ["被骗了","无事发生"]))
@@ -713,9 +713,9 @@ class EventList:
     refreshneed.append([0,0,0,0,0,40,72])
     #113 防护用品（中饱私囊版）
     evelist.append(eve("../res/image/防护用品.png","学校发了一批防疫用品，这次是你领取", 2 ,["刚好自己缺着，留点","照常分发给同学"] , ["被发现了","无事发生"]))
-    effect.append([[0,0,-2,-1,0, 8],[0,0,0,0,0, 2]])
+    effect.append([[0,0,-1,-1,0, 8],[0,0,0,0,0, 2]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
-    message.append(["被发现了 san值-2 智商-1","无事发生"])
+    message.append(["被发现了 san值-1 智商-1","无事发生"])
     refreshneed.append([0,0,0,0,0,40,72])
     #114 分发食品（中饱私囊）
     evelist.append(eve("../res/image/食品物资.png","学校发了一批食品，这次是你领取", 2 ,["刚好自己缺着，留点","照常分发给同学"] , ["被发现了","无事发生"]))
@@ -755,8 +755,8 @@ class EventList:
     refreshneed.append([0,0,0,0,0,48,72])
     #120 LPL（输了）
     evelist.append(eve("../res/image/LPL.jpg","今晚有电竞比赛，去看看？", 2 ,["去看去看！","还是去卷卷"] , ["支持的战队一败涂地..","卷卷了捏"]))
-    effect.append([[0,0,-2,0,0, 8],[0,0,0,1,0, 8]])
+    effect.append([[0,0,-1,0,0, 8],[0,0,0,1,0, 8]])
     limit.append([[0,0,0,0,0],[0,0,0,0,0]]) 
-    message.append(["呜呜呜~输了~~ san值-2  ","小卷一下 智商+1"])
+    message.append(["呜呜呜~输了~~ san值-1  ","小卷一下 智商+1"])
     refreshneed.append([0,0,0,0,0,48,72])
 
